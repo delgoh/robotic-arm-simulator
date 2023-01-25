@@ -1,4 +1,3 @@
-import React from 'react'
 import { Matrix4 } from 'three';
 
 import Form from 'react-bootstrap/Form'
@@ -9,18 +8,19 @@ const LinkEntry = ({robotParam, setRobotParams}) => {
   const handleInputChange = (e) => {
     let newState = {...robotParam};
 
-    // TO ADD: IF NUMBER ENDS WITH '.' OR CHARACTER, IGNORE (HALFWAY TYPING FLOAT / INVALID CHAR)
-    if (e.target.value === "") newState[e.target.id] = 0;
-    else if (/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/.test(e.target.value)) {
-      newState[e.target.id] = parseFloat(e.target.value);
+    if (!isNaN(e.target.value)) {
+      newState[e.target.id] = e.target.value;
 
       setRobotParams((prevRobotParams) => {
         let newRobotParams = [...prevRobotParams];
         newRobotParams[newState.linkId] = newState;
-        // newRobotParams = updateAllT(newRobotParams);
         return newRobotParams;
-      });
+      })
     }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleUpdateMatrix(e);
   };
 
   const handleUpdateMatrix = (e) => {
@@ -36,15 +36,21 @@ const LinkEntry = ({robotParam, setRobotParams}) => {
     const noOfLinks = paramsArray.length;
     const currentGlobalT = new Matrix4();
     let updatedParamsArray = [...paramsArray];
-    let theta = 0, r = 0, d = 0, alpha = 0;
-    let sinTheta = 0, cosTheta = 0, sinAlpha = 0, cosAlpha = 0;
+    let thetaStr = "", rStr = "", dStr = "", alphaStr = "";
+    let r = 0, d = 0, sinTheta = 0, cosTheta = 0, sinAlpha = 0, cosAlpha = 0;
 
     for (let i = 0; i < noOfLinks; i++) {
-      ({theta, r, d, alpha} = updatedParamsArray[i]);
-      sinTheta = Math.sin(theta);
-      cosTheta = Math.cos(theta);
-      sinAlpha = Math.sin(alpha);
-      cosAlpha = Math.cos(alpha);
+      thetaStr = updatedParamsArray[i].theta;
+      rStr = updatedParamsArray[i].r;
+      dStr = updatedParamsArray[i].d;
+      alphaStr = updatedParamsArray[i].alpha;
+
+      sinTheta = Math.sin(parseFloat(thetaStr));
+      cosTheta = Math.cos(parseFloat(thetaStr));
+      sinAlpha = Math.sin(parseFloat(alphaStr));
+      cosAlpha = Math.cos(parseFloat(alphaStr));
+      r = parseFloat(rStr);
+      d = parseFloat(dStr);
   
       updatedParamsArray[i].relativeT.set(
         cosTheta, (-1)*cosAlpha*sinTheta, sinAlpha*sinTheta, d*cosTheta,
@@ -58,16 +64,42 @@ const LinkEntry = ({robotParam, setRobotParams}) => {
       updatedParamsArray[i].globalT.copy(currentGlobalT);
     };
 
+    console.log(updatedParamsArray);
+
     return updatedParamsArray;
 };
 
   return (
     <InputGroup>
       <InputGroup.Text id="linkText">Link {robotParam.linkId}</InputGroup.Text>
-      <Form.Control id='theta' value={robotParam.theta} onChange={handleInputChange} onBlur={handleUpdateMatrix} />
-      <Form.Control id='r' value={robotParam.r} onChange={handleInputChange} onBlur={handleUpdateMatrix} />
-      <Form.Control id='d' value={robotParam.d} onChange={handleInputChange} onBlur={handleUpdateMatrix} />
-      <Form.Control id='alpha' value={robotParam.alpha} onChange={handleInputChange} onBlur={handleUpdateMatrix} />
+      <Form.Control
+        id='theta'
+        value={robotParam.theta}
+        onChange={handleInputChange}
+        onBlur={handleUpdateMatrix}
+        onKeyDown={handleKeyDown}
+      />
+      <Form.Control
+        id='r'
+        value={robotParam.r}
+        onChange={handleInputChange}
+        onBlur={handleUpdateMatrix}
+        onKeyDown={handleKeyDown}
+      />
+      <Form.Control
+        id='d'
+        value={robotParam.d}
+        onChange={handleInputChange}
+        onBlur={handleUpdateMatrix}
+        onKeyDown={handleKeyDown}
+      />
+      <Form.Control
+        id='alpha'
+        value={robotParam.alpha}
+        onChange={handleInputChange}
+        onBlur={handleUpdateMatrix}
+        onKeyDown={handleKeyDown}
+      />
     </InputGroup>
   );
 };

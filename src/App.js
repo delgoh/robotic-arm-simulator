@@ -14,67 +14,67 @@ const App = () => {
     [
       {
         linkId: 0,
-        theta: 0, //-1.57079, //-0.78539,
-        r: 0,
-        d: 0,
-        alpha: 0,
+        theta: "0", //-1.57079, //-0.78539,
+        r: "0",
+        d: "0",
+        alpha: "0",
         relativeT: new Matrix4(),
         globalT: new Matrix4()
       },
       {
         linkId: 1,
-        theta: Math.PI / 2,
-        r: 0,
-        d: 0,
-        alpha: -Math.PI / 2,
+        theta: (Math.PI / 2).toString(),
+        r: "0",
+        d: "0",
+        alpha: (-Math.PI / 2).toString(),
         relativeT: new Matrix4(),
         globalT: new Matrix4()
       },
       {
         linkId: 2,
-        theta: 0, // 1.57079,
-        r: 3,
-        d: 9,
-        alpha: 0,
+        theta: "0", // 1.57079,
+        r: "3",
+        d: "9",
+        alpha: "0",
         relativeT: new Matrix4(),
         globalT: new Matrix4()
       },
-      // {
-      //   linkId: 3,
-      //   theta: Math.PI / 2, //-1.57079, //-0.78539,
-      //   r: 0,
-      //   d: 0,
-      //   alpha: Math.PI / 2,
-      //   relativeT: new Matrix4(),
-      //   globalT: new Matrix4()
-      // },
-      // {
-      //   linkId: 4,
-      //   theta: 0, //-1.57079, //-0.78539,
-      //   r: 9,
-      //   d: 0,
-      //   alpha: -Math.PI / 2,
-      //   relativeT: new Matrix4(),
-      //   globalT: new Matrix4()
-      // },
-      // {
-      //   linkId: 5,
-      //   theta: 0, //-1.57079, //-0.78539,
-      //   r: 0,
-      //   d: 0,
-      //   alpha: Math.PI / 2,
-      //   relativeT: new Matrix4(),
-      //   globalT: new Matrix4()
-      // },
-      // {
-      //   linkId: 6,
-      //   theta: 0, //-1.57079, //-0.78539,
-      //   r: 1.2,
-      //   d: 0,
-      //   alpha: 0,
-      //   relativeT: new Matrix4(),
-      //   globalT: new Matrix4()
-      // }
+      {
+        linkId: 3,
+        theta: (Math.PI / 2).toString(), //-1.57079, //-0.78539,
+        r: "0",
+        d: "0",
+        alpha: (Math.PI / 2).toString(),
+        relativeT: new Matrix4(),
+        globalT: new Matrix4()
+      },
+      {
+        linkId: 4,
+        theta: "0", //-1.57079, //-0.78539,
+        r: "9",
+        d: "0",
+        alpha: (-Math.PI / 2).toString(),
+        relativeT: new Matrix4(),
+        globalT: new Matrix4()
+      },
+      {
+        linkId: 5,
+        theta: "0", //-1.57079, //-0.78539,
+        r: "0",
+        d: "0",
+        alpha: (Math.PI / 2).toString(),
+        relativeT: new Matrix4(),
+        globalT: new Matrix4()
+      },
+      {
+        linkId: 6,
+        theta: "0", //-1.57079, //-0.78539,
+        r: "1.2",
+        d: "0",
+        alpha: "0",
+        relativeT: new Matrix4(),
+        globalT: new Matrix4()
+      }
     ]
   );
 

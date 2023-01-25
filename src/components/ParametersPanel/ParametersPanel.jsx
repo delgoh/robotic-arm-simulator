@@ -18,10 +18,10 @@ const ParametersPanel = ({robotParams, setRobotParams}) => {
       setRobotParams((prevState) => {
         return [...prevState, {
           linkId: noOfLinks,
-          theta: noOfLinks, //-1.57079, //-0.78539,
-          r: 0,
-          d: 0,
-          alpha: 0,
+          theta: noOfLinks.toString(), //-1.57079, //-0.78539,
+          r: "0",
+          d: "0",
+          alpha: "0",
           relativeT: new Matrix4(),
           globalT: new Matrix4()
         }];
