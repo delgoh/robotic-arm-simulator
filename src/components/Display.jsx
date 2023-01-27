@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useEffect, useRef, useState } from 'react';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { Stats, OrbitControls } from '@react-three/drei';
 
 import styles from './Display.module.css';
@@ -30,16 +30,35 @@ const Box = (props) => {
 }
 
 const Display = ({robotParams, setRobotParams}) => {
+
+  // const [mainCamera, setMainCamera] = useState({
+  //   position: [-20, 5, 20],
+  //   fov: 25
+  // });
+
+  // useEffect(() => {
+  //   console.log(mainCamera.position);
+  // }, [mainCamera]);
+
+  // camera={{position: [-20, 5, 20], fov: 25}}
+
+  // const orbitRef = useRef();
+
+  // useFrame(() => {
+  //   console.log(orbitRef.current?.object.position);
+  // });
+
   return (
     <div className={styles.display}>
-      <Canvas camera={{position: [-20, 5, 20], fov: 25}}>
+      <Canvas camera={{position: [-20, 5, 20], fov: 25}} >
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         <Box position={[-8, 0, 0]} />
         <Robot robotParams={robotParams} setRobotParams={setRobotParams} />
-        <axesHelper args={[5]}/>
-        <OrbitControls />
-        <Stats />
+        <gridHelper args={[30, 30]} />
+        {/* <axesHelper args={[5]}/> */}
+        <OrbitControls  />
+        {/* <Stats /> */}
       </Canvas>
     </div>
   )
