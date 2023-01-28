@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Stats, OrbitControls } from '@react-three/drei';
 
 import styles from './Display.module.css';
 import Robot from './Robot';
-// import TestPoint from './TestPoint'
 
 const Box = (props) => {
   // This reference gives us direct access to the THREE.Mesh object
@@ -29,38 +28,45 @@ const Box = (props) => {
   )
 }
 
-const Display = ({robotParams, setRobotParams}) => {
+const CanvasControls = (props) => {
+  const canvasRef = useRef();
+  const orbitRef = useRef();
+  const [gridScale, setGridScale] = useState(20);
 
-  // const [mainCamera, setMainCamera] = useState({
-  //   position: [-20, 5, 20],
-  //   fov: 25
-  // });
+  useEffect(() => {
+    const onZoom = () => {
+      const camDist = orbitRef.current.getDistance();
+      if (camDist > 40) setGridScale(Math.floor((camDist - 20) / 20) * 20);
+    };
 
-  // useEffect(() => {
-  //   console.log(mainCamera.position);
-  // }, [mainCamera]);
-
-  // camera={{position: [-20, 5, 20], fov: 25}}
-
-  // const orbitRef = useRef();
-
-  // useFrame(() => {
-  //   console.log(orbitRef.current?.object.position);
-  // });
+    const currentCanvas = canvasRef.current;
+    currentCanvas.addEventListener('wheel', onZoom);
+    return () => {
+      currentCanvas.removeEventListener('wheel', onZoom);
+    }
+  }, []);
 
   return (
-    <div className={styles.display}>
+    <div className={styles.display} ref={canvasRef}>
       <Canvas camera={{position: [-20, 5, 20], fov: 25}} >
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <Box position={[-8, 0, 0]} />
-        <Robot robotParams={robotParams} setRobotParams={setRobotParams} />
-        <gridHelper args={[30, 30]} />
-        {/* <axesHelper args={[5]}/> */}
-        <OrbitControls  />
-        {/* <Stats /> */}
+        {props.children}
+        <OrbitControls ref={orbitRef}/>
+        <gridHelper args={[gridScale , gridScale / 2]} />
       </Canvas>
     </div>
+  )
+};
+
+const Display = ({robotParams, setRobotParams}) => {
+
+  return (
+    <CanvasControls>
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
+      <Box position={[-8, 0, 0]} />
+      <Robot robotParams={robotParams} setRobotParams={setRobotParams} />
+      <Stats />
+    </CanvasControls>
   )
 }
 
