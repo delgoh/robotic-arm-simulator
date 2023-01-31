@@ -11,7 +11,7 @@ const LinkEntry = ({robotParam, setRobotParams}) => {
       updateAllT(prevRobotParams);
       return prevRobotParams;
     });
-  }, []);
+  }, [setRobotParams]);
 
   const handleInputChange = (e) => {
     let newState = {...robotParam};

@@ -63,7 +63,7 @@ const Display = ({robotParams, setRobotParams}) => {
     <CanvasControls>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <Box position={[-8, 0, 0]} />
+      {/* <Box position={[-8, 0, 0]} /> */}
       <Robot robotParams={robotParams} setRobotParams={setRobotParams} />
       <Stats />
     </CanvasControls>

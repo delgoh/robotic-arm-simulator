@@ -15,7 +15,7 @@ const App = () => {
       {
         linkId: 0,
         theta: "0", //-1.57079, //-0.78539,
-        r: "0",
+        r: "3",
         d: "0",
         alpha: "0",
         relativeT: new Matrix4(),
@@ -23,10 +23,10 @@ const App = () => {
       },
       {
         linkId: 1,
-        theta: (Math.PI / 2).toString(),
-        r: "0",
+        theta: "0",
+        r: "-3",
         d: "0",
-        alpha: (-Math.PI / 2).toString(),
+        alpha: "0",
         relativeT: new Matrix4(),
         globalT: new Matrix4()
       },
@@ -41,19 +41,19 @@ const App = () => {
       },
       {
         linkId: 3,
-        theta: (Math.PI / 2).toString(), //-1.57079, //-0.78539,
+        theta: "45",
         r: "0",
         d: "0",
-        alpha: (Math.PI / 2).toString(),
+        alpha: "-90",
         relativeT: new Matrix4(),
         globalT: new Matrix4()
       },
       {
         linkId: 4,
-        theta: "0", //-1.57079, //-0.78539,
+        theta: "0",
         r: "9",
         d: "0",
-        alpha: (-Math.PI / 2).toString(),
+        alpha: "60",
         relativeT: new Matrix4(),
         globalT: new Matrix4()
       },
@@ -62,15 +62,15 @@ const App = () => {
         theta: "0", //-1.57079, //-0.78539,
         r: "0",
         d: "0",
-        alpha: (Math.PI / 2).toString(),
+        alpha: "-90",
         relativeT: new Matrix4(),
         globalT: new Matrix4()
       },
       {
         linkId: 6,
         theta: "0", //-1.57079, //-0.78539,
-        r: "1.2",
-        d: "0",
+        r: "2",
+        d: "2",
         alpha: "0",
         relativeT: new Matrix4(),
         globalT: new Matrix4()
