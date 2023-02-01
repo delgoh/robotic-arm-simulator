@@ -15,7 +15,7 @@ const MatrixOverlay = ({ robotParam }) => {
     <Html
       className={styles.matrixOverlay}
       center
-      distanceFactor={20}
+      distanceFactor={10}
     >
       <div className={styles.leftBracket}>
         <div className={styles.leftBracketInner}></div>
