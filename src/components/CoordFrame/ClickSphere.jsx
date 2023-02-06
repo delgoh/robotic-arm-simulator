@@ -8,7 +8,7 @@ const ClickSphere = ({size}) => {
   return (
     <mesh
       ref={clickSphereRef}
-      scale={isClicked ? 1.5 : 1}
+      scale={isClicked ? 1 : 0.5}
       onClick={(event) => setIsClicked(!isClicked)}
       onPointerOver={(event) => setIsHovered(true)}
       onPointerOut={(event) => setIsHovered(false)}

@@ -15,18 +15,18 @@ const MatrixOverlay = ({ robotParam }) => {
     <Html
       className={styles.matrixOverlay}
       center
-      distanceFactor={10}
+      distanceFactor={15}
     >
-      <div className={styles.leftBracket}>
-        <div className={styles.leftBracketInner}></div>
+      <div className={`${styles.bracket} ${styles.leftRoundedCorner}`}>
+        <div className={`${styles.bracketInner} ${styles.innerLeft} ${styles.leftRoundedCorner}`}></div>
       </div>
       <div className={styles.centerNumbers}>
         {globalTElems.map((globalTElem, index) => {
           return <div key={index} >{globalTElem.toFixed(DECIMAL_PLACES)}</div>
         })}
       </div>
-      <div className={styles.rightBracket}>
-        <div className={styles.rightBracketInner}></div>
+      <div className={`${styles.bracket} ${styles.rightRoundedCorner}`}>
+        <div className={`${styles.bracketInner} ${styles.innerRight} ${styles.rightRoundedCorner}`}></div>
       </div>
     </Html>
   )

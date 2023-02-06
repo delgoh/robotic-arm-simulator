@@ -5,6 +5,7 @@ import { Matrix4 } from 'three';
 import styles from './App.module.css'
 import Display from './components/Display';
 import ParametersPanel from './components/ParametersPanel/ParametersPanel';
+import AnimationPanel from './components/AnimationPanel/AnimationPanel';
 // import SettingsBar from './components/SettingsBar/SettingsBar';
 
 
@@ -19,7 +20,8 @@ const App = () => {
         d: "0",
         alpha: "0",
         relativeT: new Matrix4(),
-        globalT: new Matrix4()
+        globalT: new Matrix4(),
+        isVisible: true
       },
       {
         linkId: 1,
@@ -28,7 +30,8 @@ const App = () => {
         d: "0",
         alpha: "0",
         relativeT: new Matrix4(),
-        globalT: new Matrix4()
+        globalT: new Matrix4(),
+        isVisible: true
       },
       {
         linkId: 2,
@@ -37,7 +40,8 @@ const App = () => {
         d: "9",
         alpha: "0",
         relativeT: new Matrix4(),
-        globalT: new Matrix4()
+        globalT: new Matrix4(),
+        isVisible: true
       },
       {
         linkId: 3,
@@ -46,7 +50,8 @@ const App = () => {
         d: "0",
         alpha: "-90",
         relativeT: new Matrix4(),
-        globalT: new Matrix4()
+        globalT: new Matrix4(),
+        isVisible: true
       },
       {
         linkId: 4,
@@ -55,34 +60,20 @@ const App = () => {
         d: "0",
         alpha: "60",
         relativeT: new Matrix4(),
-        globalT: new Matrix4()
-      },
-      {
-        linkId: 5,
-        theta: "0", //-1.57079, //-0.78539,
-        r: "0",
-        d: "0",
-        alpha: "-90",
-        relativeT: new Matrix4(),
-        globalT: new Matrix4()
-      },
-      {
-        linkId: 6,
-        theta: "0", //-1.57079, //-0.78539,
-        r: "2",
-        d: "2",
-        alpha: "0",
-        relativeT: new Matrix4(),
-        globalT: new Matrix4()
+        globalT: new Matrix4(),
+        isVisible: true
       }
     ]
   );
+
+  const [isAnimate, setIsAnimate] = useState(false);
 
   return (
     <div className={styles.bodySection}>
       {/* <SettingsBar /> */}
       <ParametersPanel robotParams={robotParams} setRobotParams={setRobotParams} />
-      <Display robotParams={robotParams} setRobotParams={setRobotParams} />
+      <AnimationPanel robotParams={robotParams} setRobotParams={setRobotParams} setIsAnimate={setIsAnimate} />
+      <Display robotParams={robotParams} setRobotParams={setRobotParams} isAnimate={isAnimate} />
     </div>
   );
 };

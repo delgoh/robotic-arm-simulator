@@ -5,6 +5,7 @@ import { Stats, OrbitControls } from '@react-three/drei';
 import styles from './Display.module.css';
 import MainAxis from './MainAxis';
 import Robot from './Robot';
+import AnimatedFrame from './AnimationPanel/AnimatedFrame';
 
 const CanvasControls = (props) => {
   const canvasRef = useRef();
@@ -57,14 +58,16 @@ const ScalePanel = (props) => {
   )
 }
 
-const Display = ({robotParams, setRobotParams}) => {
+const Display = ({robotParams, setRobotParams, isAnimate}) => {
 
   return (
     <CanvasControls>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <Robot robotParams={robotParams} setRobotParams={setRobotParams} />
-      <Stats />
+      <Robot robotParams={robotParams} />
+      <AnimatedFrame robotParams={robotParams} isAnimate={isAnimate} />
+      {/* <AnimatedRobot robotParams={robotParams} isAnimate={isAnimate} setIsAnimate={setIsAnimate} /> */}
+      {/* <Stats /> */}
     </CanvasControls>
   )
 }

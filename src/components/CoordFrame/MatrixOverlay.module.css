@@ -6,8 +6,9 @@
   text-align: left;
   background: #202035;
   color: white;
-  padding: 15px 15px;
-  border-radius: 10px;
+  padding: 10px 10px;
+  border: 1px solid grey;
+  border-radius: 8px;
 }
 
 .matrixOverlay::before {
@@ -20,46 +21,46 @@
   background: black;
 }
 
-.leftBracket {
+.bracket {
   content: "";
   min-height: 80px;
   width: 10px;
   background: white;
+}
+
+.bracketInner {
+  position: relative;
+  height: 76px;
+  width: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #202035;
+}
+
+.innerLeft {
+  left: 2px;
+}
+
+.innerRight {
+  right: 1px;
+}
+
+.leftRoundedCorner {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.rightRoundedCorner {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .centerNumbers {
   display: grid;
   grid: 25% 25% 25% 25% / 25% 25% 25% 25%;
   place-items: center;
-  height: 72px;
+  height: 80px;
   width: 120px;
   font-size: 12px;
   font-weight: 100;
-}
-
-.rightBracket {
-  content: "";
-  min-height: 80px;
-  width: 10px;
-  background: white;
-}
-
-.leftBracketInner {
-  position: relative;
-  height: 74px;
-  width: 8px;
-  top: 50%;
-  left: 3px;
-  transform: translateY(-50%);
-  background: #202035;
-}
-
-.rightBracketInner {
-  position: relative;
-  height: 74px;
-  width: 8px;
-  top: 50%;
-  right: 1px;
-  transform: translateY(-50%);
-  background: #202035;
 }
