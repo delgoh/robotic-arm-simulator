@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button } from 'react-bootstrap';
-import { useSpring } from '@react-spring/three';
-import { useFrame } from '@react-three/fiber';
 
 import styles from './AnimationPanel.module.css'
 
-const AnimationPanel = ({robotParams, setRobotParams, setIsAnimate}) => {
+const AnimationPanel = ({robotParams, setRobotParams, setIsAnimate, animationRef}) => {
 
   const handleAnimate = () => {
-    setIsAnimate((prev) => !prev);
+    setIsAnimate(true);
+    animationRef.start();
   }
 
   return (

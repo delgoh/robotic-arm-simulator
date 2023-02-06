@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Stats, OrbitControls } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 
 import styles from './Display.module.css';
 import MainAxis from './MainAxis';
@@ -58,15 +58,14 @@ const ScalePanel = (props) => {
   )
 }
 
-const Display = ({robotParams, setRobotParams, isAnimate}) => {
+const Display = ({robotParams, setRobotParams, isAnimate, setIsAnimate, animationRef}) => {
 
   return (
     <CanvasControls>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <Robot robotParams={robotParams} />
-      <AnimatedFrame robotParams={robotParams} isAnimate={isAnimate} />
-      {/* <AnimatedRobot robotParams={robotParams} isAnimate={isAnimate} setIsAnimate={setIsAnimate} /> */}
+      <AnimatedFrame robotParams={robotParams} isAnimate={isAnimate} setIsAnimate={setIsAnimate} animationRef={animationRef} />
       {/* <Stats /> */}
     </CanvasControls>
   )

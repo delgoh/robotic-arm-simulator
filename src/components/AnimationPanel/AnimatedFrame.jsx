@@ -1,34 +1,41 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Vector3, Quaternion } from 'three';
+import { useSpring, animated } from '@react-spring/three'
+
 import CoordFrame from '../CoordFrame/CoordFrame'
-import { useSpring, useSpringRef, animated } from '@react-spring/three'
 
-const AnimatedFrame = ({robotParams, isAnimate}) => {
+const AnimatedFrame = ({robotParams, isAnimate, setIsAnimate, animationRef}) => {
 
-  const api = useSpringRef();
+  const generateAnimationList = (params) => {
+    const animationList = params.map((param) => {
+      const pos = new Vector3();
+      const quat = new Quaternion();
+      const scale = new Vector3();
+      param.globalT.decompose(pos, quat, scale);
+
+      return {
+        position: pos.toArray(),
+        quaternion: quat.toArray()
+      };
+    });
+
+    animationList[params.length - 1].onRest = () => setIsAnimate(false);
+
+    return animationList;
+  }
+
   const frameSpring = useSpring({
-    ref: api,
-    from: { position: [1,0,0] },
-    to: [
-      { position: [3,2,1], rotation: [1,2,3] },
-      { position: [1,3,1], rotation: [2,1,0] },
-      { position: [1,0,0], rotation: [0,0,0] },
-    ],
+    ref: animationRef,
+    from: {position: [0,0,0], quaternion: [0,0,0,1]},
+    to: generateAnimationList(robotParams),
     config: { duration: 2000 }
   });
-
-  useEffect(() => {
-    api.start();
-  }, [isAnimate]);
-
-  // const handleClick = () => {
-  //   api.start();
-  // }
 
   return (
     <animated.group
       position={frameSpring.position}
-      rotation={frameSpring.rotation}
-      key={isAnimate}
+      quaternion={frameSpring.quaternion}
+      visible={isAnimate}
     >
       <CoordFrame
         key={robotParams[0].linkId}
