@@ -1,6 +1,63 @@
+/* * {
+  outline: 1px solid red;
+} */
+
 .display {
+  position: fixed;
   height: 100%;
   width: 70%;
   right: 0;
-  position: fixed;
+}
+
+.mouseControlPanel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 10px;
+  padding: 5px 10px;
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.leftClickText::before {
+  content: "";
+  display: inline-block;
+  background: url("../assets/icons/mouse-left-click.png") no-repeat;
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+  margin: 0 3px 0 0;
+}
+
+.scrollText::before {
+  content: "";
+  display: inline-block;
+  background: url("../assets/icons/mouse-scroll.png") no-repeat;
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+  margin: 0 3px 0 0;
+}
+
+.rightClickText::before {
+  content: "";
+  display: inline-block;
+  background: url("../assets/icons/mouse-right-click.png") no-repeat;
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+  margin: 0 3px 0 0;
+}
+
+.scalePanel {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: rgb(225, 225, 225);
+  font-size: 16px;
+  font-weight: 700;
 }

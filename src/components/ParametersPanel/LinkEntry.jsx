@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react';
 import { Matrix4 } from 'three';
 
 import Form from 'react-bootstrap/Form'
@@ -6,21 +6,42 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 const LinkEntry = ({robotParam, setRobotParams}) => {
 
+  useEffect(() => {
+    setRobotParams((prevRobotParams) => {
+      updateAllT(prevRobotParams);
+      return prevRobotParams;
+    });
+  }, [setRobotParams]);
+
   const handleInputChange = (e) => {
     let newState = {...robotParam};
 
-    // TO ADD: IF NUMBER ENDS WITH '.' OR CHARACTER, IGNORE (HALFWAY TYPING FLOAT / INVALID CHAR)
-    if (e.target.value === "") newState[e.target.id] = 0;
-    else if (/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/.test(e.target.value)) {
-      newState[e.target.id] = parseFloat(e.target.value);
+    if (!isNaN(e.target.value) || e.target.value === "-") {
+      newState[e.target.id] = e.target.value;
 
       setRobotParams((prevRobotParams) => {
         let newRobotParams = [...prevRobotParams];
         newRobotParams[newState.linkId] = newState;
-        // newRobotParams = updateAllT(newRobotParams);
         return newRobotParams;
-      });
+      })
     }
+  };
+
+  const handleInputBlur = (e) => {
+    if (e.target.value === "" || e.target.value === "-") {
+      let newState = {...robotParam};
+      newState[e.target.id] = "0";
+      setRobotParams((prevRobotParams) => {
+        let newRobotParams = [...prevRobotParams];
+        newRobotParams[newState.linkId] = newState;
+        return newRobotParams;
+      })
+    }
+    handleUpdateMatrix(e);
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleInputBlur(e);
   };
 
   const handleUpdateMatrix = (e) => {
@@ -36,15 +57,21 @@ const LinkEntry = ({robotParam, setRobotParams}) => {
     const noOfLinks = paramsArray.length;
     const currentGlobalT = new Matrix4();
     let updatedParamsArray = [...paramsArray];
-    let theta = 0, r = 0, d = 0, alpha = 0;
-    let sinTheta = 0, cosTheta = 0, sinAlpha = 0, cosAlpha = 0;
+    let thetaStr = "", rStr = "", dStr = "", alphaStr = "";
+    let r = 0, d = 0, sinTheta = 0, cosTheta = 0, sinAlpha = 0, cosAlpha = 0;
 
     for (let i = 0; i < noOfLinks; i++) {
-      ({theta, r, d, alpha} = updatedParamsArray[i]);
-      sinTheta = Math.sin(theta);
-      cosTheta = Math.cos(theta);
-      sinAlpha = Math.sin(alpha);
-      cosAlpha = Math.cos(alpha);
+      thetaStr = updatedParamsArray[i].theta;
+      rStr = updatedParamsArray[i].r;
+      dStr = updatedParamsArray[i].d;
+      alphaStr = updatedParamsArray[i].alpha;
+
+      sinTheta = Math.sin(parseFloat(thetaStr) * (Math.PI / 180));
+      cosTheta = Math.cos(parseFloat(thetaStr) * (Math.PI / 180));
+      sinAlpha = Math.sin(parseFloat(alphaStr) * (Math.PI / 180));
+      cosAlpha = Math.cos(parseFloat(alphaStr) * (Math.PI / 180));
+      r = parseFloat(rStr);
+      d = parseFloat(dStr);
   
       updatedParamsArray[i].relativeT.set(
         cosTheta, (-1)*cosAlpha*sinTheta, sinAlpha*sinTheta, d*cosTheta,
@@ -64,10 +91,34 @@ const LinkEntry = ({robotParam, setRobotParams}) => {
   return (
     <InputGroup>
       <InputGroup.Text id="linkText">Link {robotParam.linkId}</InputGroup.Text>
-      <Form.Control id='theta' value={robotParam.theta} onChange={handleInputChange} onBlur={handleUpdateMatrix} />
-      <Form.Control id='r' value={robotParam.r} onChange={handleInputChange} onBlur={handleUpdateMatrix} />
-      <Form.Control id='d' value={robotParam.d} onChange={handleInputChange} onBlur={handleUpdateMatrix} />
-      <Form.Control id='alpha' value={robotParam.alpha} onChange={handleInputChange} onBlur={handleUpdateMatrix} />
+      <Form.Control
+        id='theta'
+        value={robotParam.theta}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onKeyDown={handleKeyDown}
+      />
+      <Form.Control
+        id='r'
+        value={robotParam.r}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onKeyDown={handleKeyDown}
+      />
+      <Form.Control
+        id='d'
+        value={robotParam.d}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onKeyDown={handleKeyDown}
+      />
+      <Form.Control
+        id='alpha'
+        value={robotParam.alpha}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onKeyDown={handleKeyDown}
+      />
     </InputGroup>
   );
 };

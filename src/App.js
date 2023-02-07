@@ -1,10 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { Matrix4 } from 'three';
+import { useSpringRef } from '@react-spring/three';
 
 import styles from './App.module.css'
 import Display from './components/Display';
 import ParametersPanel from './components/ParametersPanel/ParametersPanel';
+import AnimationPanel from './components/AnimationPanel/AnimationPanel';
 // import SettingsBar from './components/SettingsBar/SettingsBar';
 
 
@@ -14,75 +16,66 @@ const App = () => {
     [
       {
         linkId: 0,
-        theta: 0, //-1.57079, //-0.78539,
-        r: 0,
-        d: 0,
-        alpha: 0,
+        theta: "0",
+        r: "0",
+        d: "0",
+        alpha: "0",
         relativeT: new Matrix4(),
-        globalT: new Matrix4()
+        globalT: new Matrix4(),
+        isVisible: true
       },
       {
         linkId: 1,
-        theta: Math.PI / 2,
-        r: 0,
-        d: 0,
-        alpha: -Math.PI / 2,
+        theta: "0",
+        r: "-3",
+        d: "2",
+        alpha: "30",
         relativeT: new Matrix4(),
-        globalT: new Matrix4()
+        globalT: new Matrix4(),
+        isVisible: true
       },
       {
         linkId: 2,
-        theta: 0, // 1.57079,
-        r: 3,
-        d: 9,
-        alpha: 0,
+        theta: "0",
+        r: "3",
+        d: "9",
+        alpha: "0",
         relativeT: new Matrix4(),
-        globalT: new Matrix4()
+        globalT: new Matrix4(),
+        isVisible: true
       },
-      // {
-      //   linkId: 3,
-      //   theta: Math.PI / 2, //-1.57079, //-0.78539,
-      //   r: 0,
-      //   d: 0,
-      //   alpha: Math.PI / 2,
-      //   relativeT: new Matrix4(),
-      //   globalT: new Matrix4()
-      // },
-      // {
-      //   linkId: 4,
-      //   theta: 0, //-1.57079, //-0.78539,
-      //   r: 9,
-      //   d: 0,
-      //   alpha: -Math.PI / 2,
-      //   relativeT: new Matrix4(),
-      //   globalT: new Matrix4()
-      // },
-      // {
-      //   linkId: 5,
-      //   theta: 0, //-1.57079, //-0.78539,
-      //   r: 0,
-      //   d: 0,
-      //   alpha: Math.PI / 2,
-      //   relativeT: new Matrix4(),
-      //   globalT: new Matrix4()
-      // },
-      // {
-      //   linkId: 6,
-      //   theta: 0, //-1.57079, //-0.78539,
-      //   r: 1.2,
-      //   d: 0,
-      //   alpha: 0,
-      //   relativeT: new Matrix4(),
-      //   globalT: new Matrix4()
-      // }
+      {
+        linkId: 3,
+        theta: "45",
+        r: "0",
+        d: "-4",
+        alpha: "-90",
+        relativeT: new Matrix4(),
+        globalT: new Matrix4(),
+        isVisible: true
+      },
+      {
+        linkId: 4,
+        theta: "0",
+        r: "9",
+        d: "0",
+        alpha: "60",
+        relativeT: new Matrix4(),
+        globalT: new Matrix4(),
+        isVisible: true
+      }
     ]
   );
+
+  const [isAnimate, setIsAnimate] = useState(false);
+  const animationRef = useSpringRef();
 
   return (
     <div className={styles.bodySection}>
       {/* <SettingsBar /> */}
       <ParametersPanel robotParams={robotParams} setRobotParams={setRobotParams} />
-      <Display robotParams={robotParams} setRobotParams={setRobotParams} />
+      <AnimationPanel robotParams={robotParams} setRobotParams={setRobotParams} setIsAnimate={setIsAnimate} animationRef={animationRef} />
+      <Display robotParams={robotParams} setRobotParams={setRobotParams} isAnimate={isAnimate} setIsAnimate={setIsAnimate} animationRef={animationRef} />
     </div>
   );
 };

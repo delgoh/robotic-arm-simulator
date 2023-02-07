@@ -1,0 +1,66 @@
+.matrixOverlay {
+  display: flex;
+  position: absolute;
+  margin-left: 130px;
+  transform: translate3d(calc(50% + 30px), 40px, 0);
+  text-align: left;
+  background: #202035;
+  color: white;
+  padding: 10px 10px;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+.matrixOverlay::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  height: 2px;
+  width: 40px;
+  background: black;
+}
+
+.bracket {
+  content: "";
+  min-height: 80px;
+  width: 10px;
+  background: white;
+}
+
+.bracketInner {
+  position: relative;
+  height: 76px;
+  width: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #202035;
+}
+
+.innerLeft {
+  left: 2px;
+}
+
+.innerRight {
+  right: 1px;
+}
+
+.leftRoundedCorner {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.rightRoundedCorner {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.centerNumbers {
+  display: grid;
+  grid: 25% 25% 25% 25% / 25% 25% 25% 25%;
+  place-items: center;
+  height: 80px;
+  width: 120px;
+  font-size: 12px;
+  font-weight: 100;
+}
