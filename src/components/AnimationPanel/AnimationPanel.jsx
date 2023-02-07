@@ -14,9 +14,16 @@ const AnimationPanel = ({robotParams, setRobotParams, setIsAnimate, animationRef
     <div className={styles.animationPanel}>
       <Button
         className='mt-4'
-        variant='primary'
+        variant='success'
+        style={{margin: "0 15px 0 0"}}
         onClick={handleAnimate}>
-        Animate
+        Animate by Links
+      </Button>
+      <Button
+        className='mt-4'
+        variant='success'
+        onClick={handleAnimate}>
+        Animate by Parameters
       </Button>
     </div>
   )

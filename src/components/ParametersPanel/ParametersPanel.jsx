@@ -1,6 +1,6 @@
 import React from 'react';
 import { Matrix4 } from 'three';
-// import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button';
 
 import styles from './ParametersPanel.module.css'
 import PanelHeader from './PanelHeader';
@@ -45,17 +45,6 @@ const ParametersPanel = ({robotParams, setRobotParams}) => {
     }
   }
 
-  const handleHide = () => {
-    console.log("the outside ran");
-    setRobotParams((prevState) => {
-      const newState = [...prevState];
-      // newState[3].isVisible = !newState[3].isVisible;
-      // console.log(newState[3].isVisible);
-      console.log("the inside ran");
-      return newState;
-    });
-  }
-
   return (
     <div className={styles.parametersPanel}>
       <PanelHeader />
@@ -63,25 +52,19 @@ const ParametersPanel = ({robotParams, setRobotParams}) => {
       {robotParams.map((robotParam) => {
         return <LinkEntry key={robotParam.linkId} robotParam={robotParam} setRobotParams={setRobotParams} />
       })}
-      <button
+      <Button
         className='mt-4'
-        // variant='primary'
+        variant='primary'
         style={{margin: "0 15px 0 0"}}
         onClick={handleAddLink}>
         Add Link
-      </button>
-      <button
+      </Button>
+      <Button
         className='mt-4'
         variant='primary'
         onClick={handleDeleteLink}>
         Delete Link
-      </button>
-      <button
-        className='mt-4'
-        variant='primary'
-        onClick={handleHide}>
-        Test hide
-      </button>
+      </Button>
     </div>
   )
 };
