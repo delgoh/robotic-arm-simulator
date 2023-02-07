@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/robotic-arm-simulator/static/css/main.f87387c8.css",
+    "main.js": "/robotic-arm-simulator/static/js/main.2f9ca0db.js",
+    "index.html": "/robotic-arm-simulator/index.html",
+    "main.f87387c8.css.map": "/robotic-arm-simulator/static/css/main.f87387c8.css.map",
+    "main.2f9ca0db.js.map": "/robotic-arm-simulator/static/js/main.2f9ca0db.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f87387c8.css",
+    "static/js/main.2f9ca0db.js"
+  ]
+}
