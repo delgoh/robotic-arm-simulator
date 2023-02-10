@@ -6,15 +6,23 @@ import styles from './ParametersPanel.module.css'
 import PanelHeader from './PanelHeader';
 import LinkHeader from './LinkHeader';
 import LinkEntry from './LinkEntry';
+import HighlightBox from '../AnimationPanel/HighlightBox';
 
+const MAX_LINKS = 7; // inclusive of base link (link 0)
 
-const ParametersPanel = ({robotParams, setRobotParams}) => {
-
+const ParametersPanel = ({
+  robotParams,
+  setRobotParams,
+  isAnimate,
+  animationType,
+  highlightLinksRef,
+  highlightParamsRef
+}) => {
 
   const handleAddLink = () => {
 
     const noOfLinks = robotParams.length;
-    if (noOfLinks < 6) {
+    if (noOfLinks < MAX_LINKS) {
       setRobotParams((prevState) => {
         return [...prevState, {
           linkId: noOfLinks,
@@ -49,9 +57,13 @@ const ParametersPanel = ({robotParams, setRobotParams}) => {
     <div className={styles.parametersPanel}>
       <PanelHeader />
       <LinkHeader />
-      {robotParams.map((robotParam) => {
-        return <LinkEntry key={robotParam.linkId} robotParam={robotParam} setRobotParams={setRobotParams} />
-      })}
+      {robotParams.map((robotParam, i) => (
+        <LinkEntry
+          key={robotParam.linkId}
+          robotParam={robotParam}
+          setRobotParams={setRobotParams}
+        />
+      ))}
       <Button
         className='mt-4'
         variant='primary'
@@ -65,6 +77,13 @@ const ParametersPanel = ({robotParams, setRobotParams}) => {
         onClick={handleDeleteLink}>
         Delete Link
       </Button>
+      <HighlightBox
+        robotParams={robotParams}
+        isAnimate={isAnimate}
+        animationType={animationType}
+        highlightLinksRef={highlightLinksRef}
+        highlightParamsRef={highlightParamsRef}
+      />
     </div>
   )
 };

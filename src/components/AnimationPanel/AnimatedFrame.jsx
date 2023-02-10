@@ -4,35 +4,59 @@ import { useSpring, animated } from '@react-spring/three'
 
 import CoordFrame from '../CoordFrame/CoordFrame'
 
-const AnimatedFrame = ({robotParams, isAnimate, setIsAnimate, animationRef}) => {
+const AnimatedFrame = ({
+  robotParams,
+  isAnimate,
+  setIsAnimate,
+  animationType,
+  animationFrameRef
+}) => {
 
   const generateAnimationList = (params) => {
-    const animationList = params.flatMap((param) => {
-      const pos = new Vector3();
-      const quat = new Quaternion();
-      const scale = new Vector3();
-      param.globalT.decompose(pos, quat, scale);
 
-      return [
-        {
+    let animationList = [];
+    if (animationType === 'links') {
+
+      animationList = params.map((param) => {
+        const pos = new Vector3();
+        const quat = new Quaternion();
+        const scale = new Vector3();
+        param.globalT.decompose(pos, quat, scale);
+  
+        return {
           position: pos.toArray(),
           quaternion: quat.toArray(),
-          duration: 3000
-        },
-        { duration: 500 }
-      ];
-    });
+          delay: 600
+        };
+      });
 
+    } else if (animationType === 'params') {
+
+      animationList = params.map((param) => {
+        const pos = new Vector3();
+        const quat = new Quaternion();
+        const scale = new Vector3();
+        param.globalT.decompose(pos, quat, scale);
+  
+        return {
+          position: pos.toArray(),
+          quaternion: quat.toArray(),
+          delay: 600
+        };
+      });
+    }
+    
+    animationList[0].delay = 200;
     animationList[animationList.length - 1].onRest = () => setIsAnimate(false);
-
     return animationList;
   }
 
   const frameSpring = useSpring({
-    ref: animationRef,
-    from: {position: [0.001,0.001,0.001], quaternion: [0,0,0,1]},
-    to: generateAnimationList(robotParams)
+    ref: animationFrameRef,
+    to: generateAnimationList(robotParams),
+    config: {duration: 1000, delay: 1200}
   });
+
 
   return (
     <animated.group
@@ -43,6 +67,7 @@ const AnimatedFrame = ({robotParams, isAnimate, setIsAnimate, animationRef}) => 
       <CoordFrame
         key={robotParams[0].linkId}
         robotParam={robotParams[0]}
+        isMatrixVisible={false}
       />
     </animated.group>
   )

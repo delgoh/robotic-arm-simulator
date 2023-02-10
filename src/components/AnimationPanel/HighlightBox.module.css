@@ -1,0 +1,14 @@
+.highlightBox {
+  position: absolute;
+  height: 36px;
+  background-color: rgb(255, 255, 0, 0.3);
+  top: 192px;
+}
+
+.links {
+  width: 355px;
+}
+
+.params {
+
+}

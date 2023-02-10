@@ -68,14 +68,36 @@ const App = () => {
   );
 
   const [isAnimate, setIsAnimate] = useState(false);
-  const animationRef = useSpringRef();
+  const [animationType, setAnimationType] = useState("links");
+  const animationFrameRef = useSpringRef();
+  const highlightLinksRef = useSpringRef();
+  const highlightParamsRef = useSpringRef();
 
   return (
     <div className={styles.bodySection}>
       {/* <SettingsBar /> */}
-      <ParametersPanel robotParams={robotParams} setRobotParams={setRobotParams} />
-      <AnimationPanel robotParams={robotParams} setRobotParams={setRobotParams} setIsAnimate={setIsAnimate} animationRef={animationRef} />
-      <Display robotParams={robotParams} setRobotParams={setRobotParams} isAnimate={isAnimate} setIsAnimate={setIsAnimate} animationRef={animationRef} />
+      <ParametersPanel
+        robotParams={robotParams}
+        setRobotParams={setRobotParams}
+        isAnimate={isAnimate}
+        animationType={animationType}
+        highlightLinksRef={highlightLinksRef}
+        highlightParamsRef={highlightParamsRef}
+      />
+      <AnimationPanel
+        setIsAnimate={setIsAnimate}
+        setAnimationType={setAnimationType}
+        animationFrameRef={animationFrameRef}
+        highlightLinksRef={highlightLinksRef}
+        highlightParamsRef={highlightParamsRef}
+      />
+      <Display
+        robotParams={robotParams}
+        isAnimate={isAnimate}
+        setIsAnimate={setIsAnimate}
+        animationType={animationType}
+        animationFrameRef={animationFrameRef}
+      />
     </div>
   );
 };
