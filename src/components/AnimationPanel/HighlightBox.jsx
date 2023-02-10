@@ -3,7 +3,9 @@ import { useSpring, animated } from '@react-spring/web'
 
 import styles from './HighlightBox.module.css'
 
-const linksOffsetTop = [192, 230, 268, 306, 344, 382, 420];
+const SPEED_FACTOR = 1.5; // higher = slower
+const linksOffsetTop = [172, 209, 247, 285, 322, 360, 398];
+const paramsOffsetLeft = [78, 150, 222, 294]
 
 const HighlightBox = ({
   robotParams,
@@ -13,10 +15,19 @@ const HighlightBox = ({
   highlightParamsRef
 }) => {
 
-  const generateAnimationList = () => {
+  const animateLinksList = () => {
     let animationList = [];
     animationList = linksOffsetTop.slice(0, robotParams.length).map(height => (
-      { top: height, delay: 1400 }
+      { top: height, delay: 1400 * SPEED_FACTOR }
+    ));
+    animationList[0].delay = 0;
+    return animationList;
+  }
+
+  const animateParamsList = () => {
+    let animationList = [];
+    animationList = linksOffsetTop.slice(0, robotParams.length).map(height => (
+      { top: height, delay: 1400 * SPEED_FACTOR }
     ));
     animationList[0].delay = 0;
     return animationList;
@@ -24,12 +35,14 @@ const HighlightBox = ({
 
   const linksSpring = useSpring({
     ref: highlightLinksRef,
-    to: generateAnimationList(),
-    config: {duration: 200}
+    to: animateLinksList(),
+    config: {duration: 200 * SPEED_FACTOR}
   });
 
   const paramsSpring = useSpring({
     ref: highlightParamsRef,
+    to: animateParamsList(),
+    config: {duration: 200 * SPEED_FACTOR}
   });
 
   return (
@@ -37,8 +50,8 @@ const HighlightBox = ({
       className={`${styles.highlightBox} ${styles[animationType]}`}
       style={{
         display: isAnimate ? 'block' : 'none',
-        top: animationType === 'links' ? linksSpring.top : paramsSpring.top
-        // top: 222
+        top: animationType === 'links' ? linksSpring.top : paramsSpring.top,
+        left: animationType === 'links' ? 10 : paramsSpring.left
       }}
     />
   )

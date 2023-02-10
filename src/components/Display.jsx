@@ -60,23 +60,29 @@ const ScalePanel = (props) => {
 
 const Display = ({
   robotParams,
+  matrixDisplayValue,
   isAnimate,
   setIsAnimate,
   animationType,
-  animationFrameRef
+  animateLinksRef,
+  animateParamsRef
 }) => {
 
   return (
     <CanvasControls>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <Robot robotParams={robotParams} />
+      <Robot
+        robotParams={robotParams}
+        matrixDisplayValue={matrixDisplayValue}
+      />
       <AnimatedFrame
         robotParams={robotParams}
         isAnimate={isAnimate}
         setIsAnimate={setIsAnimate}
         animationType={animationType}
-        animationFrameRef={animationFrameRef}
+        animateLinksRef={animateLinksRef}
+        animateParamsRef={animateParamsRef}
       />
     </CanvasControls>
   )

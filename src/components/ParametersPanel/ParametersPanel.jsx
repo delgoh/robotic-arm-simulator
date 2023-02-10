@@ -1,6 +1,8 @@
 import React from 'react';
 import { Matrix4 } from 'three';
 import Button from 'react-bootstrap/Button';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
 import styles from './ParametersPanel.module.css'
 import PanelHeader from './PanelHeader';
@@ -13,11 +15,13 @@ const MAX_LINKS = 7; // inclusive of base link (link 0)
 const ParametersPanel = ({
   robotParams,
   setRobotParams,
+  setMatrixDisplayValue,
   isAnimate,
   animationType,
   highlightLinksRef,
   highlightParamsRef
 }) => {
+
 
   const handleAddLink = () => {
 
@@ -26,7 +30,7 @@ const ParametersPanel = ({
       setRobotParams((prevState) => {
         return [...prevState, {
           linkId: noOfLinks,
-          theta: noOfLinks.toString(), //-1.57079, //-0.78539,
+          theta: "0",
           r: "0",
           d: "0",
           alpha: "0",
@@ -77,6 +81,19 @@ const ParametersPanel = ({
         onClick={handleDeleteLink}>
         Delete Link
       </Button>
+      <ToggleButtonGroup type="radio" name="matrix-radio" defaultValue={0}>
+        {["No Matrix", "Relative", "Global"].map((buttonText, index) => (
+          <ToggleButton
+            key={index}
+            id={`matrix-radio-${index}`}
+            className='mt-4'
+            variant={index === 0 ? 'outline-secondary' : 'outline-primary'}
+            value={index}
+            onChange={(e) => setMatrixDisplayValue(e.currentTarget.value)}>
+            {buttonText}
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
       <HighlightBox
         robotParams={robotParams}
         isAnimate={isAnimate}

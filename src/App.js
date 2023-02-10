@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Matrix4 } from 'three';
 import { useSpringRef } from '@react-spring/three';
 
@@ -66,10 +66,12 @@ const App = () => {
       }
     ]
   );
-
+  
+  const [matrixDisplayValue, setMatrixDisplayValue] = useState(0);
   const [isAnimate, setIsAnimate] = useState(false);
   const [animationType, setAnimationType] = useState("links");
-  const animationFrameRef = useSpringRef();
+  const animateLinksRef = useSpringRef();
+  const animateParamsRef = useSpringRef();
   const highlightLinksRef = useSpringRef();
   const highlightParamsRef = useSpringRef();
 
@@ -79,6 +81,7 @@ const App = () => {
       <ParametersPanel
         robotParams={robotParams}
         setRobotParams={setRobotParams}
+        setMatrixDisplayValue={setMatrixDisplayValue}
         isAnimate={isAnimate}
         animationType={animationType}
         highlightLinksRef={highlightLinksRef}
@@ -87,16 +90,19 @@ const App = () => {
       <AnimationPanel
         setIsAnimate={setIsAnimate}
         setAnimationType={setAnimationType}
-        animationFrameRef={animationFrameRef}
+        animateLinksRef={animateLinksRef}
+        animateParamsRef={animateParamsRef}
         highlightLinksRef={highlightLinksRef}
         highlightParamsRef={highlightParamsRef}
       />
       <Display
         robotParams={robotParams}
+        matrixDisplayValue={matrixDisplayValue}
         isAnimate={isAnimate}
         setIsAnimate={setIsAnimate}
         animationType={animationType}
-        animationFrameRef={animationFrameRef}
+        animateLinksRef={animateLinksRef}
+        animateParamsRef={animateParamsRef}
       />
     </div>
   );

@@ -2,29 +2,31 @@ import React from 'react'
 import { Button } from 'react-bootstrap';
 
 import styles from './AnimationPanel.module.css'
+import TextPanel from './TextPanel';
 
 const AnimationPanel = ({
   setIsAnimate,
   setAnimationType,
-  animationFrameRef,
+  animateLinksRef,
+  animateParamsRef,
   highlightLinksRef,
   highlightParamsRef
 }) => {
 
   const handleAnimateLinks = () => {
-    setIsAnimate(true);
     setAnimationType("links");
-    animationFrameRef.start();
-    animationFrameRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
+    setIsAnimate(true);
+    animateLinksRef.start();
+    animateLinksRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
     highlightLinksRef.start();
-    highlightLinksRef.set({top: 192});
+    highlightLinksRef.set({top: 172});
   }
 
-  const handleAnimateParams = () => {
-    setIsAnimate(true);
+  const handleAnimateParams = async () => {
     setAnimationType("params");
-    animationFrameRef.start();
-    animationFrameRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
+    setIsAnimate(true);
+    animateParamsRef.start();
+    animateParamsRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
     highlightParamsRef.start();
   }
 
@@ -43,6 +45,7 @@ const AnimationPanel = ({
         onClick={handleAnimateParams}>
         Animate by Parameters
       </Button>
+      <TextPanel />
     </div>
   )
 };
