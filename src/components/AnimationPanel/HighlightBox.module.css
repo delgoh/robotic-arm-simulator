@@ -1,0 +1,16 @@
+.highlightBox {
+  position: absolute;
+  height: 36px;
+  background-color: rgb(255, 255, 0, 0.5);
+  top: 192px;
+  border-radius: 5px;
+  mix-blend-mode: multiply;
+}
+
+.links {
+  width: 370px;
+}
+
+.params {
+  width: 76px;
+}

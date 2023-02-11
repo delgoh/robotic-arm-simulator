@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Matrix4 } from 'three';
 import { Html } from "@react-three/drei";
 
 import styles from './MatrixOverlay.module.css';
 
 const DECIMAL_PLACES = 2;
 
-const MatrixOverlay = ({ robotParam }) => {
-  
-  const copyGlobalT = robotParam.globalT.clone();
-  copyGlobalT.transpose();
-  const globalTElems = copyGlobalT.elements;
+const MatrixOverlay = ({ robotParam, matrixDisplayValue }) => {
+
+  const [matrixElems, setMatrixElems] = useState([]);
+
+  useEffect(() => {
+    // if (matrixDisplayValue === "0") return;
+
+    let displayMatrix = new Matrix4();
+    if (matrixDisplayValue === "1") displayMatrix = robotParam.relativeT.clone();
+    else if (matrixDisplayValue === "2") displayMatrix = robotParam.globalT.clone();
+
+    displayMatrix.transpose();
+    setMatrixElems(displayMatrix.elements);
+  }, [matrixDisplayValue, robotParam]);
 
   return (
     <Html
+      style={{opacity: matrixDisplayValue === '0' ? 0 : 1}}
       className={styles.matrixOverlay}
       center
       distanceFactor={15}
@@ -21,8 +32,8 @@ const MatrixOverlay = ({ robotParam }) => {
         <div className={`${styles.bracketInner} ${styles.innerLeft} ${styles.leftRoundedCorner}`}></div>
       </div>
       <div className={styles.centerNumbers}>
-        {globalTElems.map((globalTElem, index) => {
-          return <div key={index} >{globalTElem.toFixed(DECIMAL_PLACES)}</div>
+        {matrixElems.map((matrixElem, index) => {
+          return <div key={index} >{matrixElem.toFixed(DECIMAL_PLACES)}</div>
         })}
       </div>
       <div className={`${styles.bracket} ${styles.rightRoundedCorner}`}>

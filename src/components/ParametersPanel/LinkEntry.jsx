@@ -4,7 +4,7 @@ import { Matrix4 } from 'three';
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const LinkEntry = ({robotParam, setRobotParams}) => {
+const LinkEntry = ({robotParam, setRobotParams, linkRef}) => {
 
   useEffect(() => {
     setRobotParams((prevRobotParams) => {
@@ -89,7 +89,7 @@ const LinkEntry = ({robotParam, setRobotParams}) => {
 };
 
   return (
-    <InputGroup>
+    <InputGroup ref={linkRef}>
       <InputGroup.Text id="linkText">Link {robotParam.linkId}</InputGroup.Text>
       <Form.Control
         id='theta'

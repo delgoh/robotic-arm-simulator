@@ -1,0 +1,10 @@
+.textPanel {
+  position: absolute;
+  top: 80px;
+  bottom: 20px;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 10px;
+}

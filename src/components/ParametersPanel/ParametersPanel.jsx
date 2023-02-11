@@ -1,24 +1,36 @@
 import React from 'react';
 import { Matrix4 } from 'three';
-// import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
 import styles from './ParametersPanel.module.css'
 import PanelHeader from './PanelHeader';
 import LinkHeader from './LinkHeader';
 import LinkEntry from './LinkEntry';
+import HighlightBox from '../AnimationPanel/HighlightBox';
 
+const MAX_LINKS = 7; // inclusive of base link (link 0)
 
-const ParametersPanel = ({robotParams, setRobotParams}) => {
+const ParametersPanel = ({
+  robotParams,
+  setRobotParams,
+  setMatrixDisplayValue,
+  isAnimate,
+  animationType,
+  highlightLinksRef,
+  highlightParamsRef
+}) => {
 
 
   const handleAddLink = () => {
 
     const noOfLinks = robotParams.length;
-    if (noOfLinks < 6) {
+    if (noOfLinks < MAX_LINKS) {
       setRobotParams((prevState) => {
         return [...prevState, {
           linkId: noOfLinks,
-          theta: noOfLinks.toString(), //-1.57079, //-0.78539,
+          theta: "0",
           r: "0",
           d: "0",
           alpha: "0",
@@ -45,43 +57,50 @@ const ParametersPanel = ({robotParams, setRobotParams}) => {
     }
   }
 
-  const handleHide = () => {
-    console.log("the outside ran");
-    setRobotParams((prevState) => {
-      const newState = [...prevState];
-      // newState[3].isVisible = !newState[3].isVisible;
-      // console.log(newState[3].isVisible);
-      console.log("the inside ran");
-      return newState;
-    });
-  }
-
   return (
     <div className={styles.parametersPanel}>
       <PanelHeader />
       <LinkHeader />
-      {robotParams.map((robotParam) => {
-        return <LinkEntry key={robotParam.linkId} robotParam={robotParam} setRobotParams={setRobotParams} />
-      })}
-      <button
+      {robotParams.map((robotParam, i) => (
+        <LinkEntry
+          key={robotParam.linkId}
+          robotParam={robotParam}
+          setRobotParams={setRobotParams}
+        />
+      ))}
+      <Button
         className='mt-4'
-        // variant='primary'
+        variant='primary'
         style={{margin: "0 15px 0 0"}}
         onClick={handleAddLink}>
         Add Link
-      </button>
-      <button
+      </Button>
+      <Button
         className='mt-4'
         variant='primary'
         onClick={handleDeleteLink}>
         Delete Link
-      </button>
-      <button
-        className='mt-4'
-        variant='primary'
-        onClick={handleHide}>
-        Test hide
-      </button>
+      </Button>
+      <ToggleButtonGroup type="radio" name="matrix-radio" defaultValue={0}>
+        {["No Matrix", "Relative", "Global"].map((buttonText, index) => (
+          <ToggleButton
+            key={index}
+            id={`matrix-radio-${index}`}
+            className='mt-4'
+            variant={index === 0 ? 'outline-secondary' : 'outline-primary'}
+            value={index}
+            onChange={(e) => setMatrixDisplayValue(e.currentTarget.value)}>
+            {buttonText}
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
+      <HighlightBox
+        robotParams={robotParams}
+        isAnimate={isAnimate}
+        animationType={animationType}
+        highlightLinksRef={highlightLinksRef}
+        highlightParamsRef={highlightParamsRef}
+      />
     </div>
   )
 };

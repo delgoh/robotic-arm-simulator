@@ -5,14 +5,14 @@
 .display {
   position: fixed;
   height: 100%;
-  width: 70%;
-  right: 0;
+  width: 130%;
+  right: -30%;
 }
 
 .mouseControlPanel {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  left: 0;
+  left: 380px;
   margin: 10px;
   padding: 5px 10px;
   display: flex;
@@ -52,7 +52,7 @@
 }
 
 .scalePanel {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   margin: 10px;

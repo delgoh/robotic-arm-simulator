@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Matrix4 } from 'three';
 import { useSpringRef } from '@react-spring/three';
 
@@ -66,16 +66,44 @@ const App = () => {
       }
     ]
   );
-
+  
+  const [matrixDisplayValue, setMatrixDisplayValue] = useState("0");
   const [isAnimate, setIsAnimate] = useState(false);
-  const animationRef = useSpringRef();
+  const [animationType, setAnimationType] = useState("links");
+  const animateLinksRef = useSpringRef();
+  const animateParamsRef = useSpringRef();
+  const highlightLinksRef = useSpringRef();
+  const highlightParamsRef = useSpringRef();
 
   return (
     <div className={styles.bodySection}>
       {/* <SettingsBar /> */}
-      <ParametersPanel robotParams={robotParams} setRobotParams={setRobotParams} />
-      <AnimationPanel robotParams={robotParams} setRobotParams={setRobotParams} setIsAnimate={setIsAnimate} animationRef={animationRef} />
-      <Display robotParams={robotParams} setRobotParams={setRobotParams} isAnimate={isAnimate} setIsAnimate={setIsAnimate} animationRef={animationRef} />
+      <ParametersPanel
+        robotParams={robotParams}
+        setRobotParams={setRobotParams}
+        setMatrixDisplayValue={setMatrixDisplayValue}
+        isAnimate={isAnimate}
+        animationType={animationType}
+        highlightLinksRef={highlightLinksRef}
+        highlightParamsRef={highlightParamsRef}
+      />
+      <AnimationPanel
+        setIsAnimate={setIsAnimate}
+        setAnimationType={setAnimationType}
+        animateLinksRef={animateLinksRef}
+        animateParamsRef={animateParamsRef}
+        highlightLinksRef={highlightLinksRef}
+        highlightParamsRef={highlightParamsRef}
+      />
+      <Display
+        robotParams={robotParams}
+        matrixDisplayValue={matrixDisplayValue}
+        isAnimate={isAnimate}
+        setIsAnimate={setIsAnimate}
+        animationType={animationType}
+        animateLinksRef={animateLinksRef}
+        animateParamsRef={animateParamsRef}
+      />
     </div>
   );
 };
