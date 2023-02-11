@@ -67,7 +67,7 @@ const App = () => {
     ]
   );
   
-  const [matrixDisplayValue, setMatrixDisplayValue] = useState(0);
+  const [matrixDisplayValue, setMatrixDisplayValue] = useState("0");
   const [isAnimate, setIsAnimate] = useState(false);
   const [animationType, setAnimationType] = useState("links");
   const animateLinksRef = useSpringRef();

@@ -11,8 +11,9 @@ const MatrixOverlay = ({ robotParam, matrixDisplayValue }) => {
   const [matrixElems, setMatrixElems] = useState([]);
 
   useEffect(() => {
-    let displayMatrix = new Matrix4();
+    // if (matrixDisplayValue === "0") return;
 
+    let displayMatrix = new Matrix4();
     if (matrixDisplayValue === "1") displayMatrix = robotParam.relativeT.clone();
     else if (matrixDisplayValue === "2") displayMatrix = robotParam.globalT.clone();
 

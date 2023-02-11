@@ -4,7 +4,7 @@ import { useSpring, animated } from '@react-spring/three'
 
 import CoordFrame from '../CoordFrame/CoordFrame'
 
-const SPEED_FACTOR = 1.5; // higher = slower
+const SPEED_FACTOR = 1; // higher = slower
 
 const AnimatedFrame = ({
   robotParams,
@@ -48,16 +48,16 @@ const AnimatedFrame = ({
     }
     animationList = params.flatMap((param) => {
       let {theta, r, d, alpha} = param;
-      operationMatrix.makeRotationZ(parseFloat(theta) * (Math.PI / 180)); // Rotate about z-axis by theta
+      operationMatrix.makeRotationZ((parseFloat(theta) + 0.0001) * (Math.PI / 180)); // Rotate about z-axis by theta
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[0], quatArr[0], scaleArr[0]);
-      operationMatrix.makeTranslation(0, 0, parseFloat(r)); // Translate along z-axis by r
+      operationMatrix.makeTranslation(0, 0, (parseFloat(r) + 0.0001)); // Translate along z-axis by r
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[1], quatArr[1], scaleArr[1]);
-      operationMatrix.makeTranslation(parseFloat(d), 0, 0); // Translate along x-axis by d
+      operationMatrix.makeTranslation((parseFloat(d) + 0.0001), 0, 0); // Translate along x-axis by d
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[2], quatArr[2], scaleArr[2]);
-      operationMatrix.makeRotationX(parseFloat(alpha) * (Math.PI / 180)); // Rotate about x-axis by alpha
+      operationMatrix.makeRotationX((parseFloat(alpha) + 0.0001) * (Math.PI / 180)); // Rotate about x-axis by alpha
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[3], quatArr[3], scaleArr[3]);
 
@@ -69,6 +69,7 @@ const AnimatedFrame = ({
     });
     animationList[0].delay = 200 * SPEED_FACTOR;
     animationList[animationList.length - 1].onRest = () => setIsAnimate(false);
+    console.log("frame list: ", animationList);
     return animationList;
   }
 
@@ -94,7 +95,7 @@ const AnimatedFrame = ({
         <CoordFrame
           key={robotParams[0].linkId}
           robotParam={robotParams[0]}
-          isMatrixVisible={false}
+          matrixDisplayValue={'0'}
         />
       </animated.group>
       <animated.group
@@ -105,7 +106,7 @@ const AnimatedFrame = ({
         <CoordFrame
           key={robotParams[0].linkId}
           robotParam={robotParams[0]}
-          isMatrixVisible={false}
+          matrixDisplayValue={'0'}
         />
       </animated.group>
     </>

@@ -28,6 +28,7 @@ const AnimationPanel = ({
     animateParamsRef.start();
     animateParamsRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
     highlightParamsRef.start();
+    highlightParamsRef.set({top: 172, left: 76});
   }
 
   return (

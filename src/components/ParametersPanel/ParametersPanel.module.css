@@ -8,6 +8,7 @@
   left: 0;
   background-color: rgba(200, 200, 200, 0.5);
   overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-y: overlay;
   padding-top: 40px;
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
