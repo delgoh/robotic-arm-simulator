@@ -9,6 +9,7 @@ const FRAME_THICKNESS = 0.15;
 
 const CoordFrame = ({
   robotParam,
+  robotParams,
   isVisible,
   matrixDisplayValue
 }) => {
@@ -25,8 +26,11 @@ const CoordFrame = ({
       <AxisLine direction={"y"} length={FRAME_LENGTH} width={FRAME_THICKNESS}/>
       <AxisLine direction={"z"} length={FRAME_LENGTH} width={FRAME_THICKNESS}/>
       <ClickSphere size={0.5} />
-      <MatrixOverlay robotParam={robotParam} matrixDisplayValue={matrixDisplayValue} />
-      {/* {isMatrixVisible ? <MatrixOverlay robotParam={robotParam} /> : null} */}
+      <MatrixOverlay
+        robotParam={robotParam}
+        robotParams={robotParams}
+        matrixDisplayValue={matrixDisplayValue}
+      />
     </group>
   );
 };

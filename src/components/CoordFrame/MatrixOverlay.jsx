@@ -6,7 +6,11 @@ import styles from './MatrixOverlay.module.css';
 
 const DECIMAL_PLACES = 2;
 
-const MatrixOverlay = ({ robotParam, matrixDisplayValue }) => {
+const MatrixOverlay = ({
+  robotParam,
+  robotParams,
+  matrixDisplayValue 
+}) => {
 
   const [matrixElems, setMatrixElems] = useState([]);
 
@@ -17,7 +21,7 @@ const MatrixOverlay = ({ robotParam, matrixDisplayValue }) => {
 
     displayMatrix.transpose();
     setMatrixElems(displayMatrix.elements);
-  }, [matrixDisplayValue, robotParam]);
+  }, [matrixDisplayValue, robotParam, robotParams]);
 
   return (
     <Html
