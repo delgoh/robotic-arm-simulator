@@ -88,6 +88,7 @@ const App = () => {
         highlightParamsRef={highlightParamsRef}
       />
       <AnimationPanel
+        robotParams={robotParams}
         setIsAnimate={setIsAnimate}
         setAnimationType={setAnimationType}
         animateLinksRef={animateLinksRef}
