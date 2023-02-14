@@ -69,7 +69,6 @@ const AnimatedFrame = ({
     });
     animationList[0].delay = 200 * SPEED_FACTOR;
     animationList[animationList.length - 1].onRest = () => setIsAnimate(false);
-    console.log("frame list: ", animationList);
     return animationList;
   }
 

@@ -28,20 +28,26 @@ const TextPanel = ({
 
   const textLinksSpring = useSpring({
     ref: textLinksRef,
+    from: {
+      theta: robotParams[0].theta,
+      r: robotParams[0].r,
+      d: robotParams[0].d,
+      alpha: robotParams[0].alpha
+    },
     to: textLinksList(),
     config: {duration: 50 * SPEED_FACTOR}
   });
+
+  
 
   return (
     <animated.div
       className={styles.textPanel}
     >
-      {/* {textLinksSpring.theta.to(val => "Hello" + interpolate(Math.floor(val)))} */}
-      {/* {textLinksSpring.theta.interpolate(val => "Rot" + Math.floor(val))} */}
-{/* 2) Trans( z, ${parseFloat(robotParam.r).toFixed(2)} )
-3) Trans( x, ${parseFloat(robotParam.d).toFixed(2)} )
-4) Rot( x, ${parseFloat(robotParam.alpha).toFixed(2)} ) */}
-      {/* {textLinksSpring.text} */}
+      <animated.p>{textLinksSpring.theta.to(val => "1) Rot( z, " + Math.floor(val) + " )")}</animated.p>
+      <animated.p>{textLinksSpring.r.to(val => "2) Trans( z, " + Math.floor(val) + " )")}</animated.p>
+      <animated.p>{textLinksSpring.d.to(val => "3) Trans( x, " + Math.floor(val) + " )")}</animated.p>
+      <animated.p>{textLinksSpring.alpha.to(val => "4) Rot( x, " + Math.floor(val) + " )")}</animated.p>
     </animated.div>
   )
 };
