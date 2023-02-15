@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useSpringRef } from '@react-spring/web';
 import { Button } from 'react-bootstrap';
 
 import styles from './AnimationPanel.module.css'
 import TextPanel from './TextPanel';
 
 const AnimationPanel = ({
+  robotParams,
   setIsAnimate,
   setAnimationType,
   animateLinksRef,
@@ -13,6 +15,9 @@ const AnimationPanel = ({
   highlightParamsRef
 }) => {
 
+  const [isAnimateParams, setIsAnimateParams] = useState(true);
+  const textRef = useSpringRef();
+
   const handleAnimateLinks = () => {
     setAnimationType("links");
     setIsAnimate(true);
@@ -20,6 +25,8 @@ const AnimationPanel = ({
     animateLinksRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
     highlightLinksRef.start();
     highlightLinksRef.set({top: 172});
+    textRef.start();
+    setIsAnimateParams(false);
   }
 
   const handleAnimateParams = async () => {
@@ -29,6 +36,8 @@ const AnimationPanel = ({
     animateParamsRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
     highlightParamsRef.start();
     highlightParamsRef.set({top: 172, left: 76});
+    textRef.start();
+    setIsAnimateParams(true);
   }
 
   return (
@@ -46,7 +55,12 @@ const AnimationPanel = ({
         onClick={handleAnimateParams}>
         Animate by Parameters
       </Button>
-      <TextPanel />
+      <TextPanel
+        robotParams={robotParams}
+        isAnimateParams={isAnimateParams}
+        setIsAnimateParams={setIsAnimateParams}
+        textRef={textRef}
+      />
     </div>
   )
 };

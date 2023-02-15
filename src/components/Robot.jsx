@@ -10,6 +10,7 @@ const Robot = ({robotParams, matrixDisplayValue}) => {
         return <CoordFrame
           key={robotParam.linkId}
           robotParam={robotParam}
+          robotParams={robotParams}
           isVisible={robotParam.isVisible}
           matrixDisplayValue={matrixDisplayValue}
         />  

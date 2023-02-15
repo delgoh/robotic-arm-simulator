@@ -1,13 +1,12 @@
 .matrixOverlay {
-  display: flex;
-  position: absolute;
   margin-left: 130px;
   transform: translate3d(calc(50% + 30px), 40px, 0);
   text-align: left;
-  background: #202035;
-  color: white;
   opacity: 0;
-  padding: 10px 10px;
+  padding: 10px;
+  padding-top: 3px;
+  color: white;
+  background: #202035;
   border: 1px solid grey;
   border-radius: 8px;
 }
@@ -20,6 +19,19 @@
   height: 2px;
   width: 40px;
   background: black;
+}
+
+.header {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.matrix {
+  display: flex;
 }
 
 .bracket {

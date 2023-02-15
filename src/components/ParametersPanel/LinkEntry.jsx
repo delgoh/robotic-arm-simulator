@@ -4,7 +4,11 @@ import { Matrix4 } from 'three';
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const LinkEntry = ({robotParam, setRobotParams, linkRef}) => {
+const LinkEntry = ({
+  robotParam,
+  setRobotParams,
+  linkRef
+}) => {
 
   useEffect(() => {
     setRobotParams((prevRobotParams) => {
@@ -47,7 +51,6 @@ const LinkEntry = ({robotParam, setRobotParams, linkRef}) => {
   const handleUpdateMatrix = (e) => {
     setRobotParams((prevRobotParams) => {
       let newRobotParams = [...prevRobotParams];
-      // if (e.target.value === "") newRobotParams[e.target.id] = "0";
       newRobotParams = updateAllT(newRobotParams);
       return newRobotParams;
     });
@@ -86,7 +89,7 @@ const LinkEntry = ({robotParam, setRobotParams, linkRef}) => {
     };
 
     return updatedParamsArray;
-};
+  };
 
   return (
     <InputGroup ref={linkRef}>
