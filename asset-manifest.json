@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/robotic-arm-simulator/static/css/main.f87387c8.css",
-    "main.js": "/robotic-arm-simulator/static/js/main.2f9ca0db.js",
+    "main.css": "/robotic-arm-simulator/static/css/main.72afc1a6.css",
+    "main.js": "/robotic-arm-simulator/static/js/main.3b48e20c.js",
     "index.html": "/robotic-arm-simulator/index.html",
-    "main.f87387c8.css.map": "/robotic-arm-simulator/static/css/main.f87387c8.css.map",
-    "main.2f9ca0db.js.map": "/robotic-arm-simulator/static/js/main.2f9ca0db.js.map"
+    "main.72afc1a6.css.map": "/robotic-arm-simulator/static/css/main.72afc1a6.css.map",
+    "main.3b48e20c.js.map": "/robotic-arm-simulator/static/js/main.3b48e20c.js.map"
   },
   "entrypoints": [
-    "static/css/main.f87387c8.css",
-    "static/js/main.2f9ca0db.js"
+    "static/css/main.72afc1a6.css",
+    "static/js/main.3b48e20c.js"
   ]
 }
