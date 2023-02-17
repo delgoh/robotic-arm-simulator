@@ -74,12 +74,14 @@ const AnimatedFrame = ({
 
   const frameLinksSpring = useSpring({
     ref: animateLinksRef,
+    from: {position: [0.01,0.01,0.01], quaternion: [0,0,0,1]},
     to: animateLinksList(robotParams),
     config: {duration: 1000 * SPEED_FACTOR, delay: 1200 * SPEED_FACTOR}
   });
 
   const frameParamsSpring = useSpring({
     ref: animateParamsRef,
+    from: {position: [0.01,0.01,0.01], quaternion: [0,0,0,1]},
     to: animateParamsList(robotParams),
     config: {duration: 1000 * SPEED_FACTOR, delay: 1200 * SPEED_FACTOR}
   });

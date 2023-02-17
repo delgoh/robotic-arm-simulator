@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import styles from './TextPanel.module.css'
 
@@ -10,8 +10,6 @@ const TextPanel = ({
   isAnimateParams,
   setIsAnimateParams
 }) => {
-
-  // const [currentFocusText, setCurrentFocusText] = useState(3);
 
   const setColorArr = (indexFocus) => {
     const colorArr = ['rgb(200,200,200)', 'rgb(200,200,200)', 'rgb(200,200,200)', 'rgb(200,200,200)'];

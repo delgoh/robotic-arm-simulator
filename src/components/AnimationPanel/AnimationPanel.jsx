@@ -7,6 +7,7 @@ import TextPanel from './TextPanel';
 
 const AnimationPanel = ({
   robotParams,
+  isAnimate,
   setIsAnimate,
   setAnimationType,
   animateLinksRef,
@@ -21,23 +22,19 @@ const AnimationPanel = ({
   const handleAnimateLinks = () => {
     setAnimationType("links");
     setIsAnimate(true);
-    animateLinksRef.start();
-    animateLinksRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
-    highlightLinksRef.start();
-    highlightLinksRef.set({top: 172});
-    textRef.start();
     setIsAnimateParams(false);
+    animateLinksRef.start();
+    highlightLinksRef.start();
+    textRef.start();
   }
 
-  const handleAnimateParams = async () => {
+  const handleAnimateParams = () => {
     setAnimationType("params");
     setIsAnimate(true);
-    animateParamsRef.start();
-    animateParamsRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
-    highlightParamsRef.start();
-    highlightParamsRef.set({top: 172, left: 76});
-    textRef.start();
     setIsAnimateParams(true);
+    animateParamsRef.start();
+    highlightParamsRef.start();
+    textRef.start();
   }
 
   return (
@@ -45,6 +42,7 @@ const AnimationPanel = ({
       <Button
         className='mt-4'
         variant='success'
+        disabled={isAnimate}
         style={{margin: "0 15px 0 0"}}
         onClick={handleAnimateLinks}>
         Animate by Links
@@ -52,6 +50,7 @@ const AnimationPanel = ({
       <Button
         className='mt-4'
         variant='success'
+        disabled={isAnimate}
         onClick={handleAnimateParams}>
         Animate by Parameters
       </Button>

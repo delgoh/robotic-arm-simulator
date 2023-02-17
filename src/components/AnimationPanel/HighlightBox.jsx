@@ -37,12 +37,14 @@ const HighlightBox = ({
 
   const linksSpring = useSpring({
     ref: highlightLinksRef,
+    from: {top: 172},
     to: animateLinksList(),
     config: {duration: 200 * SPEED_FACTOR}
   });
 
   const paramsSpring = useSpring({
     ref: highlightParamsRef,
+    from: {top: 172, left: 76},
     to: animateParamsList(),
     config: {duration: 200 * SPEED_FACTOR}
   });
