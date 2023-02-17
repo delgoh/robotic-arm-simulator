@@ -4,8 +4,8 @@ import { useSpring, animated } from '@react-spring/web'
 import styles from './HighlightBox.module.css'
 
 const SPEED_FACTOR = 1; // higher = slower
-const linksOffsetTop = [172, 209, 247, 285, 322, 360, 398];
-const paramsOffsetLeft = [76, 152, 228, 304];
+const linksOffsetTop = [0, 38, 76, 114, 151, 189, 228];
+const paramsOffsetLeft = [66, 142, 218, 294];
 
 const HighlightBox = ({
   robotParams,
@@ -37,14 +37,14 @@ const HighlightBox = ({
 
   const linksSpring = useSpring({
     ref: highlightLinksRef,
-    from: {top: 172},
+    from: {top: 0},
     to: animateLinksList(),
     config: {duration: 200 * SPEED_FACTOR}
   });
 
   const paramsSpring = useSpring({
     ref: highlightParamsRef,
-    from: {top: 172, left: 76},
+    from: {top: 0, left: 66},
     to: animateParamsList(),
     config: {duration: 200 * SPEED_FACTOR}
   });
@@ -55,7 +55,7 @@ const HighlightBox = ({
       style={{
         display: isAnimate ? 'block' : 'none',
         top: animationType === 'links' ? linksSpring.top : paramsSpring.top,
-        left: animationType === 'links' ? 10 : paramsSpring.left
+        left: animationType === 'links' ? 0 : paramsSpring.left
       }}
     />
   )

@@ -1,14 +1,21 @@
 .parametersPanel {
-  height: 60%;
+  position: fixed;
+  height: 55%;
   width: 390px;
   padding: 10px;
-  position: fixed;
+  padding-top: 20px;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: rgba(200, 200, 200, 0.5);
-  overflow-x: hidden; /* Disable horizontal scroll */
-  overflow-y: overlay;
-  padding-top: 40px;
+  overflow-x: hidden; /* disable horizontal scroll */
+  overflow-y: hidden; /* disable vertical scroll */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.linkEntryList {
+  position: relative;
+  height: 190px;
+  overflow-x: hidden;
+  overflow-y: overlay;
 }

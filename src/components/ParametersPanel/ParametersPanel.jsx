@@ -61,24 +61,38 @@ const ParametersPanel = ({
     <div className={styles.parametersPanel}>
       <PanelHeader />
       <LinkHeader />
-      {robotParams.map((robotParam, i) => (
-        <LinkEntry
-          key={robotParam.linkId}
-          robotParam={robotParam}
-          setRobotParams={setRobotParams}
+      <div className={styles.linkEntryList}>
+        {robotParams.map((robotParam, i) => (
+          <LinkEntry
+            key={robotParam.linkId}
+            robotParam={robotParam}
+            setRobotParams={setRobotParams}
+            isAnimate={isAnimate}
+          />
+        ))}
+        <HighlightBox
+          robotParams={robotParams}
+          isAnimate={isAnimate}
+          animationType={animationType}
+          highlightLinksRef={highlightLinksRef}
+          highlightParamsRef={highlightParamsRef}
         />
-      ))}
+      </div>
       <Button
         className='mt-4'
         variant='primary'
         style={{margin: "0 15px 0 0"}}
-        onClick={handleAddLink}>
+        onClick={handleAddLink}
+        disabled={isAnimate}
+      >
         Add Link
       </Button>
       <Button
         className='mt-4'
         variant='primary'
-        onClick={handleDeleteLink}>
+        onClick={handleDeleteLink}
+        disabled={isAnimate}
+      >
         Delete Link
       </Button>
       <ToggleButtonGroup type="radio" name="matrix-radio" defaultValue={0}>
@@ -94,13 +108,7 @@ const ParametersPanel = ({
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
-      <HighlightBox
-        robotParams={robotParams}
-        isAnimate={isAnimate}
-        animationType={animationType}
-        highlightLinksRef={highlightLinksRef}
-        highlightParamsRef={highlightParamsRef}
-      />
+      
     </div>
   )
 };

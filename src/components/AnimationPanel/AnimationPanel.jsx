@@ -19,22 +19,22 @@ const AnimationPanel = ({
   const [isAnimateParams, setIsAnimateParams] = useState(true);
   const textRef = useSpringRef();
 
-  const handleAnimateLinks = () => {
-    setAnimationType("links");
-    setIsAnimate(true);
-    setIsAnimateParams(false);
-    animateLinksRef.start();
-    highlightLinksRef.start();
-    textRef.start();
+  const handleAnimateLinks = async () => {
+    await setAnimationType("links");
+    await setIsAnimate(true);
+    await setIsAnimateParams(false);
+    await animateLinksRef.start();
+    await highlightLinksRef.start();
+    await textRef.start();
   }
 
-  const handleAnimateParams = () => {
-    setAnimationType("params");
-    setIsAnimate(true);
-    setIsAnimateParams(true);
-    animateParamsRef.start();
-    highlightParamsRef.start();
-    textRef.start();
+  const handleAnimateParams = async () => {
+    await setAnimationType("params");
+    await setIsAnimate(true);
+    await setIsAnimateParams(true);
+    await animateParamsRef.start();
+    await highlightParamsRef.start();
+    await textRef.start();
   }
 
   return (
