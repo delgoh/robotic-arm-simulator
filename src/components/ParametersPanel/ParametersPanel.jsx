@@ -19,7 +19,8 @@ const ParametersPanel = ({
   isAnimate,
   animationType,
   highlightLinksRef,
-  highlightParamsRef
+  highlightParamsRef,
+  animationSpeed
 }) => {
 
 
@@ -76,31 +77,37 @@ const ParametersPanel = ({
           animationType={animationType}
           highlightLinksRef={highlightLinksRef}
           highlightParamsRef={highlightParamsRef}
+          animationSpeed={animationSpeed}
         />
       </div>
-      <Button
-        className='mt-4'
-        variant='primary'
-        style={{margin: "0 15px 0 0"}}
-        onClick={handleAddLink}
-        disabled={isAnimate}
+      <div className={styles.parameterButtons}>
+        <Button
+          className='mt-3'
+          variant='primary'
+          onClick={handleAddLink}
+          disabled={isAnimate}
+        >
+          Add Link
+        </Button>
+        <Button
+          className='mt-3 ms-3'
+          variant='primary'
+          onClick={handleDeleteLink}
+          disabled={isAnimate}
+        >
+          Delete Link
+        </Button>
+      </div>
+      <ToggleButtonGroup
+        className='mt-3'
+        type="radio"
+        name="matrix-radio"
+        defaultValue={0}
       >
-        Add Link
-      </Button>
-      <Button
-        className='mt-4'
-        variant='primary'
-        onClick={handleDeleteLink}
-        disabled={isAnimate}
-      >
-        Delete Link
-      </Button>
-      <ToggleButtonGroup type="radio" name="matrix-radio" defaultValue={0}>
         {["No Matrix", "Relative", "Global"].map((buttonText, index) => (
           <ToggleButton
             key={index}
             id={`matrix-radio-${index}`}
-            className='mt-4'
             variant={index === 0 ? 'outline-secondary' : 'outline-primary'}
             value={index}
             onChange={(e) => setMatrixDisplayValue(e.currentTarget.value)}>
@@ -108,6 +115,8 @@ const ParametersPanel = ({
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
+      
+      
       
     </div>
   )

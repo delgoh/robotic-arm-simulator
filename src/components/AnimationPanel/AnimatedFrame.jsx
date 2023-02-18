@@ -4,15 +4,14 @@ import { useSpring, animated } from '@react-spring/three'
 
 import CoordFrame from '../CoordFrame/CoordFrame'
 
-const SPEED_FACTOR = 1; // higher = slower
-
 const AnimatedFrame = ({
   robotParams,
   isAnimate,
   setIsAnimate,
   animationType,
   animateLinksRef,
-  animateParamsRef
+  animateParamsRef,
+  animationSpeed
 }) => {
 
   const animateLinksList = (params) => {
@@ -26,10 +25,10 @@ const AnimatedFrame = ({
       return {
         position: pos.toArray(),
         quaternion: quat.toArray(),
-        delay: 600 * SPEED_FACTOR
+        delay: 600 * animationSpeed
       };
     });
-    animationList[0].delay = 200 * SPEED_FACTOR;
+    animationList[0].delay = 200 * animationSpeed;
     animationList[animationList.length - 1].onRest = () => setIsAnimate(false);
     return animationList;
   }
@@ -64,10 +63,10 @@ const AnimatedFrame = ({
       return Array.from(Array(4).keys()).map((index) => ({
         position: posArr[index].toArray(),
         quaternion: quatArr[index].toArray(),
-        delay: 600 * SPEED_FACTOR
+        delay: 600 * animationSpeed
       }));
     });
-    animationList[0].delay = 200 * SPEED_FACTOR;
+    animationList[0].delay = 200 * animationSpeed;
     animationList[animationList.length - 1].onRest = () => setIsAnimate(false);
     return animationList;
   }
@@ -76,14 +75,14 @@ const AnimatedFrame = ({
     ref: animateLinksRef,
     from: {position: [0.01,0.01,0.01], quaternion: [0,0,0,1]},
     to: animateLinksList(robotParams),
-    config: {duration: 1000 * SPEED_FACTOR, delay: 1200 * SPEED_FACTOR}
+    config: {duration: 1000 * animationSpeed, delay: 1200 * animationSpeed}
   });
 
   const frameParamsSpring = useSpring({
     ref: animateParamsRef,
     from: {position: [0.01,0.01,0.01], quaternion: [0,0,0,1]},
     to: animateParamsList(robotParams),
-    config: {duration: 1000 * SPEED_FACTOR, delay: 1200 * SPEED_FACTOR}
+    config: {duration: 1000 * animationSpeed, delay: 1200 * animationSpeed}
   });
 
   return (

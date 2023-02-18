@@ -1,5 +1,7 @@
 .parametersPanel {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   height: 55%;
   width: 390px;
   padding: 10px;
@@ -15,7 +17,13 @@
 
 .linkEntryList {
   position: relative;
-  height: 190px;
+  display: block;
+  min-height: 50px;
+  max-height: 190px;
   overflow-x: hidden;
   overflow-y: overlay;
 }
+
+/* .parameterButtons {
+  bottom: 10px;
+} */

@@ -2,13 +2,12 @@ import React from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import styles from './TextPanel.module.css'
 
-const SPEED_FACTOR = 1; // higher = slower
-
 const TextPanel = ({
   robotParams,
   textRef,
   isAnimateParams,
-  setIsAnimateParams
+  setIsAnimateParams,
+  animationSpeed
 }) => {
 
   const setColorArr = (indexFocus) => {
@@ -33,7 +32,7 @@ const TextPanel = ({
         color2: 'rgb(0,0,0)',
         color3: 'rgb(0,0,0)',
         color4: 'rgb(0,0,0)',
-        delay: 1550 * SPEED_FACTOR
+        delay: 1550 * animationSpeed
       }));
 
     } else { // animate parameters
@@ -49,7 +48,7 @@ const TextPanel = ({
             color2: colorArr[1],
             color3: colorArr[2],
             color4: colorArr[3],
-            delay: 1550 * SPEED_FACTOR
+            delay: 1550 * animationSpeed
           })
         })
       ));
@@ -73,7 +72,7 @@ const TextPanel = ({
       color4: 'rgb(0,0,0)'
     },
     to: textLinksList(),
-    config: {duration: 50 * SPEED_FACTOR}
+    config: {duration: 50 * animationSpeed}
   });
 
 

@@ -3,7 +3,6 @@ import { useSpring, animated } from '@react-spring/web'
 
 import styles from './HighlightBox.module.css'
 
-const SPEED_FACTOR = 1; // higher = slower
 const linksOffsetTop = [0, 38, 76, 114, 151, 189, 228];
 const paramsOffsetLeft = [66, 142, 218, 294];
 
@@ -12,13 +11,14 @@ const HighlightBox = ({
   isAnimate,
   animationType,
   highlightLinksRef,
-  highlightParamsRef
+  highlightParamsRef,
+  animationSpeed
 }) => {
 
   const animateLinksList = () => {
     let animationList = [];
     animationList = linksOffsetTop.slice(0, robotParams.length).map(topOffset => (
-      { top: topOffset, delay: 1400 * SPEED_FACTOR }
+      { top: topOffset, delay: 1400 * animationSpeed }
     ));
     animationList[0].delay = 0;
     return animationList;
@@ -28,7 +28,7 @@ const HighlightBox = ({
     let animationList = [];
     animationList = linksOffsetTop.slice(0, robotParams.length).flatMap(topOffset => (
       paramsOffsetLeft.map(leftOffset => (
-        { top: topOffset, left: leftOffset, delay: 1400 * SPEED_FACTOR }
+        { top: topOffset, left: leftOffset, delay: 1400 * animationSpeed }
       ))
     ));
     animationList[0].delay = 0;
@@ -39,14 +39,14 @@ const HighlightBox = ({
     ref: highlightLinksRef,
     from: {top: 0},
     to: animateLinksList(),
-    config: {duration: 200 * SPEED_FACTOR}
+    config: {duration: 200 * animationSpeed}
   });
 
   const paramsSpring = useSpring({
     ref: highlightParamsRef,
     from: {top: 0, left: 66},
     to: animateParamsList(),
-    config: {duration: 200 * SPEED_FACTOR}
+    config: {duration: 200 * animationSpeed}
   });
 
   return (

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Matrix4 } from 'three';
 
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 const LinkEntry = ({

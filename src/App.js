@@ -70,6 +70,7 @@ const App = () => {
   const [matrixDisplayValue, setMatrixDisplayValue] = useState("0");
   const [isAnimate, setIsAnimate] = useState(false);
   const [animationType, setAnimationType] = useState("links");
+  const [animationSpeed, setAnimationSpeed] = useState(1.5);  // higher = slower
   const animateLinksRef = useSpringRef();
   const animateParamsRef = useSpringRef();
   const highlightLinksRef = useSpringRef();
@@ -77,7 +78,6 @@ const App = () => {
 
   return (
     <div className={styles.bodySection}>
-      {/* <SettingsBar /> */}
       <ParametersPanel
         robotParams={robotParams}
         setRobotParams={setRobotParams}
@@ -86,6 +86,7 @@ const App = () => {
         animationType={animationType}
         highlightLinksRef={highlightLinksRef}
         highlightParamsRef={highlightParamsRef}
+        animationSpeed={animationSpeed}
       />
       <AnimationPanel
         robotParams={robotParams}
@@ -96,6 +97,8 @@ const App = () => {
         animateParamsRef={animateParamsRef}
         highlightLinksRef={highlightLinksRef}
         highlightParamsRef={highlightParamsRef}
+        animationSpeed={animationSpeed}
+        setAnimationSpeed={setAnimationSpeed}
       />
       <Display
         robotParams={robotParams}
@@ -105,6 +108,7 @@ const App = () => {
         animationType={animationType}
         animateLinksRef={animateLinksRef}
         animateParamsRef={animateParamsRef}
+        animationSpeed={animationSpeed}
       />
     </div>
   );

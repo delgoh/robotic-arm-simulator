@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSpringRef } from '@react-spring/web';
 import { Button } from 'react-bootstrap';
+// import Form from 'react-bootstrap/Form';
 
 import styles from './AnimationPanel.module.css'
 import TextPanel from './TextPanel';
@@ -13,7 +14,9 @@ const AnimationPanel = ({
   animateLinksRef,
   animateParamsRef,
   highlightLinksRef,
-  highlightParamsRef
+  highlightParamsRef,
+  animationSpeed,
+  setAnimationSpeed
 }) => {
 
   const [isAnimateParams, setIsAnimateParams] = useState(true);
@@ -39,26 +42,49 @@ const AnimationPanel = ({
 
   return (
     <div className={styles.animationPanel}>
-      <Button
-        className='mt-4'
-        variant='success'
-        disabled={isAnimate}
-        style={{margin: "0 15px 0 0"}}
-        onClick={handleAnimateLinks}>
-        Animate by Links
-      </Button>
-      <Button
-        className='mt-4'
+      <div className={styles.animateButtons}>
+        <Button
+          className='mt-3'
+          variant='success'
+          disabled={isAnimate}
+          onClick={handleAnimateLinks}>
+          Animate by Links
+        </Button>
+        <Button
+          className='mt-3 ms-3'
+          variant='success'
+          disabled={isAnimate}
+          onClick={handleAnimateParams}>
+          Animate by Parameters
+        </Button>
+      </div>
+      <div>
+        <label
+          className={`${styles.speedLabel} mt-2`}>
+          Animation Speed: </label>
+        <input
+          className={`${styles.speedRange} ms-3 w-50`}
+          type='range'
+          onChange={e => setAnimationSpeed(3 - e.currentTarget.value)}
+          min={0.5}
+          max={2.5}
+          defaultValue={1.5}
+          step={0.5}
+        />
+      </div>
+      {/* <Button
+        className='mt-3'
         variant='success'
         disabled={isAnimate}
         onClick={handleAnimateParams}>
         Animate by Parameters
-      </Button>
+      </Button> */}
       <TextPanel
         robotParams={robotParams}
         isAnimateParams={isAnimateParams}
         setIsAnimateParams={setIsAnimateParams}
         textRef={textRef}
+        animationSpeed={animationSpeed}
       />
     </div>
   )
