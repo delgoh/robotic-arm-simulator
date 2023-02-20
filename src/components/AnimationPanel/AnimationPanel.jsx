@@ -99,14 +99,14 @@ const AnimationPanel = ({
       </div>
       <div>
         <Button
-          className='mt-3'
+          className={`${!isPaused ? styles.pauseButton : styles.playButton} mt-3`}
           variant='success'
           disabled={!isAnimate}
           onClick={handlePause}>
           {!isPaused ? "Pause" : "Resume"}
         </Button>
         <Button
-          className='mt-3 ms-3'
+          className={`${styles.stopButton} mt-3 ms-3`}
           variant='success'
           disabled={!isAnimate}
           onClick={handleStop}>

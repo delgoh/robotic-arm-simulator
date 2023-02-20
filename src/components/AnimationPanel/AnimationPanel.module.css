@@ -34,3 +34,33 @@
 .speedRange:hover {
   opacity: 1;
 }
+
+.pauseButton::before {
+  content: "";
+  display: inline-block;
+  background: url("../../assets/icons/animation-pause.png") no-repeat;
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+  margin: 0 10px 0 0;
+}
+
+.playButton::before {
+  content: "";
+  display: inline-block;
+  background: url("../../assets/icons/animation-play.png") no-repeat;
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+  margin: 0 10px 0 0;
+}
+
+.stopButton::before {
+  content: "";
+  display: inline-block;
+  background: url("../../assets/icons/animation-stop.png") no-repeat;
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+  margin: 0 10px 0 0;
+}
