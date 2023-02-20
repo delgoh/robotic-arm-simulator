@@ -65,7 +65,8 @@ const Display = ({
   setIsAnimate,
   animationType,
   animateLinksRef,
-  animateParamsRef
+  animateParamsRef,
+  animationSpeed
 }) => {
 
   return (
@@ -83,6 +84,7 @@ const Display = ({
         animationType={animationType}
         animateLinksRef={animateLinksRef}
         animateParamsRef={animateParamsRef}
+        animationSpeed={animationSpeed}
       />
     </CanvasControls>
   )

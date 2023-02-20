@@ -1,8 +1,11 @@
 .highlightBox {
   position: absolute;
-  height: 36px;
+  z-index: 1;
+  height: 37px;
+  margin: 0;
   background-color: rgb(255, 255, 0, 0.5);
-  top: 192px;
+  top: 0px;
+  left: 0px;
   border-radius: 5px;
   mix-blend-mode: multiply;
 }

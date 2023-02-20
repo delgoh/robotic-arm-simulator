@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { Matrix4 } from 'three';
 
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 const LinkEntry = ({
   robotParam,
   setRobotParams,
+  isAnimate,
   linkRef
 }) => {
 
@@ -100,6 +101,7 @@ const LinkEntry = ({
         onChange={handleInputChange}
         onBlur={handleInputBlur}
         onKeyDown={handleKeyDown}
+        disabled={isAnimate}
       />
       <Form.Control
         id='r'
@@ -107,6 +109,7 @@ const LinkEntry = ({
         onChange={handleInputChange}
         onBlur={handleInputBlur}
         onKeyDown={handleKeyDown}
+        disabled={isAnimate}
       />
       <Form.Control
         id='d'
@@ -114,6 +117,7 @@ const LinkEntry = ({
         onChange={handleInputChange}
         onBlur={handleInputBlur}
         onKeyDown={handleKeyDown}
+        disabled={isAnimate}
       />
       <Form.Control
         id='alpha'
@@ -121,6 +125,7 @@ const LinkEntry = ({
         onChange={handleInputChange}
         onBlur={handleInputBlur}
         onKeyDown={handleKeyDown}
+        disabled={isAnimate}
       />
     </InputGroup>
   );

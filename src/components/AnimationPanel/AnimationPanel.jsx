@@ -1,65 +1,124 @@
 import React, { useState } from 'react';
 import { useSpringRef } from '@react-spring/web';
 import { Button } from 'react-bootstrap';
+// import Form from 'react-bootstrap/Form';
 
 import styles from './AnimationPanel.module.css'
 import TextPanel from './TextPanel';
 
 const AnimationPanel = ({
   robotParams,
+  isAnimate,
   setIsAnimate,
   setAnimationType,
   animateLinksRef,
   animateParamsRef,
   highlightLinksRef,
-  highlightParamsRef
+  highlightParamsRef,
+  animationSpeed,
+  setAnimationSpeed
 }) => {
 
   const [isAnimateParams, setIsAnimateParams] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
   const textRef = useSpringRef();
 
-  const handleAnimateLinks = () => {
-    setAnimationType("links");
-    setIsAnimate(true);
-    animateLinksRef.start();
-    animateLinksRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
-    highlightLinksRef.start();
-    highlightLinksRef.set({top: 172});
-    textRef.start();
-    setIsAnimateParams(false);
+  const handleAnimateLinks = async () => {
+    await setAnimationType("links");
+    await setIsAnimate(true);
+    await setIsAnimateParams(false);
+    await animateLinksRef.start();
+    await highlightLinksRef.start();
+    await textRef.start();
   }
 
   const handleAnimateParams = async () => {
-    setAnimationType("params");
-    setIsAnimate(true);
-    animateParamsRef.start();
-    animateParamsRef.set({position: [0.01,0.01,0.01], quaternion: [0,0,0,1]});
-    highlightParamsRef.start();
-    highlightParamsRef.set({top: 172, left: 76});
-    textRef.start();
-    setIsAnimateParams(true);
+    await setAnimationType("params");
+    await setIsAnimate(true);
+    await setIsAnimateParams(true);
+    await animateParamsRef.start();
+    await highlightParamsRef.start();
+    await textRef.start();
+  }
+
+  const handlePause = () => {
+    setIsPaused(isPaused => {
+      if (!isPaused) {
+        animateLinksRef.pause();
+        highlightLinksRef.pause();
+        textRef.pause();
+      } else {
+        animateLinksRef.resume();
+        highlightLinksRef.resume();
+        textRef.resume();
+      }
+      return !isPaused;
+    });
+  }
+
+  const handleStop = () => {
+    animateLinksRef.stop();
+    highlightLinksRef.stop();
+    textRef.stop();
+    setIsAnimate(false);
+    setIsPaused(false);
   }
 
   return (
     <div className={styles.animationPanel}>
-      <Button
-        className='mt-4'
-        variant='success'
-        style={{margin: "0 15px 0 0"}}
-        onClick={handleAnimateLinks}>
-        Animate by Links
-      </Button>
-      <Button
-        className='mt-4'
-        variant='success'
-        onClick={handleAnimateParams}>
-        Animate by Parameters
-      </Button>
+      <div className={styles.animateButtons}>
+        <Button
+          className='mt-3'
+          variant='success'
+          disabled={isAnimate}
+          onClick={handleAnimateLinks}>
+          Animate by Links
+        </Button>
+        <Button
+          className='mt-3 ms-3'
+          variant='success'
+          disabled={isAnimate}
+          onClick={handleAnimateParams}>
+          Animate by Parameters
+        </Button>
+      </div>
+      <div>
+        <label
+          className={`${styles.speedLabel} mt-2`}>
+          Animation Speed: </label>
+        <input
+          className={`${styles.speedRange} ms-3 w-50`}
+          type='range'
+          onChange={e => setAnimationSpeed(3 - e.currentTarget.value)}
+          disabled={isAnimate}
+          min={0.5}
+          max={2.5}
+          defaultValue={1.5}
+          step={0.5}
+        />
+      </div>
+      <div>
+        <Button
+          className={`${!isPaused ? styles.pauseButton : styles.playButton} mt-3`}
+          variant='success'
+          disabled={!isAnimate}
+          onClick={handlePause}>
+          {!isPaused ? "Pause" : "Resume"}
+        </Button>
+        <Button
+          className={`${styles.stopButton} mt-3 ms-3`}
+          variant='success'
+          disabled={!isAnimate}
+          onClick={handleStop}>
+          Stop
+        </Button>
+      </div>
       <TextPanel
         robotParams={robotParams}
         isAnimateParams={isAnimateParams}
         setIsAnimateParams={setIsAnimateParams}
         textRef={textRef}
+        animationSpeed={animationSpeed}
       />
     </div>
   )
