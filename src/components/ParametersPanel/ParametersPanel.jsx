@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Matrix4 } from 'three';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -9,6 +9,7 @@ import PanelHeader from './PanelHeader';
 import LinkHeader from './LinkHeader';
 import LinkEntry from './LinkEntry';
 import HighlightBox from '../AnimationPanel/HighlightBox';
+import PanelToggle from '../PanelToggle';
 
 const MAX_LINKS = 7; // inclusive of base link (link 0)
 
@@ -23,6 +24,7 @@ const ParametersPanel = ({
   animationSpeed
 }) => {
 
+  const [isParamPanelOpen, setIsParamPanelOpen] = useState(true);
 
   const handleAddLink = () => {
 
@@ -59,66 +61,70 @@ const ParametersPanel = ({
   }
 
   return (
-    <div className={styles.parametersPanel}>
-      <PanelHeader />
-      <LinkHeader />
-      <div className={styles.linkEntryList}>
-        {robotParams.map((robotParam, i) => (
-          <LinkEntry
-            key={robotParam.linkId}
-            robotParam={robotParam}
-            setRobotParams={setRobotParams}
+    <>
+      <div className={`${styles.parametersPanel} ${isParamPanelOpen ? '' : styles.hidden}`}>
+        <PanelHeader />
+        <LinkHeader />
+        <div className={styles.linkEntryList}>
+          {robotParams.map((robotParam, i) => (
+            <LinkEntry
+              key={robotParam.linkId}
+              robotParam={robotParam}
+              setRobotParams={setRobotParams}
+              isAnimate={isAnimate}
+            />
+          ))}
+          <HighlightBox
+            robotParams={robotParams}
             isAnimate={isAnimate}
+            animationType={animationType}
+            highlightLinksRef={highlightLinksRef}
+            highlightParamsRef={highlightParamsRef}
+            animationSpeed={animationSpeed}
           />
-        ))}
-        <HighlightBox
-          robotParams={robotParams}
-          isAnimate={isAnimate}
-          animationType={animationType}
-          highlightLinksRef={highlightLinksRef}
-          highlightParamsRef={highlightParamsRef}
-          animationSpeed={animationSpeed}
-        />
-      </div>
-      <div className={styles.parameterButtons}>
-        <Button
+        </div>
+        <div className={styles.parameterButtons}>
+          <Button
+            className='mt-3'
+            variant='primary'
+            onClick={handleAddLink}
+            disabled={isAnimate}
+          >
+            Add Link
+          </Button>
+          <Button
+            className='mt-3 ms-3'
+            variant='primary'
+            onClick={handleDeleteLink}
+            disabled={isAnimate}
+          >
+            Delete Link
+          </Button>
+        </div>
+        <ToggleButtonGroup
           className='mt-3'
-          variant='primary'
-          onClick={handleAddLink}
-          disabled={isAnimate}
+          type="radio"
+          name="matrix-radio"
+          defaultValue={0}
         >
-          Add Link
-        </Button>
-        <Button
-          className='mt-3 ms-3'
-          variant='primary'
-          onClick={handleDeleteLink}
-          disabled={isAnimate}
-        >
-          Delete Link
-        </Button>
+          {["No Matrix", "Relative", "Global"].map((buttonText, index) => (
+            <ToggleButton
+              key={index}
+              id={`matrix-radio-${index}`}
+              variant={index === 0 ? 'outline-secondary' : 'outline-primary'}
+              value={index}
+              onChange={(e) => setMatrixDisplayValue(e.currentTarget.value)}>
+              {buttonText}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
       </div>
-      <ToggleButtonGroup
-        className='mt-3'
-        type="radio"
-        name="matrix-radio"
-        defaultValue={0}
-      >
-        {["No Matrix", "Relative", "Global"].map((buttonText, index) => (
-          <ToggleButton
-            key={index}
-            id={`matrix-radio-${index}`}
-            variant={index === 0 ? 'outline-secondary' : 'outline-primary'}
-            value={index}
-            onChange={(e) => setMatrixDisplayValue(e.currentTarget.value)}>
-            {buttonText}
-          </ToggleButton>
-        ))}
-      </ToggleButtonGroup>
-      
-      
-      
-    </div>
+      <PanelToggle
+        isPanelOpen={isParamPanelOpen}
+        setIsPanelOpen={setIsParamPanelOpen}
+        topPos='28%'
+      />
+    </>
   )
 };
 

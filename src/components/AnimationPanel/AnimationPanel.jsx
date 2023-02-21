@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 
 import styles from './AnimationPanel.module.css'
 import TextPanel from './TextPanel';
+import PanelToggle from '../PanelToggle';
 
 const AnimationPanel = ({
   robotParams,
@@ -21,6 +22,7 @@ const AnimationPanel = ({
 
   const [isAnimateParams, setIsAnimateParams] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
+  const [isAnimPanelOpen, setIsAnimPanelOpen] = useState(true);
   const textRef = useSpringRef();
 
   const handleAnimateLinks = async () => {
@@ -65,62 +67,69 @@ const AnimationPanel = ({
   }
 
   return (
-    <div className={styles.animationPanel}>
-      <div className={styles.animateButtons}>
-        <Button
-          className='mt-3'
-          variant='success'
-          disabled={isAnimate}
-          onClick={handleAnimateLinks}>
-          Animate by Links
-        </Button>
-        <Button
-          className='mt-3 ms-3'
-          variant='success'
-          disabled={isAnimate}
-          onClick={handleAnimateParams}>
-          Animate by Parameters
-        </Button>
-      </div>
-      <div>
-        <label
-          className={`${styles.speedLabel} mt-2`}>
-          Animation Speed: </label>
-        <input
-          className={`${styles.speedRange} ms-3 w-50`}
-          type='range'
-          onChange={e => setAnimationSpeed(3 - e.currentTarget.value)}
-          disabled={isAnimate}
-          min={0.5}
-          max={2.5}
-          defaultValue={1.5}
-          step={0.5}
+    <>
+      <div className={`${styles.animationPanel} ${isAnimPanelOpen ? '' : styles.hidden}`}>
+        <div className={styles.animateButtons}>
+          <Button
+            className='mt-3'
+            variant='success'
+            disabled={isAnimate}
+            onClick={handleAnimateLinks}>
+            Animate by Links
+          </Button>
+          <Button
+            className='mt-3 ms-3'
+            variant='success'
+            disabled={isAnimate}
+            onClick={handleAnimateParams}>
+            Animate by Parameters
+          </Button>
+        </div>
+        <div>
+          <label
+            className={`${styles.speedLabel} mt-2`}>
+            Animation Speed: </label>
+          <input
+            className={`${styles.speedRange} ms-3 w-50`}
+            type='range'
+            onChange={e => setAnimationSpeed(3 - e.currentTarget.value)}
+            disabled={isAnimate}
+            min={0.5}
+            max={2.5}
+            defaultValue={1.5}
+            step={0.5}
+          />
+        </div>
+        <div>
+          <Button
+            className={`${!isPaused ? styles.pauseButton : styles.playButton} mt-3`}
+            variant='success'
+            disabled={!isAnimate}
+            onClick={handlePause}>
+            {!isPaused ? "Pause" : "Resume"}
+          </Button>
+          <Button
+            className={`${styles.stopButton} mt-3 ms-3`}
+            variant='success'
+            disabled={!isAnimate}
+            onClick={handleStop}>
+            Stop
+          </Button>
+        </div>
+        <TextPanel
+          robotParams={robotParams}
+          isAnimateParams={isAnimateParams}
+          setIsAnimateParams={setIsAnimateParams}
+          textRef={textRef}
+          animationSpeed={animationSpeed}
         />
       </div>
-      <div>
-        <Button
-          className={`${!isPaused ? styles.pauseButton : styles.playButton} mt-3`}
-          variant='success'
-          disabled={!isAnimate}
-          onClick={handlePause}>
-          {!isPaused ? "Pause" : "Resume"}
-        </Button>
-        <Button
-          className={`${styles.stopButton} mt-3 ms-3`}
-          variant='success'
-          disabled={!isAnimate}
-          onClick={handleStop}>
-          Stop
-        </Button>
-      </div>
-      <TextPanel
-        robotParams={robotParams}
-        isAnimateParams={isAnimateParams}
-        setIsAnimateParams={setIsAnimateParams}
-        textRef={textRef}
-        animationSpeed={animationSpeed}
+      <PanelToggle
+        isPanelOpen={isAnimPanelOpen}
+        setIsPanelOpen={setIsAnimPanelOpen}
+        topPos='79%'
       />
-    </div>
+    </>
   )
 };
 

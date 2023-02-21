@@ -47,6 +47,8 @@ const AnimatedFrame = ({
     }
     animationList = params.flatMap((param) => {
       let {theta, r, d, alpha} = param;
+      theta = theta.slice(0, -1);
+      alpha = alpha.slice(0, -1);
       operationMatrix.makeRotationZ((parseFloat(theta) + 0.0001) * (Math.PI / 180)); // Rotate about z-axis by theta
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[0], quatArr[0], scaleArr[0]);

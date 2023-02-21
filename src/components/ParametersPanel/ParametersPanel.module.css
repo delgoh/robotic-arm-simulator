@@ -2,17 +2,18 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  height: 55%;
+  height: 56%;
   width: 390px;
   padding: 10px;
   padding-top: 20px;
   z-index: 1;
   top: 0;
   left: 0;
+  border-bottom-right-radius: 10px;
   background-color: rgba(200, 200, 200, 0.5);
-  overflow-x: hidden; /* disable horizontal scroll */
-  overflow-y: hidden; /* disable vertical scroll */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transition: 0.5s;
 }
 
 .linkEntryList {
@@ -24,6 +25,6 @@
   overflow-y: overlay;
 }
 
-/* .parameterButtons {
-  bottom: 10px;
-} */
+.hidden {
+  left: -390px;
+}
