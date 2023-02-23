@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Matrix4 } from 'three';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -25,39 +25,39 @@ const ParametersPanel = ({
 }) => {
 
   const [isParamPanelOpen, setIsParamPanelOpen] = useState(true);
+  const [isLinksMin, setIsLinksMin] = useState(false);
+  const [isLinksMax, setIsLinksMax] = useState(false);
+
+  useEffect(() => {
+    const noOfLinks = robotParams.length;
+    if (noOfLinks < MAX_LINKS) setIsLinksMax(false);
+    else setIsLinksMax(true);
+    if (noOfLinks > 1) setIsLinksMin(false);
+    else setIsLinksMin(true);
+  }, [robotParams])
 
   const handleAddLink = () => {
-
     const noOfLinks = robotParams.length;
-    if (noOfLinks < MAX_LINKS) {
-      setRobotParams((prevState) => {
-        return [...prevState, {
-          linkId: noOfLinks,
-          theta: "0",
-          r: "0",
-          d: "0",
-          alpha: "0",
-          relativeT: new Matrix4(),
-          globalT: new Matrix4(),
-          isVisible: true
-        }];
-      });
-    } else {
-      // make popup/popover warning
-    }
+    setRobotParams((prevState) => {
+      return [...prevState, {
+        linkId: noOfLinks,
+        theta: "0\u00B0",
+        r: "0",
+        d: "0",
+        alpha: "0\u00B0",
+        relativeT: new Matrix4(),
+        globalT: new Matrix4(),
+        isVisible: true
+      }];
+    });
   }
 
   const handleDeleteLink = () => {
-    const noOfLinks = robotParams.length;
-    if (noOfLinks > 1) {
-      setRobotParams((prevState) => {
-        const newState = [...prevState];
-        newState.pop();
-        return newState;
-      });
-    } else {
-      // make popup/popover warning
-    }
+    setRobotParams((prevState) => {
+      const newState = [...prevState];
+      newState.pop();
+      return newState;
+    });
   }
 
   return (
@@ -83,12 +83,13 @@ const ParametersPanel = ({
             animationSpeed={animationSpeed}
           />
         </div>
-        <div className={styles.parameterButtons}>
+        <div className='mt-auto'> 
+        {/* styles.parameterButtons */}
           <Button
             className='mt-3'
             variant='primary'
             onClick={handleAddLink}
-            disabled={isAnimate}
+            disabled={isAnimate || isLinksMax}
           >
             Add Link
           </Button>
@@ -96,7 +97,7 @@ const ParametersPanel = ({
             className='mt-3 ms-3'
             variant='primary'
             onClick={handleDeleteLink}
-            disabled={isAnimate}
+            disabled={isAnimate || isLinksMin}
           >
             Delete Link
           </Button>
