@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Quaternion, Vector3 } from 'three';
 import { useSpringRef } from '@react-spring/web';
 import { Button } from 'react-bootstrap';
 // import Form from 'react-bootstrap/Form';
@@ -25,32 +26,75 @@ const AnimationPanel = ({
   const [isAnimPanelOpen, setIsAnimPanelOpen] = useState(true);
   const textRef = useSpringRef();
 
+  const getStartPose = (initialParam) => {
+    let pos = new Vector3();
+    const quat = new Quaternion();
+    const scale = new Vector3();
+    initialParam.globalT.decompose(pos, quat, scale);
+
+    return {
+      position: pos.toArray().map(val => val + 0.001),
+      quaternion: quat.toArray()
+    };
+  };
+
+  const getStartText = (initialParam) => ({
+    theta: (initialParam.theta).slice(0, -1),
+    r: initialParam.r,
+    d: initialParam.d,
+    alpha: (initialParam.alpha).slice(0, -1),
+    color1: 'rgb(0,0,0)',
+    color2: 'rgb(0,0,0)',
+    color3: 'rgb(0,0,0)',
+    color4: 'rgb(0,0,0)'
+  });
+
   const handleAnimateLinks = async () => {
-    await setAnimationType("links");
-    await setIsAnimate(true);
-    await setIsAnimateParams(false);
-    await animateLinksRef.start();
-    await highlightLinksRef.start();
-    await textRef.start();
-  }
+    await Promise.all([
+      setAnimationType("links"),
+      setIsAnimate(true),
+      setIsAnimateParams(false)
+    ]);
+    await Promise.all([
+      animateLinksRef.set(getStartPose(robotParams[0])),
+      highlightLinksRef.set({top: 0}),
+      textRef.set(getStartText(robotParams[0]))
+    ]);
+    await Promise.all([
+      animateLinksRef.start(),
+      highlightLinksRef.start(),
+      textRef.start()
+    ]);
+  };
 
   const handleAnimateParams = async () => {
-    await setAnimationType("params");
-    await setIsAnimate(true);
-    await setIsAnimateParams(true);
-    await animateParamsRef.start();
-    await highlightParamsRef.start();
-    await textRef.start();
-  }
+    await Promise.all([
+      setAnimationType("params"),
+      setIsAnimate(true),
+      setIsAnimateParams(true)
+    ]);
+    await Promise.all([
+      animateParamsRef.set(getStartPose(robotParams[0])),
+      highlightParamsRef.set({top: 0, left: 66}),
+      textRef.set(getStartText(robotParams[0]))
+    ]);
+    await Promise.all([
+      animateParamsRef.start(),
+      highlightParamsRef.start(),
+      textRef.start()
+    ]);
+  };
 
   const handlePause = () => {
     setIsPaused(isPaused => {
       if (!isPaused) {
         animateLinksRef.pause();
+        animateParamsRef.pause();
         highlightLinksRef.pause();
         textRef.pause();
       } else {
         animateLinksRef.resume();
+        animateParamsRef.resume();
         highlightLinksRef.resume();
         textRef.resume();
       }
@@ -60,6 +104,7 @@ const AnimationPanel = ({
 
   const handleStop = () => {
     animateLinksRef.stop();
+    animateParamsRef.stop();
     highlightLinksRef.stop();
     textRef.stop();
     setIsAnimate(false);

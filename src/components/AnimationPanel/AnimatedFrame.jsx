@@ -14,6 +14,29 @@ const AnimatedFrame = ({
   animationSpeed
 }) => {
 
+  const createNewParam = () => ({
+    linkId: -1,
+    theta: "0\u00B0",
+    r: "0",
+    d: "0",
+    alpha: "0\u00B0",
+    relativeT: new Matrix4(),
+    globalT: new Matrix4(),
+    isVisible: true
+  })
+
+  const getStartPose = (initialParam) => {
+    let pos = new Vector3();
+    const quat = new Quaternion();
+    const scale = new Vector3();
+    initialParam.globalT.decompose(pos, quat, scale);
+
+    return {
+      position: pos.toArray().map(val => val + 0.001),
+      quaternion: quat.toArray()
+    };
+  };
+
   const animateLinksList = (params) => {
     let animationList = [];
     animationList = params.map((param) => {
@@ -75,16 +98,16 @@ const AnimatedFrame = ({
 
   const frameLinksSpring = useSpring({
     ref: animateLinksRef,
-    from: {position: [0.01,0.01,0.01], quaternion: [0,0,0,1]},
+    from: getStartPose(robotParams[0]),
     to: animateLinksList(robotParams),
-    config: {duration: 1000 * animationSpeed, delay: 1200 * animationSpeed}
+    config: {duration: 1000 * animationSpeed}
   });
 
   const frameParamsSpring = useSpring({
     ref: animateParamsRef,
-    from: {position: [0.01,0.01,0.01], quaternion: [0,0,0,1]},
+    from: getStartPose(robotParams[0]),
     to: animateParamsList(robotParams),
-    config: {duration: 1000 * animationSpeed, delay: 1200 * animationSpeed}
+    config: {duration: 1000 * animationSpeed}
   });
 
   return (
@@ -95,8 +118,8 @@ const AnimatedFrame = ({
         visible={isAnimate && animationType === 'links'}
       >
         <CoordFrame
-          key={robotParams[0].linkId}
-          robotParam={robotParams[0]}
+          key='animatedLinkFrame'
+          robotParam={createNewParam()}
           matrixDisplayValue={'0'}
         />
       </animated.group>
@@ -106,8 +129,8 @@ const AnimatedFrame = ({
         visible={isAnimate && animationType === 'params'}
       >
         <CoordFrame
-          key={robotParams[0].linkId}
-          robotParam={robotParams[0]}
+          key='animatedParamFrame'
+          robotParam={createNewParam()}
           matrixDisplayValue={'0'}
         />
       </animated.group>
