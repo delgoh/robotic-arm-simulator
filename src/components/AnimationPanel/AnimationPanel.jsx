@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Quaternion, Vector3 } from 'three';
 import { useSpringRef } from '@react-spring/web';
 import { Button } from 'react-bootstrap';
-// import Form from 'react-bootstrap/Form';
 
-import styles from './AnimationPanel.module.css'
+import styles from './AnimationPanel.module.css';
 import TextPanel from './TextPanel';
 import PanelToggle from '../PanelToggle';
 
@@ -100,7 +99,7 @@ const AnimationPanel = ({
       }
       return !isPaused;
     });
-  }
+  };
 
   const handleStop = () => {
     animateLinksRef.stop();
@@ -109,7 +108,7 @@ const AnimationPanel = ({
     textRef.stop();
     setIsAnimate(false);
     setIsPaused(false);
-  }
+  };
 
   return (
     <>
@@ -175,7 +174,7 @@ const AnimationPanel = ({
         topPos='79%'
       />
     </>
-  )
+  );
 };
 
 export default AnimationPanel;

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
-import styles from './ParametersPanel.module.css'
+import styles from './ParametersPanel.module.css';
 import PanelHeader from './PanelHeader';
 import LinkHeader from './LinkHeader';
 import LinkEntry from './LinkEntry';
@@ -34,13 +34,12 @@ const ParametersPanel = ({
     else setIsLinksMax(true);
     if (noOfLinks > 1) setIsLinksMin(false);
     else setIsLinksMin(true);
-  }, [robotParams])
+  }, [robotParams]);
 
   const handleAddLink = () => {
-    const noOfLinks = robotParams.length;
     setRobotParams((prevState) => {
       return [...prevState, {
-        linkId: noOfLinks,
+        linkId: prevState.length,
         theta: "0\u00B0",
         r: "0",
         d: "0",
@@ -50,7 +49,7 @@ const ParametersPanel = ({
         isVisible: true
       }];
     });
-  }
+  };
 
   const handleDeleteLink = () => {
     setRobotParams((prevState) => {
@@ -58,7 +57,27 @@ const ParametersPanel = ({
       newState.pop();
       return newState;
     });
-  }
+  };
+
+  const handleClearInputs = () => {
+    setRobotParams((prevState) => {
+      const noOfLinks = prevState.length;
+      const newState = [];
+      for (let i = 0; i < noOfLinks; i++) {
+        newState.push({
+          linkId: i,
+          theta: "0\u00B0",
+          r: "0",
+          d: "0",
+          alpha: "0\u00B0",
+          relativeT: new Matrix4(),
+          globalT: new Matrix4(),
+          isVisible: true
+        });
+      }
+      return newState;
+    });
+  };
 
   return (
     <>
@@ -101,6 +120,14 @@ const ParametersPanel = ({
           >
             Delete Link
           </Button>
+          <Button
+            className='mt-3 ms-5'
+            variant='danger'
+            onClick={handleClearInputs}
+            disabled={isAnimate}
+          >
+            Clear Inputs
+          </Button>
         </div>
         <ToggleButtonGroup
           className='mt-3'
@@ -126,7 +153,7 @@ const ParametersPanel = ({
         topPos='28%'
       />
     </>
-  )
+  );
 };
 
 export default ParametersPanel;
