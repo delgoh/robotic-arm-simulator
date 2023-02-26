@@ -32,21 +32,21 @@ const AnimatedFrame = ({
     initialParam.globalT.decompose(pos, quat, scale);
 
     return {
-      position: pos.toArray().map(val => val + 0.001),
+      position: pos.toArray(),
       quaternion: quat.toArray()
     };
   };
 
   const animateLinksList = (params) => {
     let animationList = [];
-    animationList = params.map((param) => {
+    animationList = params.map((param, paramIndex) => {
       const pos = new Vector3();
       const quat = new Quaternion();
       const scale = new Vector3();
       param.globalT.decompose(pos, quat, scale);
 
       return {
-        position: pos.toArray(),
+        position: pos.toArray().map((val) => val + 0.0002 * paramIndex), // small offset to cause animation delay to occur
         quaternion: quat.toArray(),
         delay: 600 * animationSpeed
       };
