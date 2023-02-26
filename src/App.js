@@ -16,50 +16,50 @@ const App = () => {
     [
       {
         linkId: 0,
-        theta: "0",
+        theta: "0\u00B0",
         r: "0",
         d: "0",
-        alpha: "0",
+        alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         isVisible: true
       },
       {
         linkId: 1,
-        theta: "0",
+        theta: "0\u00B0",
         r: "-3",
         d: "2",
-        alpha: "30",
+        alpha: "30\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         isVisible: true
       },
       {
         linkId: 2,
-        theta: "0",
+        theta: "0\u00B0",
         r: "3",
         d: "9",
-        alpha: "0",
+        alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         isVisible: true
       },
       {
         linkId: 3,
-        theta: "45",
+        theta: "45\u00B0",
         r: "0",
         d: "-4",
-        alpha: "-90",
+        alpha: "-90\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         isVisible: true
       },
       {
         linkId: 4,
-        theta: "0",
+        theta: "0\u00B0",
         r: "9",
         d: "0",
-        alpha: "60",
+        alpha: "60\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         isVisible: true

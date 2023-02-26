@@ -24,10 +24,10 @@ const TextPanel = ({
 
     if(!isAnimateParams) { // animate links
       textList = robotParams.map((robotParam) => ({
-        theta: robotParam.theta,
+        theta: (robotParam.theta).slice(0, -1),
         r: robotParam.r,
         d: robotParam.d,
-        alpha: robotParam.alpha,
+        alpha: (robotParam.alpha).slice(0, -1),
         color1: 'rgb(0,0,0)',
         color2: 'rgb(0,0,0)',
         color3: 'rgb(0,0,0)',
@@ -40,10 +40,10 @@ const TextPanel = ({
         Array.from(Array(4).keys()).map((index) => {
           let colorArr = setColorArr(index);
           return ({
-            theta: robotParam.theta,
+            theta: (robotParam.theta).slice(0, -1),
             r: robotParam.r,
             d: robotParam.d,
-            alpha: robotParam.alpha,
+            alpha: (robotParam.alpha).slice(0, -1),
             color1: colorArr[0],
             color2: colorArr[1],
             color3: colorArr[2],
@@ -62,10 +62,10 @@ const TextPanel = ({
   const textSpring = useSpring({
     ref: textRef,
     from: {
-      theta: robotParams[0].theta,
+      theta: (robotParams[0].theta).slice(0, -1),
       r: robotParams[0].r,
       d: robotParams[0].d,
-      alpha: robotParams[0].alpha,
+      alpha: (robotParams[0].alpha).slice(0, -1),
       color1: 'rgb(0,0,0)',
       color2: 'rgb(0,0,0)',
       color3: 'rgb(0,0,0)',
@@ -84,7 +84,7 @@ const TextPanel = ({
       <animated.h5
         style={{color: textSpring.color1}}
       >
-        {textSpring.theta.to(val => "1) Rot( z, " + Math.floor(val) + "\xB0 )")}
+        {textSpring.theta.to(val => "1) Rot( z, " + Math.floor(val) + "\u00B0 )")}
       </animated.h5>
       <animated.h5
         style={{color: textSpring.color2}}
@@ -99,7 +99,7 @@ const TextPanel = ({
       <animated.h5
         style={{color: textSpring.color4}}
       >
-        {textSpring.alpha.to(val => "4) Rot( x, " + Math.floor(val) + "\xB0 )")}
+        {textSpring.alpha.to(val => "4) Rot( x, " + Math.floor(val) + "\u00B0 )")}
       </animated.h5>
     </animated.div>
   )

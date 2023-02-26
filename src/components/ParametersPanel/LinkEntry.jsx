@@ -18,11 +18,28 @@ const LinkEntry = ({
     });
   }, [setRobotParams]);
 
-  const handleInputChange = (e) => {
+  const handleInputFocus = (e) => {
     let newState = {...robotParam};
+    let inputStr = e.target.value;
+    if (inputStr[inputStr.length - 1] === "\u00B0") { // remove degree symbol
+      inputStr = inputStr.slice(0, -1);
+      newState[e.target.id] = inputStr;
+      setRobotParams((prevRobotParams) => {
+        let newRobotParams = [...prevRobotParams];
+        newRobotParams[newState.linkId] = newState;
+        return newRobotParams;
+      })
+    }
+  }
 
-    if (!isNaN(e.target.value) || e.target.value === "-") {
-      newState[e.target.id] = e.target.value;
+  const handleInputChange = (e, isAngle) => {
+    let newState = {...robotParam};
+    let inputStr = e.target.value;
+    if (isAngle && inputStr[inputStr.length - 1] === "\u00B0") { // remove degree symbol
+      inputStr = inputStr.slice(0, -1);
+    }
+    if (!isNaN(inputStr) || inputStr === "-") {
+      newState[e.target.id] = inputStr;
 
       setRobotParams((prevRobotParams) => {
         let newRobotParams = [...prevRobotParams];
@@ -32,24 +49,28 @@ const LinkEntry = ({
     }
   };
 
-  const handleInputBlur = (e) => {
-    if (e.target.value === "" || e.target.value === "-") {
-      let newState = {...robotParam};
+  const handleInputBlur = (e, isAngle) => {
+    let newState = {...robotParam};
+    const inputStr = e.target.value;
+    if (inputStr === "" || inputStr === "-") {
       newState[e.target.id] = "0";
-      setRobotParams((prevRobotParams) => {
-        let newRobotParams = [...prevRobotParams];
-        newRobotParams[newState.linkId] = newState;
-        return newRobotParams;
-      })
     }
-    handleUpdateMatrix(e);
+    if (isAngle && inputStr[inputStr.length - 1] !== "\u00B0") { // add degree symbol
+      newState[e.target.id] += "\u00B0";
+    }
+    setRobotParams((prevRobotParams) => {
+      let newRobotParams = [...prevRobotParams];
+      newRobotParams[newState.linkId] = newState;
+      return newRobotParams;
+    })
+    updateMatrix();
   }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handleInputBlur(e);
   };
 
-  const handleUpdateMatrix = (e) => {
+  const updateMatrix = () => {
     setRobotParams((prevRobotParams) => {
       let newRobotParams = [...prevRobotParams];
       newRobotParams = updateAllT(newRobotParams);
@@ -69,6 +90,9 @@ const LinkEntry = ({
       rStr = updatedParamsArray[i].r;
       dStr = updatedParamsArray[i].d;
       alphaStr = updatedParamsArray[i].alpha;
+      
+      thetaStr = thetaStr.slice(0, -1);
+      alphaStr = alphaStr.slice(0, -1);
 
       sinTheta = Math.sin(parseFloat(thetaStr) * (Math.PI / 180));
       cosTheta = Math.cos(parseFloat(thetaStr) * (Math.PI / 180));
@@ -98,32 +122,34 @@ const LinkEntry = ({
       <Form.Control
         id='theta'
         value={robotParam.theta}
-        onChange={handleInputChange}
-        onBlur={handleInputBlur}
+        onFocus={handleInputFocus}
+        onChange={e => handleInputChange(e, true)}
+        onBlur={e => handleInputBlur(e, true)}
         onKeyDown={handleKeyDown}
         disabled={isAnimate}
       />
       <Form.Control
         id='r'
         value={robotParam.r}
-        onChange={handleInputChange}
-        onBlur={handleInputBlur}
+        onChange={e => handleInputChange(e, false)}
+        onBlur={e => handleInputBlur(e, false)}
         onKeyDown={handleKeyDown}
         disabled={isAnimate}
       />
       <Form.Control
         id='d'
         value={robotParam.d}
-        onChange={handleInputChange}
-        onBlur={handleInputBlur}
+        onChange={e => handleInputChange(e, false)}
+        onBlur={e => handleInputBlur(e, false)}
         onKeyDown={handleKeyDown}
         disabled={isAnimate}
       />
       <Form.Control
         id='alpha'
         value={robotParam.alpha}
-        onChange={handleInputChange}
-        onBlur={handleInputBlur}
+        onFocus={handleInputFocus}
+        onChange={e => handleInputChange(e, true)}
+        onBlur={e => handleInputBlur(e, true)}
         onKeyDown={handleKeyDown}
         disabled={isAnimate}
       />
