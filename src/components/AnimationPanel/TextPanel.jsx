@@ -17,11 +17,10 @@ const TextPanel = ({
       colorArr[indexFocus] = 'rgb(0,0,0)';
       return colorArr;
     }
-  } 
+  };
 
   const textLinksList = () => {
     let textList = [];
-
     if(!isAnimateParams) { // animate links
       textList = robotParams.map((robotParam) => ({
         theta: (robotParam.theta).slice(0, -1),
@@ -34,7 +33,6 @@ const TextPanel = ({
         color4: 'rgb(0,0,0)',
         delay: 1550 * animationSpeed
       }));
-
     } else { // animate parameters
       textList = robotParams.flatMap((robotParam) => (
         Array.from(Array(4).keys()).map((index) => {
@@ -53,11 +51,10 @@ const TextPanel = ({
         })
       ));
     }
-    
     textList[0].delay = 0;
     textList[textList.length - 1].onRest = () => setIsAnimateParams(false);
     return textList;
-  }
+  };
 
   const textSpring = useSpring({
     ref: textRef,
@@ -75,34 +72,22 @@ const TextPanel = ({
     config: {duration: 50 * animationSpeed}
   });
 
-
-
   return (
-    <animated.div
-      className={styles.textPanel}
-    >
-      <animated.h5
-        style={{color: textSpring.color1}}
-      >
-        {textSpring.theta.to(val => "1) Rot( z, " + Math.floor(val) + "\u00B0 )")}
+    <animated.div className={styles.textPanel}>
+      <animated.h5 style={{color: textSpring.color1}}>
+        {textSpring.theta.to(val => "1) Rot( z, " + Math.round(parseFloat(val) * 100) / 100 + "\u00B0 )")}
       </animated.h5>
-      <animated.h5
-        style={{color: textSpring.color2}}
-      >
-        {textSpring.r.to(val => "2) Trans( z, " + Math.floor(val) + " )")}
+      <animated.h5 style={{color: textSpring.color2}}>
+        {textSpring.r.to(val => "2) Trans( z, " + Math.round(parseFloat(val) * 100) / 100 + " )")}
       </animated.h5>
-      <animated.h5
-        style={{color: textSpring.color3}}
-      >
-        {textSpring.d.to(val => "3) Trans( x, " + Math.floor(val) + " )")}
+      <animated.h5 style={{color: textSpring.color3}}>
+        {textSpring.d.to(val => "3) Trans( x, " + Math.round(parseFloat(val) * 100) / 100 + " )")}
       </animated.h5>
-      <animated.h5
-        style={{color: textSpring.color4}}
-      >
-        {textSpring.alpha.to(val => "4) Rot( x, " + Math.floor(val) + "\u00B0 )")}
+      <animated.h5 style={{color: textSpring.color4}}>
+        {textSpring.alpha.to(val => "4) Rot( x, " + Math.round(parseFloat(val) * 100) / 100 + "\u00B0 )")}
       </animated.h5>
     </animated.div>
-  )
+  );
 };
 
 export default TextPanel;
