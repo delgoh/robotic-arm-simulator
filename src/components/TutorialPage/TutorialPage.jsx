@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import { pages } from './pageData';
+import { images } from './importPageImages';
 import { useState } from 'react';
 
 const TutorialPage = ({
@@ -40,18 +41,38 @@ const TutorialPage = ({
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>
-          {pages[pageNumber].body}
-        </p>
+        <p style={{whiteSpace: 'pre-wrap'}}>{pages[pageNumber].body}</p>
+        {images[pageNumber] &&
+          <img
+            src={images[pageNumber]}
+            alt={pageNumber}
+            style={{
+              display: 'block',
+              margin: '0 auto',
+              width: '80%'
+            }}
+          />
+        }
       </Modal.Body>
       <Modal.Footer>
+        <Button
+          className='me-auto'
+          variant='outline-primary'
+          onClick={() => setIsTutorialDisplayed(false)}
+        >
+          Skip Tutorial
+        </Button>
         {isPrevVisible &&
           <Button
-            onClick={() => handleButton("decrease")}>
+            onClick={() => handleButton("decrease")}
+          >
             Previous
           </Button>
         }
-        <Button onClick={() => handleButton("increase")}>
+        <Button
+          variant={pageNumber === noOfPages - 1 ? 'success' : 'primary'}
+          onClick={() => handleButton("increase")}
+        >
           {pageNumber === noOfPages - 1 ? "Finish" : "Next"}
         </Button>
       </Modal.Footer>
