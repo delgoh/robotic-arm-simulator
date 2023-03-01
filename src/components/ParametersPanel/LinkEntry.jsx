@@ -6,7 +6,6 @@ const LinkEntry = ({
   setRobotParams,
   isAnimate,
   linkRef,
-  updateAllT,
   updateMatrices
 }) => {
 
@@ -61,7 +60,7 @@ const LinkEntry = ({
   return (
     <InputGroup ref={linkRef}>
       <InputGroup.Text id="linkText">Link {robotParam.linkId}</InputGroup.Text>
-      {[['theta', true], ['r', false], ['d', false], ['alpha', true]].map(([inputName, isAngle]) => (
+      {[['theta', true], ['d', false], ['r', false], ['alpha', true]].map(([inputName, isAngle]) => (
         <Form.Control
           id={inputName}
           key={inputName}

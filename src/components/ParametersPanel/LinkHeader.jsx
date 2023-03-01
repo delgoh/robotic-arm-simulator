@@ -6,8 +6,8 @@ const LinkHeader = () => {
   return (
     <div className={styles.parent}>
       <span className={styles.header}>&theta;</span>
-      <span className={styles.header}>r</span>
       <span className={styles.header}>d</span>
+      <span className={styles.header}>r</span>
       <span className={styles.header}>&alpha;</span>
     </div>
   )
