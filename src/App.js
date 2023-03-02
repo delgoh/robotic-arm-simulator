@@ -8,6 +8,7 @@ import Display from './components/Display';
 import ParametersPanel from './components/ParametersPanel/ParametersPanel';
 import AnimationPanel from './components/AnimationPanel/AnimationPanel';
 import TutorialPage from './components/TutorialPage/TutorialPage';
+import TutorialButton from './components/TutorialPage/TutorialButton';
 
 
 const App = () => {
@@ -113,6 +114,9 @@ const App = () => {
       />
       <TutorialPage
         isTutorialDisplayed={isTutorialDisplayed}
+        setIsTutorialDisplayed={setIsTutorialDisplayed}
+      />
+      <TutorialButton
         setIsTutorialDisplayed={setIsTutorialDisplayed}
       />
     </div>
