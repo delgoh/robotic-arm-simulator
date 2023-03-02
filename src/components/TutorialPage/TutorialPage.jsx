@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import { pages } from './pageData';
 import { images } from './importPageImages';
-import { useState } from 'react';
 
 const TutorialPage = ({
   isTutorialDisplayed,
@@ -19,18 +18,24 @@ const TutorialPage = ({
     if (type === "increase") {
       setIsPrevVisible(true);
       if (pageNumber < noOfPages - 1) setPageNumber(pageNo => pageNo + 1);
-      else setIsTutorialDisplayed(false);
+      else handleHide();
 
     } else if (type === "decrease") {
       if (pageNumber > 0) setPageNumber(pageNo => pageNo - 1);
-      else setIsPrevVisible(false);
+      if (pageNumber === 1) setIsPrevVisible(false);
     }
+  };
+
+  const handleHide = () => {
+    setIsTutorialDisplayed(false);
+    setPageNumber(0);
+    setIsPrevVisible(false);
   };
 
   return (
     <Modal
       show={isTutorialDisplayed}
-      onHide={() => setIsTutorialDisplayed(false)}
+      onHide={handleHide}
       size='lg'
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -58,19 +63,22 @@ const TutorialPage = ({
         <Button
           className='me-auto'
           variant='outline-primary'
-          onClick={() => setIsTutorialDisplayed(false)}
+          onClick={handleHide}
         >
           Skip Tutorial
         </Button>
         {isPrevVisible &&
           <Button
+            className='me-4'
             onClick={() => handleButton("decrease")}
           >
             Previous
           </Button>
         }
+        <h5>{pageNumber + 1} / 6</h5>
         <Button
           variant={pageNumber === noOfPages - 1 ? 'success' : 'primary'}
+          className='ms-4'
           onClick={() => handleButton("increase")}
         >
           {pageNumber === noOfPages - 1 ? "Finish" : "Next"}
