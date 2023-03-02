@@ -73,6 +73,7 @@ const App = () => {
   const [isAnimate, setIsAnimate] = useState(false);
   const [animationType, setAnimationType] = useState("links");
   const [animationSpeed, setAnimationSpeed] = useState(1.5);  // higher = slower
+  const [isAnimPanelOpen, setIsAnimPanelOpen] = useState(true);
   const animateLinksRef = useSpringRef();
   const animateParamsRef = useSpringRef();
   const highlightLinksRef = useSpringRef();
@@ -101,6 +102,8 @@ const App = () => {
         highlightParamsRef={highlightParamsRef}
         animationSpeed={animationSpeed}
         setAnimationSpeed={setAnimationSpeed}
+        isAnimPanelOpen={isAnimPanelOpen}
+        setIsAnimPanelOpen={setIsAnimPanelOpen}
       />
       <Display
         robotParams={robotParams}
@@ -111,6 +114,7 @@ const App = () => {
         animateLinksRef={animateLinksRef}
         animateParamsRef={animateParamsRef}
         animationSpeed={animationSpeed}
+        isAnimPanelOpen={isAnimPanelOpen}
       />
       <TutorialPage
         isTutorialDisplayed={isTutorialDisplayed}

@@ -69,16 +69,16 @@ const AnimatedFrame = ({
       scaleArr[i] = new Vector3();
     }
     animationList = params.flatMap((param) => {
-      let {theta, r, d, alpha} = param;
+      let {theta, d, r, alpha} = param;
       theta = theta.slice(0, -1);
       alpha = alpha.slice(0, -1);
       operationMatrix.makeRotationZ((parseFloat(theta) + 0.0001) * (Math.PI / 180)); // Rotate about z-axis by theta
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[0], quatArr[0], scaleArr[0]);
-      operationMatrix.makeTranslation(0, 0, (parseFloat(r) + 0.0001)); // Translate along z-axis by r
+      operationMatrix.makeTranslation(0, 0, (parseFloat(d) + 0.0001)); // Translate along z-axis by d
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[1], quatArr[1], scaleArr[1]);
-      operationMatrix.makeTranslation((parseFloat(d) + 0.0001), 0, 0); // Translate along x-axis by d
+      operationMatrix.makeTranslation((parseFloat(r) + 0.0001), 0, 0); // Translate along x-axis by r
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[2], quatArr[2], scaleArr[2]);
       operationMatrix.makeRotationX((parseFloat(alpha) + 0.0001) * (Math.PI / 180)); // Rotate about x-axis by alpha

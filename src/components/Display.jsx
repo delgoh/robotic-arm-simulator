@@ -34,15 +34,20 @@ const CanvasControls = (props) => {
         <MainAxis gridSize={gridSize} />
         <gridHelper args={[gridSize , gridSize / 2]} />
       </Canvas>
-      <MouseControlPanel />
+      <MouseControlPanel
+        isAnimPanelOpen={props.isAnimPanelOpen}
+      />
       <ScalePanel />
     </div>
   )
 };
 
-const MouseControlPanel = (props) => {
+const MouseControlPanel = ({ isAnimPanelOpen }) => {
   return (
-    <div className={styles.mouseControlPanel}>
+    <div
+      className={styles.mouseControlPanel}
+      style={{left: isAnimPanelOpen ? '380px' : '0px'}}
+    >
       <div className={styles.leftClickText}>Rotate</div>
       <div className={styles.scrollText}>Zoom</div>
       <div className={styles.rightClickText}>Pan</div>
@@ -66,11 +71,14 @@ const Display = ({
   animationType,
   animateLinksRef,
   animateParamsRef,
-  animationSpeed
+  animationSpeed,
+  isAnimPanelOpen
 }) => {
 
   return (
-    <CanvasControls>
+    <CanvasControls
+      isAnimPanelOpen={isAnimPanelOpen}
+    >
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <Robot

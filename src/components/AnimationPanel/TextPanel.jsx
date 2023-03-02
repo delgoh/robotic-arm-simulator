@@ -24,8 +24,8 @@ const TextPanel = ({
     if(!isAnimateParams) { // animate links
       textList = robotParams.map((robotParam) => ({
         theta: (robotParam.theta).slice(0, -1),
-        r: robotParam.r,
         d: robotParam.d,
+        r: robotParam.r,
         alpha: (robotParam.alpha).slice(0, -1),
         color1: 'rgb(0,0,0)',
         color2: 'rgb(0,0,0)',
@@ -39,8 +39,8 @@ const TextPanel = ({
           let colorArr = setColorArr(index);
           return ({
             theta: (robotParam.theta).slice(0, -1),
-            r: robotParam.r,
             d: robotParam.d,
+            r: robotParam.r,
             alpha: (robotParam.alpha).slice(0, -1),
             color1: colorArr[0],
             color2: colorArr[1],
@@ -60,8 +60,8 @@ const TextPanel = ({
     ref: textRef,
     from: {
       theta: (robotParams[0].theta).slice(0, -1),
-      r: robotParams[0].r,
       d: robotParams[0].d,
+      r: robotParams[0].r,
       alpha: (robotParams[0].alpha).slice(0, -1),
       color1: 'rgb(0,0,0)',
       color2: 'rgb(0,0,0)',
@@ -78,10 +78,10 @@ const TextPanel = ({
         {textSpring.theta.to(val => "1) Rot( z, " + Math.round(parseFloat(val) * 100) / 100 + "\u00B0 )")}
       </animated.h5>
       <animated.h5 style={{color: textSpring.color2}}>
-        {textSpring.r.to(val => "2) Trans( z, " + Math.round(parseFloat(val) * 100) / 100 + " )")}
+        {textSpring.d.to(val => "2) Trans( z, " + Math.round(parseFloat(val) * 100) / 100 + " )")}
       </animated.h5>
       <animated.h5 style={{color: textSpring.color3}}>
-        {textSpring.d.to(val => "3) Trans( x, " + Math.round(parseFloat(val) * 100) / 100 + " )")}
+        {textSpring.r.to(val => "3) Trans( x, " + Math.round(parseFloat(val) * 100) / 100 + " )")}
       </animated.h5>
       <animated.h5 style={{color: textSpring.color4}}>
         {textSpring.alpha.to(val => "4) Rot( x, " + Math.round(parseFloat(val) * 100) / 100 + "\u00B0 )")}

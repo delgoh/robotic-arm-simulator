@@ -17,12 +17,13 @@ const AnimationPanel = ({
   highlightLinksRef,
   highlightParamsRef,
   animationSpeed,
-  setAnimationSpeed
+  setAnimationSpeed,
+  isAnimPanelOpen,
+  setIsAnimPanelOpen
 }) => {
 
   const [isAnimateParams, setIsAnimateParams] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
-  const [isAnimPanelOpen, setIsAnimPanelOpen] = useState(true);
   const textRef = useSpringRef();
 
   const getStartPose = (initialParam) => {
