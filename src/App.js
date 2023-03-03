@@ -23,6 +23,7 @@ const App = () => {
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
+        type: "Base",
         isVisible: true
       },
       {
@@ -33,6 +34,7 @@ const App = () => {
         alpha: "30\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
+        type: "Revolute",
         isVisible: true
       },
       {
@@ -43,6 +45,7 @@ const App = () => {
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
+        type: "Prismatic",
         isVisible: true
       },
       {
@@ -53,6 +56,7 @@ const App = () => {
         alpha: "-90\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
+        type: "Revolute",
         isVisible: true
       },
       {
@@ -63,6 +67,7 @@ const App = () => {
         alpha: "60\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
+        type: "Prismatic",
         isVisible: true
       }
     ]

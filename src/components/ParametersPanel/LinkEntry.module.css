@@ -1,0 +1,18 @@
+.inputGroup {
+  display: flex;
+}
+
+.inputGroupText {
+  width: 60px;
+  padding: 0 10px;
+}
+
+.formControl {
+  padding: 4px 6px;
+}
+
+.inputButton {
+  flex: 2;
+  padding: 0px 0px;
+  font-size: 14px;
+}
