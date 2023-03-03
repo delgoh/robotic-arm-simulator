@@ -7,7 +7,8 @@ import styles from './App.module.css'
 import Display from './components/Display';
 import ParametersPanel from './components/ParametersPanel/ParametersPanel';
 import AnimationPanel from './components/AnimationPanel/AnimationPanel';
-// import SettingsBar from './components/SettingsBar/SettingsBar';
+import TutorialPage from './components/TutorialPage/TutorialPage';
+import TutorialButton from './components/TutorialPage/TutorialButton';
 
 
 const App = () => {
@@ -17,8 +18,8 @@ const App = () => {
       {
         linkId: 0,
         theta: "0\u00B0",
-        r: "0",
         d: "0",
+        r: "0",
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
@@ -27,8 +28,8 @@ const App = () => {
       {
         linkId: 1,
         theta: "0\u00B0",
-        r: "-3",
-        d: "2",
+        d: "-3",
+        r: "2",
         alpha: "30\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
@@ -37,8 +38,8 @@ const App = () => {
       {
         linkId: 2,
         theta: "0\u00B0",
-        r: "3",
-        d: "9",
+        d: "3",
+        r: "9",
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
@@ -47,8 +48,8 @@ const App = () => {
       {
         linkId: 3,
         theta: "45\u00B0",
-        r: "0",
-        d: "-4",
+        d: "0",
+        r: "-4",
         alpha: "-90\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
@@ -57,8 +58,8 @@ const App = () => {
       {
         linkId: 4,
         theta: "0\u00B0",
-        r: "9",
-        d: "0",
+        d: "9",
+        r: "0",
         alpha: "60\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
@@ -67,10 +68,12 @@ const App = () => {
     ]
   );
   
+  const [isTutorialDisplayed, setIsTutorialDisplayed] = useState(true);
   const [matrixDisplayValue, setMatrixDisplayValue] = useState("0");
   const [isAnimate, setIsAnimate] = useState(false);
   const [animationType, setAnimationType] = useState("links");
   const [animationSpeed, setAnimationSpeed] = useState(1.5);  // higher = slower
+  const [isAnimPanelOpen, setIsAnimPanelOpen] = useState(true);
   const animateLinksRef = useSpringRef();
   const animateParamsRef = useSpringRef();
   const highlightLinksRef = useSpringRef();
@@ -99,6 +102,8 @@ const App = () => {
         highlightParamsRef={highlightParamsRef}
         animationSpeed={animationSpeed}
         setAnimationSpeed={setAnimationSpeed}
+        isAnimPanelOpen={isAnimPanelOpen}
+        setIsAnimPanelOpen={setIsAnimPanelOpen}
       />
       <Display
         robotParams={robotParams}
@@ -109,6 +114,14 @@ const App = () => {
         animateLinksRef={animateLinksRef}
         animateParamsRef={animateParamsRef}
         animationSpeed={animationSpeed}
+        isAnimPanelOpen={isAnimPanelOpen}
+      />
+      <TutorialPage
+        isTutorialDisplayed={isTutorialDisplayed}
+        setIsTutorialDisplayed={setIsTutorialDisplayed}
+      />
+      <TutorialButton
+        setIsTutorialDisplayed={setIsTutorialDisplayed}
       />
     </div>
   );

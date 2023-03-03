@@ -20,7 +20,6 @@
   position: relative;
   display: block;
   min-height: 50px;
-  max-height: 190px;
   overflow-x: hidden;
   overflow-y: overlay;
 }

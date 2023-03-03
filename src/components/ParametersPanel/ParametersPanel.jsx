@@ -29,6 +29,11 @@ const ParametersPanel = ({
   const [isLinksMax, setIsLinksMax] = useState(false);
 
   useEffect(() => {
+    updateMatrices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const noOfLinks = robotParams.length;
     if (noOfLinks < MAX_LINKS) setIsLinksMax(false);
     else setIsLinksMax(true);
@@ -41,14 +46,15 @@ const ParametersPanel = ({
       return [...prevState, {
         linkId: prevState.length,
         theta: "0\u00B0",
-        r: "0",
         d: "0",
+        r: "0",
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         isVisible: true
       }];
     });
+    updateMatrices();
   };
 
   const handleDeleteLink = () => {
@@ -57,6 +63,7 @@ const ParametersPanel = ({
       newState.pop();
       return newState;
     });
+    updateMatrices();
   };
 
   const handleClearInputs = () => {
@@ -67,8 +74,8 @@ const ParametersPanel = ({
         newState.push({
           linkId: i,
           theta: "0\u00B0",
-          r: "0",
           d: "0",
+          r: "0",
           alpha: "0\u00B0",
           relativeT: new Matrix4(),
           globalT: new Matrix4(),
@@ -77,6 +84,51 @@ const ParametersPanel = ({
       }
       return newState;
     });
+    updateMatrices();
+  };
+
+  const updateMatrices = () => {
+    setRobotParams((prevRobotParams) => {
+      let newRobotParams = [...prevRobotParams];
+      newRobotParams = updateAllT(newRobotParams);
+      return newRobotParams;
+    });
+  };
+
+  const updateAllT = (paramsArray) => {
+    const noOfLinks = paramsArray.length;
+    const currentGlobalT = new Matrix4();
+    let updatedParamsArray = [...paramsArray];
+    let thetaStr = "", rStr = "", dStr = "", alphaStr = "";
+    let d = 0, r = 0, sinTheta = 0, cosTheta = 0, sinAlpha = 0, cosAlpha = 0;
+
+    for (let i = 0; i < noOfLinks; i++) {
+      thetaStr = updatedParamsArray[i].theta;
+      dStr = updatedParamsArray[i].d;
+      rStr = updatedParamsArray[i].r;
+      alphaStr = updatedParamsArray[i].alpha;
+      
+      thetaStr = thetaStr.slice(0, -1);
+      alphaStr = alphaStr.slice(0, -1);
+
+      sinTheta = Math.sin(parseFloat(thetaStr) * (Math.PI / 180));
+      cosTheta = Math.cos(parseFloat(thetaStr) * (Math.PI / 180));
+      sinAlpha = Math.sin(parseFloat(alphaStr) * (Math.PI / 180));
+      cosAlpha = Math.cos(parseFloat(alphaStr) * (Math.PI / 180));
+      d = parseFloat(dStr);
+      r = parseFloat(rStr);
+  
+      updatedParamsArray[i].relativeT.set(
+        cosTheta, (-1)*cosAlpha*sinTheta, sinAlpha*sinTheta, r*cosTheta,
+        sinTheta, cosAlpha*cosTheta, (-1)*sinAlpha*cosTheta, r*sinTheta,
+        0, sinAlpha, cosAlpha, d,
+        0, 0, 0, 1
+      );
+      currentGlobalT.multiply(updatedParamsArray[i].relativeT);
+      updatedParamsArray[i].globalT.copy(currentGlobalT);
+    };
+
+    return updatedParamsArray;
   };
 
   return (
@@ -91,6 +143,7 @@ const ParametersPanel = ({
               robotParam={robotParam}
               setRobotParams={setRobotParams}
               isAnimate={isAnimate}
+              updateMatrices={updateMatrices}
             />
           ))}
           <HighlightBox
