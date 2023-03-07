@@ -1,8 +1,10 @@
+// import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
 import styles from './LinkEntry.module.css';
+import ScrollableInput from './ScrollableInput';
 
 const LinkEntry = ({
   robotParam,
@@ -11,6 +13,9 @@ const LinkEntry = ({
   linkRef,
   updateMatrices
 }) => {
+
+  const dragImg = new Image(0, 0);
+  dragImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
   const updateParams = (newParamState) => {
     setRobotParams((prevRobotParams) => {
@@ -64,7 +69,7 @@ const LinkEntry = ({
     if (e.target.innerText === "Revolute") newState.type = "Prismatic";
     else if (e.target.innerText === "Prismatic") newState.type = "Revolute";
     updateParams(newState);
-  }
+  };
 
   return (
     <InputGroup
@@ -74,7 +79,6 @@ const LinkEntry = ({
       <InputGroup.Text
         id="linkText"
         className={styles.inputGroupText}
-        // style={{width: '60px'}}
       >
         Link {robotParam.linkId}
       </InputGroup.Text>
@@ -92,10 +96,14 @@ const LinkEntry = ({
           disabled={isAnimate}
         />
       ))}
+      {robotParam.type !== 'Base' &&
+        <ScrollableInput robotParam={robotParam}/>
+      }
+      
       <Button
         id={robotParam.linkId}
         variant={robotParam.type !== 'Base' ? 'outline-primary' : 'outline-secondary'}
-        className={styles.inputButton}
+        className={`${styles.inputButton} ${styles.testClass}`}
         disabled={robotParam.type === 'Base'}
         onClick={(e) => handleTypeClick(e)}
       >

@@ -85,7 +85,7 @@ const App = () => {
   const highlightParamsRef = useSpringRef();
 
   return (
-    <div className={styles.bodySection}>
+    <div className={`${styles.bodySection}`}>
       <ParametersPanel
         robotParams={robotParams}
         setRobotParams={setRobotParams}

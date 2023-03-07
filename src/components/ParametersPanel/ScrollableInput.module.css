@@ -1,0 +1,36 @@
+.scrollIcon {
+  position: absolute;
+  z-index: 1;
+  height: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  cursor: grab;
+}
+
+.scrollIcon:hover {
+  opacity: 1;
+}
+
+.scrollRange {
+  position: fixed;
+  z-index: 2;
+  -webkit-appearance: slider-vertical;
+  width: 30px;
+  appearance: slider-vertical;
+  accent-color: none;
+  transform: translateY(-38%);
+  border: none;
+  border-radius: 5px;
+}
+
+.scrollRange::-webkit-slider-runnable-track {
+  background-color: white;
+  border: grey solid 1px;
+  border-radius: 10px;
+  width: 11px;
+}
+
+.scrollRange::-webkit-slider-thumb {
+  margin-right: -3px;
+}
