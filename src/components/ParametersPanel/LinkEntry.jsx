@@ -14,9 +14,6 @@ const LinkEntry = ({
   updateMatrices
 }) => {
 
-  const dragImg = new Image(0, 0);
-  dragImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-
   const updateParams = (newParamState) => {
     setRobotParams((prevRobotParams) => {
       let newRobotParams = [...prevRobotParams];
@@ -96,15 +93,19 @@ const LinkEntry = ({
           disabled={isAnimate}
         />
       ))}
-      {robotParam.type !== 'Base' &&
-        <ScrollableInput robotParam={robotParam}/>
+      {robotParam.type !== 'Base' && !isAnimate &&
+        <ScrollableInput
+          robotParam={robotParam}
+          updateParams={updateParams}
+          updateMatrices={updateMatrices}
+        />
       }
       
       <Button
         id={robotParam.linkId}
         variant={robotParam.type !== 'Base' ? 'outline-primary' : 'outline-secondary'}
         className={`${styles.inputButton} ${styles.testClass}`}
-        disabled={robotParam.type === 'Base'}
+        disabled={robotParam.type === 'Base' || isAnimate}
         onClick={(e) => handleTypeClick(e)}
       >
         {robotParam.type}
