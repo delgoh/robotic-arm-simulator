@@ -8,6 +8,7 @@ import Robot from './Robot';
 import AnimatedFrame from './AnimationPanel/AnimatedFrame';
 
 const CanvasControls = (props) => {
+
   const canvasRef = useRef();
   const orbitRef = useRef();
   const [gridSize, setgridSize] = useState(20);
@@ -65,6 +66,8 @@ const ScalePanel = (props) => {
 
 const Display = ({
   robotParams,
+  isFrameVisibleArr,
+  setIsFrameVisibleArr,
   matrixDisplayValue,
   isAnimate,
   setIsAnimate,
@@ -83,6 +86,7 @@ const Display = ({
       <pointLight position={[10, 10, 10]} />
       <Robot
         robotParams={robotParams}
+        isFrameVisibleArr={isFrameVisibleArr}
         matrixDisplayValue={matrixDisplayValue}
       />
       <AnimatedFrame
@@ -93,6 +97,7 @@ const Display = ({
         animateLinksRef={animateLinksRef}
         animateParamsRef={animateParamsRef}
         animationSpeed={animationSpeed}
+        setIsFrameVisibleArr={setIsFrameVisibleArr}
       />
     </CanvasControls>
   )

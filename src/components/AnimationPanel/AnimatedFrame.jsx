@@ -11,7 +11,8 @@ const AnimatedFrame = ({
   animationType,
   animateLinksRef,
   animateParamsRef,
-  animationSpeed
+  animationSpeed,
+  setIsFrameVisibleArr
 }) => {
 
   const createNewParam = () => ({
@@ -48,11 +49,19 @@ const AnimatedFrame = ({
       return {
         position: pos.toArray().map((val) => val + 0.0002 * paramIndex), // small offset to cause animation delay to occur
         quaternion: quat.toArray(),
-        delay: 600 * animationSpeed
+        delay: 600 * animationSpeed,
+        onRest: () => setIsFrameVisibleArr((prev) => {
+          const updateArr = [...prev];
+          updateArr[paramIndex] = true;
+          return updateArr;
+        })
       };
     });
     animationList[0].delay = 200 * animationSpeed;
-    animationList[animationList.length - 1].onRest = () => setIsAnimate(false);
+    animationList[animationList.length - 1].onRest = () => {
+      setIsAnimate(false);
+      setIsFrameVisibleArr(Array(params.length).fill(true));
+    }
     return animationList;
   }
 
@@ -68,7 +77,7 @@ const AnimatedFrame = ({
       quatArr[i] = new Quaternion();
       scaleArr[i] = new Vector3();
     }
-    animationList = params.flatMap((param) => {
+    animationList = params.flatMap((param, paramIndex) => {
       let {theta, d, r, alpha} = param;
       theta = theta.slice(0, -1);
       alpha = alpha.slice(0, -1);
@@ -88,11 +97,19 @@ const AnimatedFrame = ({
       return Array.from(Array(4).keys()).map((index) => ({
         position: posArr[index].toArray(),
         quaternion: quatArr[index].toArray(),
-        delay: 600 * animationSpeed
+        delay: 600 * animationSpeed,
+        onRest: () => index === 3 && setIsFrameVisibleArr((prev) => {
+          const updateArr = [...prev];
+          updateArr[paramIndex] = true;
+          return updateArr;
+        })
       }));
     });
     animationList[0].delay = 200 * animationSpeed;
-    animationList[animationList.length - 1].onRest = () => setIsAnimate(false);
+    animationList[animationList.length - 1].onRest = () => {
+      setIsAnimate(false);
+      setIsFrameVisibleArr(Array(params.length).fill(true));
+    }
     return animationList;
   }
 

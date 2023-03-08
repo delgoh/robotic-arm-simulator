@@ -24,7 +24,7 @@ const App = () => {
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         type: "Base",
-        isVisible: true
+        // isVisible: true
       },
       {
         linkId: 1,
@@ -35,7 +35,7 @@ const App = () => {
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         type: "Revolute",
-        isVisible: true
+        // isVisible: true
       },
       {
         linkId: 2,
@@ -46,7 +46,7 @@ const App = () => {
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         type: "Prismatic",
-        isVisible: true
+        // isVisible: true
       },
       {
         linkId: 3,
@@ -57,7 +57,7 @@ const App = () => {
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         type: "Revolute",
-        isVisible: true
+        // isVisible: true
       },
       {
         linkId: 4,
@@ -68,7 +68,7 @@ const App = () => {
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         type: "Prismatic",
-        isVisible: true
+        // isVisible: true
       }
     ]
   );
@@ -79,6 +79,7 @@ const App = () => {
   const [animationType, setAnimationType] = useState("links");
   const [animationSpeed, setAnimationSpeed] = useState(1.5);  // higher = slower
   const [isAnimPanelOpen, setIsAnimPanelOpen] = useState(true);
+  const [isFrameVisibleArr, setIsFrameVisibleArr] = useState(Array(5).fill(true));
   const animateLinksRef = useSpringRef();
   const animateParamsRef = useSpringRef();
   const highlightLinksRef = useSpringRef();
@@ -101,6 +102,7 @@ const App = () => {
         isAnimate={isAnimate}
         setIsAnimate={setIsAnimate}
         setAnimationType={setAnimationType}
+        setIsFrameVisibleArr={setIsFrameVisibleArr}
         animateLinksRef={animateLinksRef}
         animateParamsRef={animateParamsRef}
         highlightLinksRef={highlightLinksRef}
@@ -112,6 +114,8 @@ const App = () => {
       />
       <Display
         robotParams={robotParams}
+        isFrameVisibleArr={isFrameVisibleArr}
+        setIsFrameVisibleArr={setIsFrameVisibleArr}
         matrixDisplayValue={matrixDisplayValue}
         isAnimate={isAnimate}
         setIsAnimate={setIsAnimate}

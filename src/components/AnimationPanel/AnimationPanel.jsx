@@ -12,6 +12,7 @@ const AnimationPanel = ({
   isAnimate,
   setIsAnimate,
   setAnimationType,
+  setIsFrameVisibleArr,
   animateLinksRef,
   animateParamsRef,
   highlightLinksRef,
@@ -53,7 +54,8 @@ const AnimationPanel = ({
     await Promise.all([
       setAnimationType("links"),
       setIsAnimate(true),
-      setIsAnimateParams(false)
+      setIsAnimateParams(false),
+      setIsFrameVisibleArr(Array(robotParams.length).fill(false))
     ]);
     await Promise.all([
       animateLinksRef.set(getStartPose(robotParams[0])),
@@ -71,7 +73,8 @@ const AnimationPanel = ({
     await Promise.all([
       setAnimationType("params"),
       setIsAnimate(true),
-      setIsAnimateParams(true)
+      setIsAnimateParams(true),
+      setIsFrameVisibleArr(Array(robotParams.length).fill(false))
     ]);
     await Promise.all([
       animateParamsRef.set(getStartPose(robotParams[0])),
@@ -91,11 +94,13 @@ const AnimationPanel = ({
         animateLinksRef.pause();
         animateParamsRef.pause();
         highlightLinksRef.pause();
+        highlightParamsRef.pause();
         textRef.pause();
       } else {
         animateLinksRef.resume();
         animateParamsRef.resume();
         highlightLinksRef.resume();
+        highlightParamsRef.resume();
         textRef.resume();
       }
       return !isPaused;
@@ -106,9 +111,11 @@ const AnimationPanel = ({
     animateLinksRef.stop();
     animateParamsRef.stop();
     highlightLinksRef.stop();
+    highlightParamsRef.stop();
     textRef.stop();
     setIsAnimate(false);
     setIsPaused(false);
+    setIsFrameVisibleArr(Array(robotParams.length).fill(true));
   };
 
   return (
