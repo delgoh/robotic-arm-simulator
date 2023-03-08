@@ -3,9 +3,6 @@ import { useSpring, animated } from '@react-spring/web'
 
 import styles from './HighlightBox.module.css'
 
-const linksOffsetTop = [0, 38, 76, 114, 151, 189, 228];
-const paramsOffsetLeft = [66, 142, 218, 294];
-
 const HighlightBox = ({
   robotParams,
   isAnimate,
@@ -14,6 +11,11 @@ const HighlightBox = ({
   highlightParamsRef,
   animationSpeed
 }) => {
+
+  const offL = 58;
+  const boxW = 56;
+  const linksOffsetTop = [0, 38, 76, 114, 151, 189, 228];
+  const paramsOffsetLeft = [offL, offL+boxW, offL+boxW*2, offL+boxW*3];
 
   const animateLinksList = () => {
     let animationList = [];

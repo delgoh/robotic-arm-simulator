@@ -10,7 +10,6 @@ const LinkEntry = ({
   robotParam,
   setRobotParams,
   isAnimate,
-  linkRef,
   updateMatrices
 }) => {
 
@@ -69,10 +68,7 @@ const LinkEntry = ({
   };
 
   return (
-    <InputGroup
-      ref={linkRef}
-      className={`mb-1 ${styles.inputGroup}`}
-    >
+    <InputGroup className={`mb-1 ${styles.inputGroup}`}>
       <InputGroup.Text
         id="linkText"
         className={styles.inputGroupText}

@@ -114,22 +114,42 @@ const AnimationPanel = ({
   return (
     <>
       <div className={`${styles.animationPanel} ${isAnimPanelOpen ? '' : styles.hidden}`}>
-        <div className={styles.animateButtons}>
-          <Button
-            className='mt-3'
-            variant='success'
-            disabled={isAnimate}
-            onClick={handleAnimateLinks}>
-            Animate by Links
-          </Button>
-          <Button
-            className='mt-3 ms-3'
-            variant='success'
-            disabled={isAnimate}
-            onClick={handleAnimateParams}>
-            Animate by Parameters
-          </Button>
-        </div>
+        {!isAnimate &&
+          <div className={styles.animateButtons}>
+            <Button
+              className='mt-3'
+              variant='success'
+              disabled={isAnimate}
+              onClick={handleAnimateLinks}>
+              Animate by Links
+            </Button>
+            <Button
+              className='mt-3 ms-3'
+              variant='success'
+              disabled={isAnimate}
+              onClick={handleAnimateParams}>
+              Animate by Parameters
+            </Button>
+          </div>
+        }
+        {isAnimate &&
+          <div>
+            <Button
+              className={`${!isPaused ? styles.pauseButton : styles.playButton} mt-3`}
+              variant='success'
+              disabled={!isAnimate}
+              onClick={handlePause}>
+              {!isPaused ? "Pause" : "Resume"}
+            </Button>
+            <Button
+              className={`${styles.stopButton} mt-3 ms-3`}
+              variant='success'
+              disabled={!isAnimate}
+              onClick={handleStop}>
+              Stop
+            </Button>
+          </div>
+        }
         <div>
           <label
             className={`${styles.speedLabel} mt-2`}>
@@ -144,22 +164,6 @@ const AnimationPanel = ({
             defaultValue={1.5}
             step={0.5}
           />
-        </div>
-        <div>
-          <Button
-            className={`${!isPaused ? styles.pauseButton : styles.playButton} mt-3`}
-            variant='success'
-            disabled={!isAnimate}
-            onClick={handlePause}>
-            {!isPaused ? "Pause" : "Resume"}
-          </Button>
-          <Button
-            className={`${styles.stopButton} mt-3 ms-3`}
-            variant='success'
-            disabled={!isAnimate}
-            onClick={handleStop}>
-            Stop
-          </Button>
         </div>
         <TextPanel
           robotParams={robotParams}
