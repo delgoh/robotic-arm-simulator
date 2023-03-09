@@ -79,18 +79,22 @@ const AnimatedFrame = ({
     }
     animationList = params.flatMap((param, paramIndex) => {
       let {theta, d, r, alpha} = param;
+      if (theta === '') theta = "0\u00B0"; // prevent race conditions when input field is blank
+      if (d === '') d = "0";
+      if (r === '') r = "0";
+      if (alpha === '') alpha = "0\u00B0";
       theta = theta.slice(0, -1);
       alpha = alpha.slice(0, -1);
-      operationMatrix.makeRotationZ((parseFloat(theta) + 0.0001) * (Math.PI / 180)); // Rotate about z-axis by theta
+      operationMatrix.makeRotationZ((parseFloat(theta) + 0.0001) * (Math.PI / 180)); // rotate about z-axis by theta
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[0], quatArr[0], scaleArr[0]);
-      operationMatrix.makeTranslation(0, 0, (parseFloat(d) + 0.0001)); // Translate along z-axis by d
+      operationMatrix.makeTranslation(0, 0, (parseFloat(d) + 0.0001)); // translate along z-axis by d
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[1], quatArr[1], scaleArr[1]);
-      operationMatrix.makeTranslation((parseFloat(r) + 0.0001), 0, 0); // Translate along x-axis by r
+      operationMatrix.makeTranslation((parseFloat(r) + 0.0001), 0, 0); // translate along x-axis by r
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[2], quatArr[2], scaleArr[2]);
-      operationMatrix.makeRotationX((parseFloat(alpha) + 0.0001) * (Math.PI / 180)); // Rotate about x-axis by alpha
+      operationMatrix.makeRotationX((parseFloat(alpha) + 0.0001) * (Math.PI / 180)); // rotate about x-axis by alpha
       currentMatrix.multiply(operationMatrix);
       currentMatrix.decompose(posArr[3], quatArr[3], scaleArr[3]);
 
