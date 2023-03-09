@@ -1,0 +1,32 @@
+.scrollIcon {
+  position: absolute;
+  z-index: 1;
+  height: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+}
+
+.scrollRange {
+  position: absolute;
+  z-index: 2;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1px;
+  width: 200px;
+  background-color: transparent;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.scrollRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 24px;
+  width: 24px;
+  border: rgba(100,100,100,0.3) solid 2px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: grab;
+}

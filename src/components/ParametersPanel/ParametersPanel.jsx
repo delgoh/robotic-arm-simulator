@@ -51,6 +51,7 @@ const ParametersPanel = ({
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
+        type: "Revolute",
         isVisible: true
       }];
     });
@@ -79,6 +80,7 @@ const ParametersPanel = ({
           alpha: "0\u00B0",
           relativeT: new Matrix4(),
           globalT: new Matrix4(),
+          type: "Revolute",
           isVisible: true
         });
       }

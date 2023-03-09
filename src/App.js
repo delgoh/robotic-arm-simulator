@@ -23,7 +23,8 @@ const App = () => {
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        isVisible: true
+        type: "Base",
+        // isVisible: true
       },
       {
         linkId: 1,
@@ -33,7 +34,8 @@ const App = () => {
         alpha: "30\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        isVisible: true
+        type: "Revolute",
+        // isVisible: true
       },
       {
         linkId: 2,
@@ -43,7 +45,8 @@ const App = () => {
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        isVisible: true
+        type: "Prismatic",
+        // isVisible: true
       },
       {
         linkId: 3,
@@ -53,7 +56,8 @@ const App = () => {
         alpha: "-90\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        isVisible: true
+        type: "Revolute",
+        // isVisible: true
       },
       {
         linkId: 4,
@@ -63,7 +67,8 @@ const App = () => {
         alpha: "60\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        isVisible: true
+        type: "Prismatic",
+        // isVisible: true
       }
     ]
   );
@@ -74,13 +79,14 @@ const App = () => {
   const [animationType, setAnimationType] = useState("links");
   const [animationSpeed, setAnimationSpeed] = useState(1.5);  // higher = slower
   const [isAnimPanelOpen, setIsAnimPanelOpen] = useState(true);
+  const [isFrameVisibleArr, setIsFrameVisibleArr] = useState(Array(5).fill(true));
   const animateLinksRef = useSpringRef();
   const animateParamsRef = useSpringRef();
   const highlightLinksRef = useSpringRef();
   const highlightParamsRef = useSpringRef();
 
   return (
-    <div className={styles.bodySection}>
+    <div className={`${styles.bodySection}`}>
       <ParametersPanel
         robotParams={robotParams}
         setRobotParams={setRobotParams}
@@ -96,6 +102,7 @@ const App = () => {
         isAnimate={isAnimate}
         setIsAnimate={setIsAnimate}
         setAnimationType={setAnimationType}
+        setIsFrameVisibleArr={setIsFrameVisibleArr}
         animateLinksRef={animateLinksRef}
         animateParamsRef={animateParamsRef}
         highlightLinksRef={highlightLinksRef}
@@ -107,6 +114,8 @@ const App = () => {
       />
       <Display
         robotParams={robotParams}
+        isFrameVisibleArr={isFrameVisibleArr}
+        setIsFrameVisibleArr={setIsFrameVisibleArr}
         matrixDisplayValue={matrixDisplayValue}
         isAnimate={isAnimate}
         setIsAnimate={setIsAnimate}

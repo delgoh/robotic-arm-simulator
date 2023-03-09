@@ -75,7 +75,7 @@ const TutorialPage = ({
             Previous
           </Button>
         }
-        <h5>{pageNumber + 1} / 6</h5>
+        <h5>{pageNumber + 1} / {noOfPages}</h5>
         <Button
           variant={pageNumber === noOfPages - 1 ? 'success' : 'primary'}
           className='ms-4'
