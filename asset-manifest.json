@@ -1,13 +1,16 @@
 {
   "files": {
-    "main.css": "/robotic-arm-simulator/static/css/main.413842bd.css",
-    "main.js": "/robotic-arm-simulator/static/js/main.aca1e4bf.js",
+    "main.css": "/robotic-arm-simulator/static/css/main.f07eff26.css",
+    "main.js": "/robotic-arm-simulator/static/js/main.84851945.js",
+    "static/media/tutorial-page-5.png": "/robotic-arm-simulator/static/media/tutorial-page-5.201eb48f1b2b7bb259a8.png",
+    "static/media/tutorial-page-7.png": "/robotic-arm-simulator/static/media/tutorial-page-7.7a41b8c4f53609808c89.png",
+    "static/media/tutorial-page-6.png": "/robotic-arm-simulator/static/media/tutorial-page-6.70a3458724e43ac4571f.png",
     "index.html": "/robotic-arm-simulator/index.html",
-    "main.413842bd.css.map": "/robotic-arm-simulator/static/css/main.413842bd.css.map",
-    "main.aca1e4bf.js.map": "/robotic-arm-simulator/static/js/main.aca1e4bf.js.map"
+    "main.f07eff26.css.map": "/robotic-arm-simulator/static/css/main.f07eff26.css.map",
+    "main.84851945.js.map": "/robotic-arm-simulator/static/js/main.84851945.js.map"
   },
   "entrypoints": [
-    "static/css/main.413842bd.css",
-    "static/js/main.aca1e4bf.js"
+    "static/css/main.f07eff26.css",
+    "static/js/main.84851945.js"
   ]
 }
