@@ -9,6 +9,7 @@ const FRAME_THICKNESS = 0.15;
 const CoordFrame = ({
   robotParam,
   robotParams,
+  isAnimate,
   isVisible,
   matrixDisplayValue
 }) => {
@@ -31,7 +32,7 @@ const CoordFrame = ({
       <MatrixOverlay
         robotParam={robotParam}
         robotParams={robotParams}
-        matrixDisplayValue={matrixDisplayValue}
+        matrixDisplayValue={isAnimate ? '0' : matrixDisplayValue}
       />
     </group>
   );

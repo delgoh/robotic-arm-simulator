@@ -90,6 +90,7 @@ const Display = ({
       <pointLight position={[10, 10, 10]} />
       <Robot
         robotParams={robotParams}
+        isAnimate={isAnimate}
         isFrameVisibleArr={isFrameVisibleArr}
         matrixDisplayValue={matrixDisplayValue}
       />

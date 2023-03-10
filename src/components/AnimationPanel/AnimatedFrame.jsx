@@ -24,7 +24,7 @@ const AnimatedFrame = ({
     relativeT: new Matrix4(),
     globalT: new Matrix4(),
     isVisible: true
-  })
+  });
 
   const getStartPose = (initialParam) => {
     let pos = new Vector3();
@@ -63,7 +63,7 @@ const AnimatedFrame = ({
       setIsFrameVisibleArr(Array(params.length).fill(true));
     }
     return animationList;
-  }
+  };
 
   const animateParamsList = (params) => {
     let animationList = [];
@@ -115,7 +115,7 @@ const AnimatedFrame = ({
       setIsFrameVisibleArr(Array(params.length).fill(true));
     }
     return animationList;
-  }
+  };
 
   const frameLinksSpring = useSpring({
     ref: animateLinksRef,
@@ -156,7 +156,7 @@ const AnimatedFrame = ({
         />
       </animated.group>
     </>
-  )
-}
+  );
+};
 
 export default AnimatedFrame;

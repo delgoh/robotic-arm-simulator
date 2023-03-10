@@ -23,8 +23,7 @@ const App = () => {
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        type: "Base",
-        // isVisible: true
+        type: "Base"
       },
       {
         linkId: 1,
@@ -34,8 +33,7 @@ const App = () => {
         alpha: "30\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        type: "Revolute",
-        // isVisible: true
+        type: "Revolute"
       },
       {
         linkId: 2,
@@ -45,8 +43,7 @@ const App = () => {
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        type: "Prismatic",
-        // isVisible: true
+        type: "Prismatic"
       },
       {
         linkId: 3,
@@ -56,8 +53,7 @@ const App = () => {
         alpha: "-90\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        type: "Revolute",
-        // isVisible: true
+        type: "Revolute"
       },
       {
         linkId: 4,
@@ -67,8 +63,7 @@ const App = () => {
         alpha: "60\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
-        type: "Prismatic",
-        // isVisible: true
+        type: "Prismatic"
       }
     ]
   );

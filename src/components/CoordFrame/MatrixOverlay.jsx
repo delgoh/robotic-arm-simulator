@@ -45,7 +45,7 @@ const MatrixOverlay = ({
         </div>
       </div>
     </Html>
-  )
+  );
 };
 
 export default MatrixOverlay;

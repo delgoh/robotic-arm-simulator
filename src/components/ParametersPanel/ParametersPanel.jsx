@@ -158,7 +158,6 @@ const ParametersPanel = ({
           />
         </div>
         <div className='mt-auto'> 
-        {/* styles.parameterButtons */}
           <Button
             className='mt-3'
             variant='primary'
