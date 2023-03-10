@@ -31,7 +31,11 @@ const CanvasControls = (props) => {
       <Canvas
         camera={{position: [-20, 5, 20], fov: 25}}>
         {props.children}
-        <OrbitControls ref={orbitRef}/>
+        <OrbitControls
+          ref={orbitRef}
+          minDistance={5}
+          maxDistance={160}
+        />
         <MainAxis gridSize={gridSize} />
         <gridHelper args={[gridSize , gridSize / 2]} />
       </Canvas>

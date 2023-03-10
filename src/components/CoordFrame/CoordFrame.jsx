@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEffect, useRef } from 'react'
 import AxisLine from './AxisLine';
-import ClickSphere from './ClickSphere';
 import MatrixOverlay from './MatrixOverlay';
 
 const FRAME_LENGTH = 2;
@@ -25,7 +24,10 @@ const CoordFrame = ({
       <AxisLine direction={"x"} length={FRAME_LENGTH} width={FRAME_THICKNESS}/>
       <AxisLine direction={"y"} length={FRAME_LENGTH} width={FRAME_THICKNESS}/>
       <AxisLine direction={"z"} length={FRAME_LENGTH} width={FRAME_THICKNESS}/>
-      <ClickSphere size={0.5} />
+      <mesh>
+        <sphereGeometry args={[0.2]} />
+        <meshStandardMaterial color='orange'/>
+      </mesh>
       <MatrixOverlay
         robotParam={robotParam}
         robotParams={robotParams}
