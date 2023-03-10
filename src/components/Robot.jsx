@@ -14,6 +14,8 @@ const Robot = ({
       {robotParams.map((robotParam, index) => {
         return <CoordFrame
           key={robotParam.linkId}
+          frameLength={2}
+          frameThickness={0.15}
           robotParam={robotParam}
           robotParams={robotParams}
           isVisible={isFrameVisibleArr[index]}

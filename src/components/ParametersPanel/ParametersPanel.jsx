@@ -184,7 +184,7 @@ const ParametersPanel = ({
           </Button>
         </div>
         <ToggleButtonGroup
-          className='mt-3'
+          className={`${styles.matrixButtons} mt-3`}
           type="radio"
           name="matrix-radio"
           defaultValue={0}

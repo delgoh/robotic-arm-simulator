@@ -142,6 +142,8 @@ const AnimatedFrame = ({
           key='animatedLinkFrame'
           robotParam={createNewParam()}
           matrixDisplayValue={'0'}
+          frameLength={2.1}
+          frameThickness={0.2}
         />
       </animated.group>
       <animated.group
@@ -153,6 +155,8 @@ const AnimatedFrame = ({
           key='animatedParamFrame'
           robotParam={createNewParam()}
           matrixDisplayValue={'0'}
+          frameLength={2.1}
+          frameThickness={0.2}
         />
       </animated.group>
     </>

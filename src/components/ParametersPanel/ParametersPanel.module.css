@@ -37,6 +37,10 @@
   outline: 1px solid #9cc4ff;
   border-radius: 4px;
 }
+/* 
+.matrixButtons {
+  margin-right: 120px;
+} */
 
 .hidden {
   left: -390px;
