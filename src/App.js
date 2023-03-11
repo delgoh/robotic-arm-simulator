@@ -75,6 +75,7 @@ const App = () => {
   const [animationSpeed, setAnimationSpeed] = useState(1.5);  // higher = slower
   const [isAnimPanelOpen, setIsAnimPanelOpen] = useState(true);
   const [isFrameVisibleArr, setIsFrameVisibleArr] = useState(Array(5).fill(true));
+  const [isLineVisible, setIsLineVisible] = useState(true);
   const animateLinksRef = useSpringRef();
   const animateParamsRef = useSpringRef();
   const highlightLinksRef = useSpringRef();
@@ -91,6 +92,8 @@ const App = () => {
         highlightLinksRef={highlightLinksRef}
         highlightParamsRef={highlightParamsRef}
         animationSpeed={animationSpeed}
+        isLineVisible={isLineVisible}
+        setIsLineVisible={setIsLineVisible}
       />
       <AnimationPanel
         robotParams={robotParams}
@@ -119,6 +122,7 @@ const App = () => {
         animateParamsRef={animateParamsRef}
         animationSpeed={animationSpeed}
         isAnimPanelOpen={isAnimPanelOpen}
+        isLineVisible={isLineVisible}
       />
       <TutorialPage
         isTutorialDisplayed={isTutorialDisplayed}

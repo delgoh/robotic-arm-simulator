@@ -79,7 +79,8 @@ const Display = ({
   animateLinksRef,
   animateParamsRef,
   animationSpeed,
-  isAnimPanelOpen
+  isAnimPanelOpen,
+  isLineVisible
 }) => {
 
   return (
@@ -93,6 +94,7 @@ const Display = ({
         isAnimate={isAnimate}
         isFrameVisibleArr={isFrameVisibleArr}
         matrixDisplayValue={matrixDisplayValue}
+        isLineVisible={isLineVisible}
       />
       <AnimatedFrame
         robotParams={robotParams}

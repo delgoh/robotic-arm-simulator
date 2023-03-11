@@ -7,7 +7,8 @@ const Robot = ({
   robotParams,
   isAnimate,
   matrixDisplayValue,
-  isFrameVisibleArr
+  isFrameVisibleArr,
+  isLineVisible
 }) => {
 
   const [linkLines, setLinkLines] = useState([]);
@@ -38,14 +39,16 @@ const Robot = ({
           matrixDisplayValue={matrixDisplayValue}
         />
       })}
-      <line geometry={lineGeometry}>
-        <lineBasicMaterial
-          attach='material'
-          color='#000080'
-          linecap='round'
-          linejoin='round'
-        />
-      </line>
+      {isLineVisible &&
+        <line geometry={lineGeometry}>
+          <lineBasicMaterial
+            attach='material'
+            color='#000080'
+            linecap='round'
+            linejoin='round'
+          />
+        </line>
+      }
     </group>
   );
 };
