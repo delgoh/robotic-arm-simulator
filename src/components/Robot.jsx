@@ -1,4 +1,6 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
+import { BufferGeometry, Vector3, Quaternion } from 'three';
+
 import CoordFrame from './CoordFrame/CoordFrame'
 
 const Robot = ({
@@ -7,6 +9,19 @@ const Robot = ({
   matrixDisplayValue,
   isFrameVisibleArr
 }) => {
+
+  const [linkLines, setLinkLines] = useState([]);
+  const lineGeometry = new BufferGeometry().setFromPoints(linkLines);
+
+  useEffect(() => {
+    setLinkLines(robotParams.map((robotParam) => {
+      const pos = new Vector3();
+      const quat = new Quaternion();
+      const scale = new Vector3();
+      robotParam.globalT.decompose(pos, quat, scale);
+      return pos;
+    }));
+  }, [robotParams]);
 
   return (
     // stopgap solution to prevent matrix at 0,0,0 from not scaling
@@ -21,10 +36,18 @@ const Robot = ({
           isVisible={isFrameVisibleArr[index]}
           isAnimate={isAnimate}
           matrixDisplayValue={matrixDisplayValue}
-        />  
+        />
       })}
+      <line geometry={lineGeometry}>
+        <lineBasicMaterial
+          attach='material'
+          color='#000080'
+          linecap='round'
+          linejoin='round'
+        />
+      </line>
     </group>
   );
-}
+};
 
 export default Robot;

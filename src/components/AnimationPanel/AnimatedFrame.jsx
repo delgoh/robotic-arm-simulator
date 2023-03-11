@@ -27,7 +27,7 @@ const AnimatedFrame = ({
   });
 
   const getStartPose = (initialParam) => {
-    let pos = new Vector3();
+    const pos = new Vector3();
     const quat = new Quaternion();
     const scale = new Vector3();
     initialParam.globalT.decompose(pos, quat, scale);
