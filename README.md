@@ -1,6 +1,6 @@
 # Robotic Arm Simulator using DH Parameters
 
-Link: http://delgoh.github.io/robotic-arm-simulator
+Link: https://delgoh.github.io/robotic-arm-simulator
 
 An online 3D simulation to learn and visualize robotic arm controls through the use of Denavit-Hartenberg parameters.
 
