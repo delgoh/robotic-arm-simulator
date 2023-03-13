@@ -24,10 +24,10 @@ const AnimatedFrame = ({
     relativeT: new Matrix4(),
     globalT: new Matrix4(),
     isVisible: true
-  })
+  });
 
   const getStartPose = (initialParam) => {
-    let pos = new Vector3();
+    const pos = new Vector3();
     const quat = new Quaternion();
     const scale = new Vector3();
     initialParam.globalT.decompose(pos, quat, scale);
@@ -63,7 +63,7 @@ const AnimatedFrame = ({
       setIsFrameVisibleArr(Array(params.length).fill(true));
     }
     return animationList;
-  }
+  };
 
   const animateParamsList = (params) => {
     let animationList = [];
@@ -115,7 +115,7 @@ const AnimatedFrame = ({
       setIsFrameVisibleArr(Array(params.length).fill(true));
     }
     return animationList;
-  }
+  };
 
   const frameLinksSpring = useSpring({
     ref: animateLinksRef,
@@ -142,6 +142,8 @@ const AnimatedFrame = ({
           key='animatedLinkFrame'
           robotParam={createNewParam()}
           matrixDisplayValue={'0'}
+          frameLength={2.1}
+          frameThickness={0.2}
         />
       </animated.group>
       <animated.group
@@ -153,10 +155,12 @@ const AnimatedFrame = ({
           key='animatedParamFrame'
           robotParam={createNewParam()}
           matrixDisplayValue={'0'}
+          frameLength={2.1}
+          frameThickness={0.2}
         />
       </animated.group>
     </>
-  )
-}
+  );
+};
 
 export default AnimatedFrame;

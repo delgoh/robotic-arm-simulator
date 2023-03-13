@@ -1,35 +1,70 @@
 import React from 'react'
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
 import AxisLine from './AxisLine';
-import ClickSphere from './ClickSphere';
 import MatrixOverlay from './MatrixOverlay';
 
-const FRAME_LENGTH = 2;
-const FRAME_THICKNESS = 0.15;
-
 const CoordFrame = ({
+  frameLength,
+  frameThickness,
   robotParam,
   robotParams,
+  isAnimate,
   isVisible,
   matrixDisplayValue
 }) => {
 
   const frameRef = useRef();
+  const [isFrameHovered, setIsFrameHovered] = useState(false);
 
   useEffect(() => {
     frameRef.current.matrix = robotParam.globalT;
   }, [robotParam]);
 
   return (
-    <group ref={frameRef} visible={isVisible} matrix={robotParam.globalT} matrixAutoUpdate={false} >
-      <AxisLine direction={"x"} length={FRAME_LENGTH} width={FRAME_THICKNESS}/>
-      <AxisLine direction={"y"} length={FRAME_LENGTH} width={FRAME_THICKNESS}/>
-      <AxisLine direction={"z"} length={FRAME_LENGTH} width={FRAME_THICKNESS}/>
-      <ClickSphere size={0.5} />
+    <group
+      ref={frameRef}
+      visible={isVisible}
+      matrix={robotParam.globalT}
+      matrixAutoUpdate={false}
+      onPointerEnter={() => setIsFrameHovered(true)}
+      onPointerLeave={() => setIsFrameHovered(false)}
+    >
+      <AxisLine
+        direction={"x"}
+        length={frameLength}
+        width={frameThickness}
+        isAnimate={isAnimate}
+        isVisible={isVisible}
+        isFrameHovered={isFrameHovered}
+        frameId={robotParam.linkId}
+      />
+      <AxisLine
+        direction={"y"}
+        length={frameLength}
+        width={frameThickness}
+        isAnimate={isAnimate}
+        isVisible={isVisible}
+        isFrameHovered={isFrameHovered}
+        frameId={robotParam.linkId}
+      />
+      <AxisLine
+        direction={"z"}
+        length={frameLength}
+        width={frameThickness}
+        isAnimate={isAnimate}
+        isVisible={isVisible}
+        isFrameHovered={isFrameHovered}
+        frameId={robotParam.linkId}
+      />
+      <mesh>
+        <sphereGeometry args={[0.25]} />
+        <meshStandardMaterial color='orange'/>
+      </mesh>
       <MatrixOverlay
         robotParam={robotParam}
         robotParams={robotParams}
-        matrixDisplayValue={matrixDisplayValue}
+        matrixDisplayValue={isAnimate ? '0' : matrixDisplayValue}
       />
     </group>
   );

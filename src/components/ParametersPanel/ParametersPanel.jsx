@@ -21,7 +21,9 @@ const ParametersPanel = ({
   animationType,
   highlightLinksRef,
   highlightParamsRef,
-  animationSpeed
+  animationSpeed,
+  isLineVisible,
+  setIsLineVisible
 }) => {
 
   const [isParamPanelOpen, setIsParamPanelOpen] = useState(true);
@@ -88,6 +90,10 @@ const ParametersPanel = ({
     });
     updateMatrices();
   };
+
+  const handleToggleLine = () => {
+    setIsLineVisible((prev) => !prev);
+  }
 
   const updateMatrices = () => {
     setRobotParams((prevRobotParams) => {
@@ -158,7 +164,6 @@ const ParametersPanel = ({
           />
         </div>
         <div className='mt-auto'> 
-        {/* styles.parameterButtons */}
           <Button
             className='mt-3'
             variant='primary'
@@ -184,23 +189,35 @@ const ParametersPanel = ({
             Clear Inputs
           </Button>
         </div>
-        <ToggleButtonGroup
-          className='mt-3'
-          type="radio"
-          name="matrix-radio"
-          defaultValue={0}
-        >
-          {["No Matrix", "Relative", "Global"].map((buttonText, index) => (
-            <ToggleButton
-              key={index}
-              id={`matrix-radio-${index}`}
-              variant={index === 0 ? 'outline-secondary' : 'outline-primary'}
-              value={index}
-              onChange={(e) => setMatrixDisplayValue(e.currentTarget.value)}>
-              {buttonText}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
+        <div>
+          <ToggleButtonGroup
+            className={`${styles.matrixButtons} mt-3`}
+            type="radio"
+            name="matrix-radio"
+            defaultValue={0}
+          >
+            {["No Matrix", "Relative", "Global"].map((buttonText, index) => (
+              <ToggleButton
+                key={index}
+                id={`matrix-radio-${index}`}
+                variant={index === 0 ? 'outline-secondary' : 'outline-primary'}
+                value={index}
+                onChange={(e) => setMatrixDisplayValue(e.currentTarget.value)}>
+                {buttonText}
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+          <ToggleButton
+            className='mt-3 ms-4'
+            variant='outline-primary'
+            type='checkbox'
+            checked={isLineVisible}
+            onClick={handleToggleLine}
+          >
+            Lines: {isLineVisible ? 'ON' : 'OFF'}
+          </ToggleButton>
+        </div>
+        
       </div>
       <PanelToggle
         isPanelOpen={isParamPanelOpen}

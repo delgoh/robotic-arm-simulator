@@ -24,7 +24,7 @@ const HighlightBox = ({
     ));
     animationList[0].delay = 0;
     return animationList;
-  }
+  };
 
   const animateParamsList = () => {
     let animationList = [];
@@ -35,7 +35,7 @@ const HighlightBox = ({
     ));
     animationList[0].delay = 0;
     return animationList;
-  }
+  };
 
   const linksSpring = useSpring({
     ref: highlightLinksRef,
@@ -60,7 +60,7 @@ const HighlightBox = ({
         left: animationType === 'links' ? 0 : paramsSpring.left
       }}
     />
-  )
-}
+  );
+};
 
 export default HighlightBox;
