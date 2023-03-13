@@ -1,10 +1,8 @@
 import React from 'react'
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
 import AxisLine from './AxisLine';
 import MatrixOverlay from './MatrixOverlay';
-
-// const FRAME_LENGTH = 2;
-// const FRAME_THICKNESS = 0.15;
 
 const CoordFrame = ({
   frameLength,
@@ -17,18 +15,50 @@ const CoordFrame = ({
 }) => {
 
   const frameRef = useRef();
+  const [isFrameHovered, setIsFrameHovered] = useState(false);
 
   useEffect(() => {
     frameRef.current.matrix = robotParam.globalT;
   }, [robotParam]);
 
   return (
-    <group ref={frameRef} visible={isVisible} matrix={robotParam.globalT} matrixAutoUpdate={false} >
-      <AxisLine direction={"x"} length={frameLength} width={frameThickness} isAnimate={isAnimate}/>
-      <AxisLine direction={"y"} length={frameLength} width={frameThickness} isAnimate={isAnimate}/>
-      <AxisLine direction={"z"} length={frameLength} width={frameThickness} isAnimate={isAnimate}/>
+    <group
+      ref={frameRef}
+      visible={isVisible}
+      matrix={robotParam.globalT}
+      matrixAutoUpdate={false}
+      onPointerEnter={() => setIsFrameHovered(true)}
+      onPointerLeave={() => setIsFrameHovered(false)}
+    >
+      <AxisLine
+        direction={"x"}
+        length={frameLength}
+        width={frameThickness}
+        isAnimate={isAnimate}
+        isVisible={isVisible}
+        isFrameHovered={isFrameHovered}
+        frameId={robotParam.linkId}
+      />
+      <AxisLine
+        direction={"y"}
+        length={frameLength}
+        width={frameThickness}
+        isAnimate={isAnimate}
+        isVisible={isVisible}
+        isFrameHovered={isFrameHovered}
+        frameId={robotParam.linkId}
+      />
+      <AxisLine
+        direction={"z"}
+        length={frameLength}
+        width={frameThickness}
+        isAnimate={isAnimate}
+        isVisible={isVisible}
+        isFrameHovered={isFrameHovered}
+        frameId={robotParam.linkId}
+      />
       <mesh>
-        <sphereGeometry args={[0.2]} />
+        <sphereGeometry args={[0.25]} />
         <meshStandardMaterial color='orange'/>
       </mesh>
       <MatrixOverlay

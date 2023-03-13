@@ -23,29 +23,30 @@ const MatrixOverlay = ({
     setMatrixElems(displayMatrix.elements);
   }, [matrixDisplayValue, robotParam, robotParams]);
 
-  return (
-    <Html
-      style={{opacity: matrixDisplayValue === '0' ? 0 : 1}}
-      className={styles.matrixOverlay}
-      center
-      distanceFactor={15}
-    >
-      <div className={styles.header}>Frame {robotParam.linkId}</div>
-      <div className={styles.matrix}>
-        <div className={`${styles.bracket} ${styles.leftRoundedCorner}`}>
-          <div className={`${styles.bracketInner} ${styles.innerLeft} ${styles.leftRoundedCorner}`}></div>
+  return <>
+    {matrixDisplayValue !== '0' &&
+      <Html
+        className={styles.matrixOverlay}
+        center
+        distanceFactor={15}
+      >
+        <div className={styles.header}>Frame {robotParam.linkId}</div>
+        <div className={styles.matrix}>
+          <div className={`${styles.bracket} ${styles.leftRoundedCorner}`}>
+            <div className={`${styles.bracketInner} ${styles.innerLeft} ${styles.leftRoundedCorner}`}></div>
+          </div>
+          <div className={styles.centerNumbers}>
+            {matrixElems.map((matrixElem, index) => {
+              return <div key={index} >{matrixElem.toFixed(DECIMAL_PLACES)}</div>
+            })}
+          </div>
+          <div className={`${styles.bracket} ${styles.rightRoundedCorner}`}>
+            <div className={`${styles.bracketInner} ${styles.innerRight} ${styles.rightRoundedCorner}`}></div>
+          </div>
         </div>
-        <div className={styles.centerNumbers}>
-          {matrixElems.map((matrixElem, index) => {
-            return <div key={index} >{matrixElem.toFixed(DECIMAL_PLACES)}</div>
-          })}
-        </div>
-        <div className={`${styles.bracket} ${styles.rightRoundedCorner}`}>
-          <div className={`${styles.bracketInner} ${styles.innerRight} ${styles.rightRoundedCorner}`}></div>
-        </div>
-      </div>
-    </Html>
-  );
+      </Html>
+    }
+  </>
 };
 
 export default MatrixOverlay;
