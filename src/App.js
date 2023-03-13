@@ -30,7 +30,7 @@ const App = () => {
         theta: "0\u00B0",
         d: "-3",
         r: "2",
-        alpha: "30\u00B0",
+        alpha: "-45\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         type: "Revolute"
@@ -38,8 +38,8 @@ const App = () => {
       {
         linkId: 2,
         theta: "0\u00B0",
-        d: "3",
-        r: "9",
+        d: "2",
+        r: "6",
         alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
@@ -50,7 +50,7 @@ const App = () => {
         theta: "45\u00B0",
         d: "0",
         r: "-4",
-        alpha: "-90\u00B0",
+        alpha: "0\u00B0",
         relativeT: new Matrix4(),
         globalT: new Matrix4(),
         type: "Revolute"
@@ -58,7 +58,7 @@ const App = () => {
       {
         linkId: 4,
         theta: "0\u00B0",
-        d: "9",
+        d: "5",
         r: "0",
         alpha: "60\u00B0",
         relativeT: new Matrix4(),
@@ -131,6 +131,9 @@ const App = () => {
       <TutorialButton
         setIsTutorialDisplayed={setIsTutorialDisplayed}
       />
+      <div className={styles.githubOverlay}>
+        Project hosted on <a href="https://github.com/delgoh/robotic-arm-simulator">Github</a>
+      </div>
     </div>
   );
 };
